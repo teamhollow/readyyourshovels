@@ -1,0 +1,33 @@
+{
+    "schemaVersion": 1,
+    "license": "MIT",
+    "id": "readyyourshovels",
+    "version": "${version}",
+
+    "name": "Ready Your Shovels",
+    "description": "Description",
+    "icon": "pack.png",
+
+    "authors": [
+        "Team Hollow"
+    ],
+    "contributors": [],
+    "contact": {
+        "homepage": "https://readyyourshovels.teamhollow.net",
+        "sources": "https://github.com/teamhollow/readyyourshovels"
+    },
+
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "net.teamhollow.readyyourshovels.ReadyYourShovels"
+        ],
+        "client": [],
+        "server": []
+    },
+    "mixins": [],
+    "depends": {
+        "fabricloader": ">=0.9.0",
+        "fabric": "*"
+    }
+}

@@ -51,11 +51,17 @@ public class RYSBlocks {
     @SubscribeEvent
     public static void registerItemBlocks(RegistryEvent.Register<Item> registry) {
         RYSItems.register(registry, new BlockItem(CLAY_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+
         RYSItems.register(registry, new BlockItem(DIRT_BRICK, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(DIRT_BRICK_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+
         RYSItems.register(registry, new BlockItem(GOLD_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(IRON_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(PEAT_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+
         RYSItems.register(registry, new BlockItem(SMOOTH_DIRT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(SMOOTH_DIRT_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(TOUGH_DIRT_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
     }
 }

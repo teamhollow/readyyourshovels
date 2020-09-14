@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "readyyourshovels:block/smooth_dirt_slab"
+    },
+    "type=double": {
+      "model": "readyyourshovels:block/smooth_dirt"
+    },
+    "type=top": {
+      "model": "readyyourshovels:block/smooth_dirt_slab_top"
+    }
+  }
+}

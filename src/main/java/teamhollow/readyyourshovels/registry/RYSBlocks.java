@@ -1,6 +1,7 @@
 package teamhollow.readyyourshovels.registry;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.material.Material;
@@ -18,6 +19,7 @@ public class RYSBlocks {
     public static final Block CLAY_DEPOSIT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
 
     public static final Block DIRT_BRICK = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
+    public static final Block DIRT_BRICK_SLAB = new SlabBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block DIRT_BRICK_STAIRS = new StairsBlock(DIRT_BRICK::getDefaultState, Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
 
     public static final Block GOLD_DEPOSIT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(2).hardnessAndResistance(2.0F, 2.5F).sound(SoundType.GROUND));
@@ -25,9 +27,11 @@ public class RYSBlocks {
     public static final Block PEAT_DEPOSIT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
 
     public static final Block SMOOTH_DIRT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
+    public static final Block SMOOTH_DIRT_SLAB = new SlabBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block SMOOTH_DIRT_STAIRS = new StairsBlock(SMOOTH_DIRT::getDefaultState, Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
 
     public static final Block TOUGH_DIRT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
+    public static final Block TOUGH_DIRT_SLAB = new SlabBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block TOUGH_DIRT_STAIRS = new StairsBlock(TOUGH_DIRT::getDefaultState, Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
 
 
@@ -36,6 +40,7 @@ public class RYSBlocks {
         registry.getRegistry().register(CLAY_DEPOSIT.setRegistryName("clay_deposit"));
 
         registry.getRegistry().register(DIRT_BRICK.setRegistryName("dirt_bricks"));
+        registry.getRegistry().register(DIRT_BRICK_SLAB.setRegistryName("dirt_bricks_slab"));
         registry.getRegistry().register(DIRT_BRICK_STAIRS.setRegistryName("dirt_bricks_stairs"));
 
         registry.getRegistry().register(GOLD_DEPOSIT.setRegistryName("gold_deposit"));
@@ -43,8 +48,10 @@ public class RYSBlocks {
         registry.getRegistry().register(PEAT_DEPOSIT.setRegistryName("peat_deposit"));
 
         registry.getRegistry().register(SMOOTH_DIRT.setRegistryName("smooth_dirt"));
+        registry.getRegistry().register(SMOOTH_DIRT_SLAB.setRegistryName("smooth_dirt_slab"));
         registry.getRegistry().register(SMOOTH_DIRT_STAIRS.setRegistryName("smooth_dirt_stairs"));
         registry.getRegistry().register(TOUGH_DIRT.setRegistryName("tough_dirt"));
+        registry.getRegistry().register(TOUGH_DIRT_SLAB.setRegistryName("tough_dirt_slab"));
         registry.getRegistry().register(TOUGH_DIRT_STAIRS.setRegistryName("tough_dirt_stairs"));
     }
 
@@ -53,6 +60,7 @@ public class RYSBlocks {
         RYSItems.register(registry, new BlockItem(CLAY_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
         RYSItems.register(registry, new BlockItem(DIRT_BRICK, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(DIRT_BRICK_SLAB, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(DIRT_BRICK_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
         RYSItems.register(registry, new BlockItem(GOLD_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
@@ -60,8 +68,10 @@ public class RYSBlocks {
         RYSItems.register(registry, new BlockItem(PEAT_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
         RYSItems.register(registry, new BlockItem(SMOOTH_DIRT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(SMOOTH_DIRT_SLAB, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(SMOOTH_DIRT_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(TOUGH_DIRT_SLAB, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
     }
 }

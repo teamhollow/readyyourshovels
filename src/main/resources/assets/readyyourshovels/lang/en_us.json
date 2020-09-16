@@ -3,13 +3,16 @@
   "block.readyyourshovels.dirt_bricks": "Dirt Bricks",
   "block.readyyourshovels.dirt_bricks_stairs": "Dirt Brick Stairs",
   "block.readyyourshovels.dirt_bricks_slab": "Dirt Brick Slab",
+  "block.readyyourshovels.dirt_bricks_wall": "Dirt Brick Wall",
   "block.readyyourshovels.gold_deposit": "Gold Deposit",
   "block.readyyourshovels.iron_deposit": "Iron Deposit",
   "block.readyyourshovels.peat_deposit": "Peat Deposit",
   "block.readyyourshovels.smooth_dirt": "Smooth Dirt",
   "block.readyyourshovels.smooth_dirt_stairs": "Smooth Dirt Stairs",
   "block.readyyourshovels.smooth_dirt_slab": "Smooth Dirt Slab",
+  "block.readyyourshovels.smooth_dirt_wall": "Smooth Dirt Wall",
   "block.readyyourshovels.tough_dirt": "Tough Dirt",
   "block.readyyourshovels.tough_dirt_stairs": "Tough Dirt Stairs",
-  "block.readyyourshovels.tough_dirt_slab": "Tough Dirt Slab"
+  "block.readyyourshovels.tough_dirt_slab": "Tough Dirt Slab",
+  "block.readyyourshovels.tough_dirt_wall": "Tough Dirt Wall"
 }

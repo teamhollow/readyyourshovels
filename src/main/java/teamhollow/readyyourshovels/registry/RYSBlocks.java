@@ -25,6 +25,7 @@ public class RYSBlocks {
     public static final Block GOLD_DEPOSIT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(2).hardnessAndResistance(2.0F, 2.5F).sound(SoundType.GROUND));
     public static final Block IRON_DEPOSIT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(1).hardnessAndResistance(1.5F, 2.0F).sound(SoundType.GROUND));
     public static final Block PEAT_DEPOSIT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
+    public static final Block REGOLITH = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(2).hardnessAndResistance(2.0F,2.5F).sound(SoundType.GROUND));
 
     public static final Block SMOOTH_DIRT = new Block(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block SMOOTH_DIRT_SLAB = new SlabBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
@@ -50,6 +51,7 @@ public class RYSBlocks {
         registry.getRegistry().register(GOLD_DEPOSIT.setRegistryName("gold_deposit"));
         registry.getRegistry().register(IRON_DEPOSIT.setRegistryName("iron_deposit"));
         registry.getRegistry().register(PEAT_DEPOSIT.setRegistryName("peat_deposit"));
+        registry.getRegistry().register(REGOLITH.setRegistryName("regolith"));
 
         registry.getRegistry().register(SMOOTH_DIRT.setRegistryName("smooth_dirt"));
         registry.getRegistry().register(SMOOTH_DIRT_SLAB.setRegistryName("smooth_dirt_slab"));
@@ -75,6 +77,7 @@ public class RYSBlocks {
         RYSItems.register(registry, new BlockItem(GOLD_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(IRON_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(PEAT_DEPOSIT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(REGOLITH, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
         RYSItems.register(registry, new BlockItem(SMOOTH_DIRT, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(SMOOTH_DIRT_SLAB, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));

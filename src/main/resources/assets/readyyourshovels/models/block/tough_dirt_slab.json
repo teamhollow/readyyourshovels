@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "readyyourshovels:block/tough_dirt",
+    "top": "readyyourshovels:block/tough_dirt",
+    "side": "readyyourshovels:block/tough_dirt"
+  }
+}

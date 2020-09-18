@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "readyyourshovels:block/smooth_dirt",
+    "top": "readyyourshovels:block/smooth_dirt",
+    "side": "readyyourshovels:block/smooth_dirt"
+  }
+}

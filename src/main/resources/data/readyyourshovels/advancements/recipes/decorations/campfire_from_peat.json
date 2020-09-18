@@ -16,7 +16,7 @@
         ]
       }
     },
-    "has_coal": {
+    "has_peat": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [

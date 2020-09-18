@@ -1,0 +1,12 @@
+{
+    "required": true,
+    "package": "net.teamhollow.readyyourshovels.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "CropBlockMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

@@ -8,7 +8,7 @@
     Description
 </p>
 <p align="center">
-	<a href="https://curseforge.com/minecraft/mc-mods/fabric-api"><img title="Requires Fabric API" height="50" src="https://i.imgur.com/Ol1Tcf8.png"></a>
+    <a href="https://curseforge.com/minecraft/mc-mods/fabric-api"><img title="Requires Fabric API" height="50" src="https://i.imgur.com/Ol1Tcf8.png"></a>
 </p>
 
 <h5 align="center">

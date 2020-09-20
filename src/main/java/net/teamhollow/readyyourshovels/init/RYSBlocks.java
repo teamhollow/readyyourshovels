@@ -17,35 +17,78 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.vanilla.*;
 
 public class RYSBlocks {
-    public static final Block DIRT_BRICKS = register("dirt_bricks", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block DIRT_BRICK_SLAB = register("dirt_brick_slab", new SlabBlock(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block DIRT_BRICK_STAIRS = register("dirt_brick_stairs", new PublicStairsBlock(DIRT_BRICKS.getDefaultState(), FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block DIRT_BRICK_WALL = register("dirt_brick_wall", new WallBlock(AbstractBlock.Settings.copy(DIRT_BRICKS)));
+    public static final Block DIRT_BRICKS = register("dirt_bricks",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block DIRT_BRICK_SLAB = register("dirt_brick_slab",
+            new SlabBlock(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block DIRT_BRICK_STAIRS = register("dirt_brick_stairs",
+            new PublicStairsBlock(DIRT_BRICKS.getDefaultState(),
+                    FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                            .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block DIRT_BRICK_WALL = register("dirt_brick_wall",
+            new WallBlock(AbstractBlock.Settings.copy(DIRT_BRICKS)));
 
-    public static final Block CLAY_DEPOSIT = register("clay_deposit", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block GOLD_DEPOSIT = register("gold_deposit", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 2).requiresTool().hardness(2.0F).resistance(2.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block IRON_DEPOSIT = register("iron_deposit", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 1).requiresTool().hardness(1.5F).resistance(2.0F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block PEAT_DEPOSIT = register("peat_deposit", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block REGOLITH = register("regolith", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 2).requiresTool().hardness(2.0F).resistance(2.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block SMOOTH_DIRT = register("smooth_dirt",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block SMOOTH_DIRT_SLAB = register("smooth_dirt_slab",
+            new SlabBlock(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block SMOOTH_DIRT_STAIRS = register("smooth_dirt_stairs",
+            new PublicStairsBlock(SMOOTH_DIRT.getDefaultState(),
+                    FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                            .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block SMOOTH_DIRT_WALL = register("smooth_dirt_wall",
+            new WallBlock(AbstractBlock.Settings.copy(SMOOTH_DIRT)));
 
-    public static final Block SMOOTH_DIRT = register("smooth_dirt", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block SMOOTH_DIRT_SLAB = register("smooth_dirt_slab", new SlabBlock(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block SMOOTH_DIRT_STAIRS = register("smooth_dirt_stairs", new PublicStairsBlock(SMOOTH_DIRT.getDefaultState(), FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block SMOOTH_DIRT_WALL = register("smooth_dirt_wall", new WallBlock(AbstractBlock.Settings.copy(SMOOTH_DIRT)));
+    public static final Block TOUGH_DIRT = register("tough_dirt",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block TOUGH_DIRT_SLAB = register("tough_dirt_slab",
+            new SlabBlock(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block TOUGH_DIRT_STAIRS = register("tough_dirt_stairs",
+            new PublicStairsBlock(TOUGH_DIRT.getDefaultState(),
+                    FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                            .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block TOUGH_DIRT_WALL = register("tough_dirt_wall",
+            new WallBlock(AbstractBlock.Settings.copy(TOUGH_DIRT)));
 
-    public static final Block TOUGH_DIRT = register("tough_dirt", new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block TOUGH_DIRT_SLAB = register("tough_dirt_slab", new SlabBlock(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block TOUGH_DIRT_STAIRS = register("tough_dirt_stairs", new PublicStairsBlock(TOUGH_DIRT.getDefaultState(), FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block TOUGH_DIRT_WALL = register("tough_dirt_wall", new WallBlock(AbstractBlock.Settings.copy(TOUGH_DIRT)));
+    public static final Block CLAY_DEPOSIT = register("clay_deposit",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block GOLD_DEPOSIT = register("gold_deposit",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
+                    .hardness(2.0F).resistance(2.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block IRON_DEPOSIT = register("iron_deposit",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 1).requiresTool()
+                    .hardness(1.5F).resistance(2.0F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block PEAT_DEPOSIT = register("peat_deposit",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
 
-    public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block BIRCH_PLANTER_BOX = register("birch_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block SPRUCE_PLANTER_BOX = register("spruce_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block DARK_OAK_PLANTER_BOX = register("dark_oak_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block ACACIA_PLANTER_BOX = register("acacia_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new Block(FabricBlockSettings.of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block REGOLITH = register("regolith",
+            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
+                    .hardness(2.0F).resistance(2.5F).sounds(BlockSoundGroup.GRAVEL)));
+
+    public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block BIRCH_PLANTER_BOX = register("birch_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block SPRUCE_PLANTER_BOX = register("spruce_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block DARK_OAK_PLANTER_BOX = register("dark_oak_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block ACACIA_PLANTER_BOX = register("acacia_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new Block(FabricBlockSettings
+            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
 
     public RYSBlocks() {}
 

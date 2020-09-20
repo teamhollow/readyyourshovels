@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.SignBlock;
 import net.minecraft.block.SlabBlock;
@@ -91,6 +92,13 @@ public class RYSBlocks {
             .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
 
     public RYSBlocks() {}
+
+    public static boolean blockIsOfPlanterBox(BlockState blockState) {
+        for (Block block : new Block[] { OAK_PLANTER_BOX, BIRCH_PLANTER_BOX,  SPRUCE_PLANTER_BOX, DARK_OAK_PLANTER_BOX, ACACIA_PLANTER_BOX, JUNGLE_PLANTER_BOX, CRIMSON_PLANTER_BOX, WARPED_PLANTER_BOX })
+            if (blockState.isOf(block)) return true;
+
+        return false;
+    };
 
     public static Block register(String id, Block block, boolean registerItem) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);

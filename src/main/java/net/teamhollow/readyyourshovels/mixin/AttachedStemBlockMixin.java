@@ -6,16 +6,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.CropBlock;
-import net.minecraft.block.Fertilizable;
+import net.minecraft.block.AttachedStemBlock;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 
-@Mixin(CropBlock.class)
-public abstract class CropBlockMixin extends PlantBlock implements Fertilizable {
-    private CropBlockMixin(Settings settings) {
+@Mixin(AttachedStemBlock.class)
+public abstract class AttachedStemBlockMixin extends PlantBlock {
+    private AttachedStemBlockMixin(Settings settings) {
         super(settings);
     }
 

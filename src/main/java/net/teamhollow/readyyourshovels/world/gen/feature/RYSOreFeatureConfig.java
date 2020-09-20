@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.init.RYSBlocks;
 
 public class RYSOreFeatureConfig implements FeatureConfig {
     public static final Codec<RYSOreFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -38,8 +38,7 @@ public class RYSOreFeatureConfig implements FeatureConfig {
             if (blockState == null) {
                 return false;
             } else {
-                return blockState.isOf(Blocks.STONE) || blockState.isOf(Blocks.GRANITE)
-                        || blockState.isOf(Blocks.DIORITE) || blockState.isOf(Blocks.ANDESITE);
+                return blockState.isOf(RYSBlocks.TOUGH_DIRT);
             }
         });
 

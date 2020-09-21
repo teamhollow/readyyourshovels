@@ -16,6 +16,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
+import net.teamhollow.readyyourshovels.init.RYSEntities;
 import net.teamhollow.readyyourshovels.init.RYSItems;
 import net.teamhollow.readyyourshovels.world.gen.feature.RYSFeatures;
 import net.teamhollow.readyyourshovels.world.gen.feature.RYSOreFeatureConfig;
@@ -37,6 +38,7 @@ public class ReadyYourShovels implements ModInitializer {
 
         new RYSBlocks();
         new RYSItems();
+        new RYSEntities();
 
         this.initWorldGen();
 
@@ -61,5 +63,9 @@ public class ReadyYourShovels implements ModInitializer {
     }
     public static void log(String message) {
         log(Level.INFO, message);
+    }
+
+    public static Identifier texture(String path) {
+        return new Identifier(MOD_ID, "textures/" + path + ".png");
     }
 }

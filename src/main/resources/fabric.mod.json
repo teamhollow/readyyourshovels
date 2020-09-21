@@ -22,7 +22,9 @@
         "main": [
             "net.teamhollow.readyyourshovels.ReadyYourShovels"
         ],
-        "client": [],
+        "client": [
+            "net.teamhollow.readyyourshovels.ReadyYourShovelsClient"
+        ],
         "server": []
     },
     "mixins": [

@@ -2,6 +2,7 @@ package net.teamhollow.readyyourshovels.entity.garden_ant;
 
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.teamhollow.readyyourshovels.init.RYSEntities;
 
@@ -13,5 +14,11 @@ public class GardenAntEntityRenderer extends MobEntityRenderer<GardenAntEntity, 
     @Override
     public Identifier getTexture(GardenAntEntity entity) {
         return RYSEntities.texture(GardenAntEntity.id + "/" + GardenAntEntity.id);
+    }
+
+    @Override
+    protected void scale(GardenAntEntity entity, MatrixStack matrices, float amount) {
+        amount = entity.isBaby() ? 0.5F : 0.75F;
+        matrices.scale(amount, amount, amount);
     }
 }

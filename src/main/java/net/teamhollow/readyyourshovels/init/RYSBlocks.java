@@ -15,6 +15,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.block.AntNestBlock;
 import net.teamhollow.readyyourshovels.block.vanilla.*;
 
 public class RYSBlocks {
@@ -56,6 +57,8 @@ public class RYSBlocks {
                             .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
     public static final Block TOUGH_DIRT_WALL = register("tough_dirt_wall",
             new WallBlock(AbstractBlock.Settings.copy(TOUGH_DIRT)));
+
+    public static final Block ANT_NEST = register(AntNestBlock.id, new AntNestBlock());
 
     public static final Block CLAY_DEPOSIT = register("clay_deposit",
             new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()

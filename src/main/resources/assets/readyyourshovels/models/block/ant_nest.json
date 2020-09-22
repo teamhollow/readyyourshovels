@@ -1,0 +1,10 @@
+{
+    "parent": "minecraft:block/orientable_with_bottom",
+    "textures": {
+        "top": "readyyourshovels:block/tough_dirt",
+        "bottom": "readyyourshovels:block/tough_dirt",
+        "side": "readyyourshovels:block/tough_dirt",
+        "front": "readyyourshovels:block/ant_nest_front",
+        "particle": "readyyourshovels:block/tough_dirt"
+    }
+}

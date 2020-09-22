@@ -1,12 +1,12 @@
 package net.teamhollow.readyyourshovels.entity.garden_ant;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.util.math.MathHelper;
 
-public class GardenAntEntityModel<T extends GardenAntEntity> extends EntityModel<T> {
+public class GardenAntEntityModel<T extends GardenAntEntity> extends CompositeEntityModel<T> {
     private final ModelPart thorax;
     private final ModelPart head;
     private final ModelPart antenna;
@@ -23,15 +23,15 @@ public class GardenAntEntityModel<T extends GardenAntEntity> extends EntityModel
         textureHeight = 32;
 
         thorax = new ModelPart(this);
-        thorax.setPivot(0.0F, 24.0F, 0.0F);
-        thorax.setTextureOffset(0, 8).addCuboid(-1.5F, -4.5F, -1.0F, 3.0F, 2.0F, 3.0F, 0.0F, false);
+        thorax.setPivot(0.0F, 20.75F, 0.5F);
+        thorax.setTextureOffset(0, 8).addCuboid(-1.5F, -1.25F, -1.5F, 3.0F, 2.0F, 3.0F, 0.0F, false);
 
         head = new ModelPart(this);
-        head.setPivot(0.0F, 19.0F, -2.0F);
-        head.setTextureOffset(0, 0).addCuboid(-2.0F, -2.5F, -2.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
+        head.setPivot(0.0F, 20.5F, 0.0F);
+        head.setTextureOffset(0, 0).addCuboid(-2.0F, -4.0F, -4.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
 
         antenna = new ModelPart(this);
-        antenna.setPivot(0.0F, -2.0F, -1.0F);
+        antenna.setPivot(0.0F, -3.5F, -3.0F);
         head.addChild(antenna);
         setRotationAngle(antenna, 0.2618F, 0.0F, 0.0F);
         antenna.setTextureOffset(16, 13).addCuboid(-4.0F, -4.4489F, 0.3882F, 8.0F, 4.0F, 0.0F, 0.0F, false);
@@ -70,34 +70,33 @@ public class GardenAntEntityModel<T extends GardenAntEntity> extends EntityModel
         rightBackLeg.setPivot(-0.8F, 21.5F, 1.5F);
         setRotationAngle(rightBackLeg, 0.0F, 0.3491F, -0.6981F);
         rightBackLeg.setTextureOffset(20, 8).addCuboid(-3.094F, -0.3991F, -0.4202F, 4.0F, 1.0F, 1.0F, 0.0F, false);
-    }
-
+}
     @Override
     public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.pivotY = netHeadYaw * ((float) Math.PI / 180F);
-        this.head.pivotX = headPitch * ((float) Math.PI / 180F);
+        this.head.yaw = netHeadYaw * 0.017453292F;
+        this.head.pitch = headPitch * 0.017453292F;
 
-        this.rightFrontLeg.pivotZ = -0.6981F;
-        this.leftFrontLeg.pivotZ = 0.6981F;
-        this.rightMidLeg.pivotZ = -0.58119464F;
-        this.leftMidLeg.pivotZ = 0.58119464F;
-        this.rightBackLeg.pivotZ = -0.6981F;
-        this.leftBackLeg.pivotZ = 0.6981F;
+        this.rightFrontLeg.pivotZ = -0.5F;
+        this.leftFrontLeg.pivotZ = -0.5F;
+        this.rightMidLeg.pivotZ = 0.5F;
+        this.leftMidLeg.pivotZ = 0.5F;
+        this.rightBackLeg.pivotZ = 1.5F;
+        this.leftBackLeg.pivotZ = 1.5F;
 
-        this.rightFrontLeg.pivotY = -0.4363F;
-        this.leftFrontLeg.pivotY = 0.4363F;
-        this.rightMidLeg.pivotY = 0.0F;
-        this.leftMidLeg.pivotY = 0.0F;
-        this.rightBackLeg.pivotY = 0.3491F;
-        this.leftBackLeg.pivotY = -0.3491F;
-        float f3 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + 0.0F) * 0.4F) * limbSwingAmount;
-        float f4 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + (float) Math.PI) * 0.4F) * limbSwingAmount;
-        float f5 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
-        float f6 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + ((float) Math.PI * 1.5F)) * 0.4F) * limbSwingAmount;
-        float f7 = 2 * (MathHelper.sin(limbSwing * 1.6662F * (1.0F)) * 0.4F) * limbSwingAmount;
-        float f8 = 2 * (MathHelper.sin(limbSwing * 1.6662F + 0.0F) * 0.4F) * limbSwingAmount;
-        float f9 = 2 * (MathHelper.sin(limbSwing * 1.6662F + 0.0F) * 0.4F) * limbSwingAmount;
-        float f10 = 2 * (MathHelper.sin(limbSwing * 1.6662F + 0.0F) * 0.4F) * limbSwingAmount;
+        this.rightFrontLeg.pivotY = 21.5F;
+        this.leftFrontLeg.pivotY = 21.5F;
+        this.rightMidLeg.pivotY = 21.5F;
+        this.leftMidLeg.pivotY = 21.5F;
+        this.rightBackLeg.pivotY = 21.5F;
+        this.leftBackLeg.pivotY = 21.5F;
+        float f3 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + 0.0F) * 0.6F) * limbSwingAmount;
+        float f4 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + (float) Math.PI) * 0.6F) * limbSwingAmount;
+        float f5 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + ((float) Math.PI / 2F)) * 0.6F) * limbSwingAmount;
+        float f6 = -(MathHelper.cos(limbSwing * 1.6662F * 2.0F + ((float) Math.PI * 1.5F)) * 0.6F) * limbSwingAmount;
+        float f7 = 2 * (MathHelper.sin(limbSwing * 1.6662F * (1.0F)) * 0.6F) * limbSwingAmount;
+        float f8 = 2 * (MathHelper.sin(limbSwing * 1.6662F + 0.0F) * 0.6F) * limbSwingAmount;
+        float f9 = 2 * (MathHelper.sin(limbSwing * 1.6662F + 0.0F) * 0.6F) * limbSwingAmount;
+        float f10 = 2 * (MathHelper.sin(limbSwing * 1.6662F + 0.0F) * 0.6F) * limbSwingAmount;
         this.rightFrontLeg.pivotY += f3;
         this.leftFrontLeg.pivotY += -f3;
         this.rightMidLeg.pivotY += f4;
@@ -113,21 +112,13 @@ public class GardenAntEntityModel<T extends GardenAntEntity> extends EntityModel
     }
 
     @Override
-    public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        thorax.render(matrixStack, buffer, packedLight, packedOverlay);
-        head.render(matrixStack, buffer, packedLight, packedOverlay);
-        rear.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftFrontLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightFrontLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftMidLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightMidLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftBackLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightBackLeg.render(matrixStack, buffer, packedLight, packedOverlay);
+    public Iterable<ModelPart> getParts() {
+        return ImmutableList.of(thorax, head, rear, leftFrontLeg, rightFrontLeg, leftMidLeg, rightMidLeg, leftBackLeg, rightBackLeg);
     }
 
-    public void setRotationAngle(ModelPart bone, float x, float y, float z) {
-        bone.pitch = x;
-        bone.yaw = y;
-        bone.roll = z;
+    public void setRotationAngle(ModelPart part, float pitch, float yaw, float roll) {
+        part.pitch = pitch;
+        part.yaw = yaw;
+        part.roll = roll;
     }
 }

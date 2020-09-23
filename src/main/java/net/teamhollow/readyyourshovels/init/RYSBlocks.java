@@ -2,7 +2,6 @@ package net.teamhollow.readyyourshovels.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -30,7 +29,7 @@ public class RYSBlocks {
                     FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
                             .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
     public static final Block DIRT_BRICK_WALL = register("dirt_brick_wall",
-            new WallBlock(AbstractBlock.Settings.copy(DIRT_BRICKS)));
+            new WallBlock(FabricBlockSettings.copy(DIRT_BRICKS)));
 
     public static final Block SMOOTH_DIRT = register("smooth_dirt",
             new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
@@ -43,7 +42,7 @@ public class RYSBlocks {
                     FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
                             .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
     public static final Block SMOOTH_DIRT_WALL = register("smooth_dirt_wall",
-            new WallBlock(AbstractBlock.Settings.copy(SMOOTH_DIRT)));
+            new WallBlock(FabricBlockSettings.copy(SMOOTH_DIRT)));
 
     public static final Block TOUGH_DIRT = register("tough_dirt",
             new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
@@ -56,7 +55,7 @@ public class RYSBlocks {
                     FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
                             .hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL)));
     public static final Block TOUGH_DIRT_WALL = register("tough_dirt_wall",
-            new WallBlock(AbstractBlock.Settings.copy(TOUGH_DIRT)));
+            new WallBlock(FabricBlockSettings.copy(TOUGH_DIRT)));
 
     public static final Block ANT_NEST = register(AntNestBlock.id, new AntNestBlock());
 

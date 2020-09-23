@@ -5,7 +5,6 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,18 +14,12 @@ import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.TallPlantBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Flutterer;
-import net.minecraft.entity.ai.Durations;
 import net.minecraft.entity.ai.TargetFinder;
-import net.minecraft.entity.ai.control.LookControl;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.Goal;
@@ -39,7 +32,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
@@ -51,9 +43,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.IntRange;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -63,43 +53,38 @@ import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
 import net.teamhollow.readyyourshovels.init.RYSBlockEntities;
+import net.teamhollow.readyyourshovels.init.RYSBlockTags;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSItemTags;
 import net.teamhollow.readyyourshovels.init.RYSPointOfInterests;
 
-public abstract class AbstractAntEntity extends AnimalEntity implements Angerable, Flutterer {
+public abstract class AbstractAntEntity extends AnimalEntity {
     private static final TrackedData<Byte> multipleByteTracker;
-    private static final TrackedData<Integer> anger;
-    private static final IntRange field_25363;
-    private UUID targetUuid;
     private float currentPitch;
     private float lastPitch;
-    private int ticksSincePollination;
+    private int ticksSinceResourcePickup;
     private int cannotEnterNestTicks;
-    private int cropsGrownSincePollination;
+    private int cropsGrownSinceResourcePickup;
     private int ticksLeftToFindNest = 0;
-    private int ticksUntilCanPollinate = 0;
-    private BlockPos flowerPos = null;
+    private int ticksUntilCanResourcePickup = 0;
+    private BlockPos resourcePos = null;
     private BlockPos nestPos = null;
-    private AbstractAntEntity.PollinateGoal pollinateGoal;
+    private AbstractAntEntity.ResourcePickupGoal resourcePickupGoal;
     private AbstractAntEntity.MoveToAntNestGoal moveToNestGoal;
-    private AbstractAntEntity.MoveToFlowerGoal moveToFlowerGoal;
+    private AbstractAntEntity.MoveToResourceGoal moveToResourceGoal;
     private int ticksInsideWater;
 
     public AbstractAntEntity(EntityType<? extends AbstractAntEntity> entityType, World world) {
         super(entityType, world);
-        this.lookControl = new AbstractAntEntity.AntLookControl(this);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, -1.0F);
         this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
         this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 16.0F);
-        this.setPathfindingPenalty(PathNodeType.COCOA, -1.0F);
         this.setPathfindingPenalty(PathNodeType.FENCE, -1.0F);
     }
 
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(multipleByteTracker, (byte) 0);
-        this.dataTracker.startTracking(anger, 0);
     }
 
     @Override
@@ -112,14 +97,14 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
         this.goalSelector.add(1, new AbstractAntEntity.EnterNestGoal());
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
         this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.fromTag(RYSItemTags.ANT_TEMPTERS), false));
-        this.pollinateGoal = new AbstractAntEntity.PollinateGoal();
-        this.goalSelector.add(4, this.pollinateGoal);
+        this.resourcePickupGoal = new AbstractAntEntity.ResourcePickupGoal();
+        this.goalSelector.add(4, this.resourcePickupGoal);
         this.goalSelector.add(5, new FollowParentGoal(this, 1.25D));
         this.goalSelector.add(5, new AbstractAntEntity.FindNestGoal());
         this.moveToNestGoal = new AbstractAntEntity.MoveToAntNestGoal();
         this.goalSelector.add(5, this.moveToNestGoal);
-        this.moveToFlowerGoal = new AbstractAntEntity.MoveToFlowerGoal();
-        this.goalSelector.add(6, this.moveToFlowerGoal);
+        this.moveToResourceGoal = new AbstractAntEntity.MoveToResourceGoal();
+        this.goalSelector.add(6, this.moveToResourceGoal);
         this.goalSelector.add(8, new AbstractAntEntity.AntWanderAroundGoal());
         this.goalSelector.add(9, new SwimGoal(this));
     }
@@ -130,15 +115,14 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
             tag.put("NestPos", NbtHelper.fromBlockPos(this.getNestPos()));
         }
 
-        if (this.hasFlower()) {
-            tag.put("FlowerPos", NbtHelper.fromBlockPos(this.getFlowerPos()));
+        if (this.hasResource()) {
+            tag.put("ResourcePos", NbtHelper.fromBlockPos(this.getResourcePos()));
         }
 
-        tag.putBoolean("HasNectar", this.hasNectar());
-        tag.putInt("TicksSincePollination", this.ticksSincePollination);
+        tag.putBoolean("HasResource", this.hasResource());
+        tag.putInt("TicksSinceResourcePickup", this.ticksSinceResourcePickup);
         tag.putInt("CannotEnterNestTicks", this.cannotEnterNestTicks);
-        tag.putInt("CropsGrownSincePollination", this.cropsGrownSincePollination);
-        this.angerToTag(tag);
+        tag.putInt("CropsGrownSinceResourcePickup", this.cropsGrownSinceResourcePickup);
     }
 
     public void readCustomDataFromTag(CompoundTag tag) {
@@ -147,26 +131,23 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
             this.nestPos = NbtHelper.toBlockPos(tag.getCompound("NestPos"));
         }
 
-        this.flowerPos = null;
-        if (tag.contains("FlowerPos")) {
-            this.flowerPos = NbtHelper.toBlockPos(tag.getCompound("FlowerPos"));
+        this.resourcePos = null;
+        if (tag.contains("ResourcePos")) {
+            this.resourcePos = NbtHelper.toBlockPos(tag.getCompound("ResourcePos"));
         }
 
         super.readCustomDataFromTag(tag);
-        this.setHasNectar(tag.getBoolean("HasNectar"));
-        this.ticksSincePollination = tag.getInt("TicksSincePollination");
+        this.setHasResource(tag.getBoolean("HasResource"));
+        this.ticksSinceResourcePickup = tag.getInt("TicksSinceResourcePickup");
         this.cannotEnterNestTicks = tag.getInt("CannotEnterNestTicks");
-        this.cropsGrownSincePollination = tag.getInt("CropsGrownSincePollination");
-        this.angerFromTag((ServerWorld) this.world, tag);
+        this.cropsGrownSinceResourcePickup = tag.getInt("CropsGrownSinceResourcePickup");
     }
 
     public void tick() {
         super.tick();
-        if (this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.random.nextFloat() < 0.05F) {
+        if (this.hasResource() && this.getCropsGrownSinceResourcePickup() < 10 && this.random.nextFloat() < 0.05F) {
             for (int i = 0; i < this.random.nextInt(2) + 1; ++i) {
-                this.addParticle(this.world, this.getX() - 0.30000001192092896D, this.getX() + 0.30000001192092896D,
-                        this.getZ() - 0.30000001192092896D, this.getZ() + 0.30000001192092896D, this.getBodyY(0.5D),
-                        ParticleTypes.FALLING_NECTAR);
+                this.addParticle(this.world, this.getX() - 0.30000001192092896D, this.getX() + 0.30000001192092896D, this.getZ() - 0.30000001192092896D, this.getZ() + 0.30000001192092896D, this.getBodyY(0.5D), ParticleTypes.FALLING_NECTAR);
             }
         }
 
@@ -180,7 +161,7 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
     }
 
     private void startMovingTo(BlockPos pos) {
-        Vec3d vec3d = Vec3d.ofBottomCenter(pos);
+        Vec3d vec3d = this.getPos();
         int i = 0;
         BlockPos blockPos = this.getBlockPos();
         int j = (int) vec3d.y - blockPos.getY();
@@ -205,26 +186,21 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
         }
     }
 
-    public BlockPos getFlowerPos() {
-        return this.flowerPos;
+    public BlockPos getResourcePos() {
+        return this.resourcePos;
     }
 
-    public boolean hasFlower() {
-        return this.flowerPos != null;
+    public void setResourcePos(BlockPos pos) {
+        this.resourcePos = pos;
     }
 
-    public void setFlowerPos(BlockPos pos) {
-        this.flowerPos = pos;
-    }
-
-    private boolean failedPollinatingTooLong() {
-        return this.ticksSincePollination > 3600;
+    private boolean failedResourcePickupTooLong() {
+        return this.ticksSinceResourcePickup > 3600;
     }
 
     private boolean canEnterNest() {
-        if (this.cannotEnterNestTicks <= 0 && !this.pollinateGoal.isRunning() && this.getTarget() == null) {
-            boolean bl = this.failedPollinatingTooLong() || this.world.isRaining() || this.world.isNight()
-                    || this.hasNectar();
+        if (this.cannotEnterNestTicks <= 0 && this.getTarget() == null) {
+            boolean bl = this.failedResourcePickupTooLong() || this.world.isRaining() || this.world.isNight() || this.hasResource();
             return bl && !this.isNestNearFire();
         } else {
             return false;
@@ -242,12 +218,7 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
 
     private void updateBodyPitch() {
         this.lastPitch = this.currentPitch;
-        if (this.isNearTarget()) {
-            this.currentPitch = Math.min(1.0F, this.currentPitch + 0.2F);
-        } else {
-            this.currentPitch = Math.max(0.0F, this.currentPitch - 0.24F);
-        }
-
+        this.currentPitch = Math.max(0.0F, this.currentPitch - 0.24F);
     }
 
     protected void mobTick() {
@@ -261,18 +232,13 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
             this.damage(DamageSource.DROWN, 1.0F);
         }
 
-        if (!this.hasNectar()) {
-            ++this.ticksSincePollination;
+        if (!this.hasResource()) {
+            ++this.ticksSinceResourcePickup;
         }
-
-        if (!this.world.isClient) {
-            this.tickAngerLogic((ServerWorld) this.world, false);
-        }
-
     }
 
-    public void resetPollinationTicks() {
-        this.ticksSincePollination = 0;
+    public void resetResourcePickupTicks() {
+        this.ticksSinceResourcePickup = 0;
     }
 
     private boolean isNestNearFire() {
@@ -282,26 +248,6 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
             BlockEntity blockEntity = this.world.getBlockEntity(this.nestPos);
             return blockEntity instanceof AntNestBlockEntity && ((AntNestBlockEntity) blockEntity).isNearFire();
         }
-    }
-
-    public int getAngerTime() {
-        return (Integer) this.dataTracker.get(anger);
-    }
-
-    public void setAngerTime(int ticks) {
-        this.dataTracker.set(anger, ticks);
-    }
-
-    public UUID getAngryAt() {
-        return this.targetUuid;
-    }
-
-    public void setAngryAt(UUID uuid) {
-        this.targetUuid = uuid;
-    }
-
-    public void chooseRandomAngerTime() {
-        this.setAngerTime(field_25363.choose(this.random));
     }
 
     private boolean doesNestHaveSpace(BlockPos pos) {
@@ -321,17 +267,12 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
         return this.nestPos;
     }
 
-    protected void sendAiDebugData() {
-        super.sendAiDebugData();
-        // DebugInfoSender.sendAntDebugData(this); TODO
-    }
-
-    private int getCropsGrownSincePollination() {
-        return this.cropsGrownSincePollination;
+    private int getCropsGrownSinceResourcePickup() {
+        return this.cropsGrownSinceResourcePickup;
     }
 
     private void resetCropCounter() {
-        this.cropsGrownSincePollination = 0;
+        this.cropsGrownSinceResourcePickup = 0;
     }
 
     public void tickMovement() {
@@ -345,13 +286,10 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
                 --this.ticksLeftToFindNest;
             }
 
-            if (this.ticksUntilCanPollinate > 0) {
-                --this.ticksUntilCanPollinate;
+            if (this.ticksUntilCanResourcePickup > 0) {
+                --this.ticksUntilCanResourcePickup;
             }
 
-            boolean bl = this.hasAngerTime() && this.getTarget() != null
-                    && this.getTarget().squaredDistanceTo(this) < 4.0D;
-            this.setNearTarget(bl);
             if (this.age % 20 == 0 && !this.isNestValid()) {
                 this.nestPos = null;
             }
@@ -368,24 +306,16 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
         }
     }
 
-    public boolean hasNectar() {
+    public boolean hasResource() {
         return this.getAntFlag(8);
     }
 
-    private void setHasNectar(boolean hasNectar) {
-        if (hasNectar) {
-            this.resetPollinationTicks();
+    private void setHasResource(boolean hasResource) {
+        if (hasResource) {
+            this.resetResourcePickupTicks();
         }
 
-        this.setAntFlag(8, hasNectar);
-    }
-
-    private boolean isNearTarget() {
-        return this.getAntFlag(2);
-    }
-
-    private void setNearTarget(boolean nearTarget) {
-        this.setAntFlag(2, nearTarget);
+        this.setAntFlag(8, hasResource);
     }
 
     private boolean isTooFar(BlockPos pos) {
@@ -414,8 +344,8 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
         return stack.getItem().isIn(RYSItemTags.ANT_TEMPTERS);
     }
 
-    private boolean isFlowers(BlockPos pos) {
-        return this.world.canSetBlock(pos) && this.world.getBlockState(pos).getBlock().isIn(BlockTags.FLOWERS);
+    private boolean isResource(BlockPos pos) {
+        return this.world.canSetBlock(pos) && this.world.getBlockState(pos).getBlock().isIn(RYSBlockTags.ANT_RESOURCES);
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {}
@@ -440,27 +370,9 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
         return this.isBaby() ? dimensions.height * 0.5F : dimensions.height * 0.5F;
     }
 
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
-        return false;
-    }
-
-    protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {}
-
-    public void onHoneyDelivered() {
-        this.setHasNectar(false);
+    public void onResourceDelivered() {
+        this.setHasResource(false);
         this.resetCropCounter();
-    }
-
-    public boolean damage(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
-            return false;
-        } else {
-            if (!this.world.isClient) {
-                this.pollinateGoal.cancel();
-            }
-
-            return super.damage(source, amount);
-        }
     }
 
     public EntityGroup getGroup() {
@@ -473,8 +385,6 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
 
     static {
         multipleByteTracker = DataTracker.registerData(AbstractAntEntity.class, TrackedDataHandlerRegistry.BYTE);
-        anger = DataTracker.registerData(AbstractAntEntity.class, TrackedDataHandlerRegistry.INTEGER);
-        field_25363 = Durations.betweenSeconds(20, 39);
     }
 
     class EnterNestGoal extends Goal {
@@ -499,7 +409,7 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
             return false;
         }
 
-        public boolean canAntContinue() {
+        public boolean shouldContinue() {
             return false;
         }
 
@@ -508,7 +418,7 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
             BlockEntity blockEntity = AbstractAntEntity.this.world.getBlockEntity(AbstractAntEntity.this.nestPos);
             if (blockEntity instanceof AntNestBlockEntity) {
                 AntNestBlockEntity AntNestBlockEntity = (AntNestBlockEntity) blockEntity;
-                AntNestBlockEntity.tryEnterNest(AbstractAntEntity.this, AbstractAntEntity.this.hasNectar());
+                AntNestBlockEntity.tryEnterNest(AbstractAntEntity.this, AbstractAntEntity.this.hasResource());
             }
 
         }
@@ -524,7 +434,7 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
             return AbstractAntEntity.this.ticksLeftToFindNest == 0 && !AbstractAntEntity.this.hasNest() && AbstractAntEntity.this.canEnterNest();
         }
 
-        public boolean canAntContinue() {
+        public boolean shouldContinue() {
             return false;
         }
 
@@ -564,200 +474,10 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
         }
     }
 
-    class PollinateGoal extends Goal {
-        private final Predicate<BlockState> flowerPredicate = (blockState) -> {
-            if (blockState.isIn(BlockTags.TALL_FLOWERS)) {
-                if (blockState.isOf(Blocks.SUNFLOWER)) {
-                    return blockState.get(TallPlantBlock.HALF) == DoubleBlockHalf.UPPER;
-                } else {
-                    return true;
-                }
-            } else {
-                return blockState.isIn(BlockTags.SMALL_FLOWERS);
-            }
-        };
-        private int pollinationTicks = 0;
-        private int lastPollinationTick = 0;
-        private boolean running;
-        private Vec3d nextTarget;
-        private int ticks = 0;
-
-        PollinateGoal() {
-            super();
-            this.setControls(EnumSet.of(Goal.Control.MOVE));
-        }
-
-        @Override
-        public boolean canStart() {
-            if (AbstractAntEntity.this.ticksUntilCanPollinate > 0) {
-                return false;
-            } else if (AbstractAntEntity.this.hasNectar()) {
-                return false;
-            } else if (AbstractAntEntity.this.world.isRaining()) {
-                return false;
-            } else if (AbstractAntEntity.this.random.nextFloat() < 0.7F) {
-                return false;
-            } else {
-                Optional<BlockPos> optional = this.getFlower();
-                if (optional.isPresent()) {
-                    AbstractAntEntity.this.flowerPos = (BlockPos) optional.get();
-                    AbstractAntEntity.this.navigation.startMovingTo((double) AbstractAntEntity.this.flowerPos.getX() + 0.5D, (double) AbstractAntEntity.this.flowerPos.getY() + 0.5D, (double) AbstractAntEntity.this.flowerPos.getZ() + 0.5D, 1.2000000476837158D);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-
-        public boolean canAntContinue() {
-            if (!this.running) {
-                return false;
-            } else if (!AbstractAntEntity.this.hasFlower()) {
-                return false;
-            } else if (AbstractAntEntity.this.world.isRaining()) {
-                return false;
-            } else if (this.completedPollination()) {
-                return AbstractAntEntity.this.random.nextFloat() < 0.2F;
-            } else if (AbstractAntEntity.this.age % 20 == 0 && !AbstractAntEntity.this.isFlowers(AbstractAntEntity.this.flowerPos)) {
-                AbstractAntEntity.this.flowerPos = null;
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        private boolean completedPollination() {
-            return this.pollinationTicks > 400;
-        }
-
-        private boolean isRunning() {
-            return this.running;
-        }
-
-        private void cancel() {
-            this.running = false;
-        }
-
-        public void start() {
-            this.pollinationTicks = 0;
-            this.ticks = 0;
-            this.lastPollinationTick = 0;
-            this.running = true;
-            AbstractAntEntity.this.resetPollinationTicks();
-        }
-
-        public void stop() {
-            if (this.completedPollination()) {
-                AbstractAntEntity.this.setHasNectar(true);
-            }
-
-            this.running = false;
-            AbstractAntEntity.this.navigation.stop();
-            AbstractAntEntity.this.ticksUntilCanPollinate = 200;
-        }
-
-        public void tick() {
-            ++this.ticks;
-            if (this.ticks > 600) {
-                AbstractAntEntity.this.flowerPos = null;
-            } else {
-                Vec3d vec3d = Vec3d.ofBottomCenter(AbstractAntEntity.this.flowerPos);
-                if (vec3d.distanceTo(AbstractAntEntity.this.getPos()) > 1.0D) {
-                    this.nextTarget = vec3d;
-                    this.moveToNextTarget();
-                } else {
-                    if (this.nextTarget == null) {
-                        this.nextTarget = vec3d;
-                    }
-
-                    boolean bl = AbstractAntEntity.this.getPos().distanceTo(this.nextTarget) <= 0.1D;
-                    boolean bl2 = true;
-                    if (!bl && this.ticks > 600) {
-                        AbstractAntEntity.this.flowerPos = null;
-                    } else {
-                        if (bl) {
-                            boolean bl3 = AbstractAntEntity.this.random.nextInt(25) == 0;
-                            if (bl3) {
-                                this.nextTarget = new Vec3d(vec3d.getX() + (double) this.getRandomOffset(), vec3d.getY(), vec3d.getZ() + (double) this.getRandomOffset());
-                                AbstractAntEntity.this.navigation.stop();
-                            } else {
-                                bl2 = false;
-                            }
-
-                            AbstractAntEntity.this.getLookControl().lookAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-                        }
-
-                        if (bl2) {
-                            this.moveToNextTarget();
-                        }
-
-                        ++this.pollinationTicks;
-                        if (AbstractAntEntity.this.random.nextFloat() < 0.05F
-                                && this.pollinationTicks > this.lastPollinationTick + 60) {
-                            this.lastPollinationTick = this.pollinationTicks;
-                            AbstractAntEntity.this.playSound(SoundEvents.ENTITY_BEE_POLLINATE, 1.0F, 1.0F);
-                        }
-
-                    }
-                }
-            }
-        }
-
-        private void moveToNextTarget() {
-            AbstractAntEntity.this.getMoveControl().moveTo(this.nextTarget.getX(), this.nextTarget.getY(),
-                    this.nextTarget.getZ(), 0.3499999940395355D);
-        }
-
-        private float getRandomOffset() {
-            return (AbstractAntEntity.this.random.nextFloat() * 2.0F - 1.0F) * 0.33333334F;
-        }
-
-        private Optional<BlockPos> getFlower() {
-            return this.findFlower(this.flowerPredicate, 5.0D);
-        }
-
-        private Optional<BlockPos> findFlower(Predicate<BlockState> predicate, double searchDistance) {
-            BlockPos blockPos = AbstractAntEntity.this.getBlockPos();
-            BlockPos.Mutable mutable = new BlockPos.Mutable();
-
-            for (int i = 0; (double) i <= searchDistance; i = i > 0 ? -i : 1 - i) {
-                for (int j = 0; (double) j < searchDistance; ++j) {
-                    for (int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
-                        for (int l = k < j && k > -j ? j : 0; l <= j; l = l > 0 ? -l : 1 - l) {
-                            mutable.set((Vec3i) blockPos, k, i - 1, l);
-                            if (blockPos.isWithinDistance(mutable, searchDistance)
-                                    && predicate.test(AbstractAntEntity.this.world.getBlockState(mutable))) {
-                                return Optional.of(mutable);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return Optional.empty();
-        }
-    }
-
-    class AntLookControl extends LookControl {
-        AntLookControl(MobEntity entity) {
-            super(entity);
-        }
-
-        public void tick() {
-            if (!AbstractAntEntity.this.hasAngerTime()) {
-                super.tick();
-            }
-        }
-
-        protected boolean shouldStayHorizontal() {
-            return !AbstractAntEntity.this.pollinateGoal.isRunning();
-        }
-    }
-
-    public class MoveToFlowerGoal extends Goal {
+    public class MoveToResourceGoal extends Goal {
         private int ticks;
 
-        private MoveToFlowerGoal() {
+        private MoveToResourceGoal() {
             super();
             this.ticks = AbstractAntEntity.this.world.random.nextInt(10);
             this.setControls(EnumSet.of(Goal.Control.MOVE));
@@ -765,7 +485,7 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
 
         @Override
         public boolean canStart() {
-            return AbstractAntEntity.this.flowerPos != null && !AbstractAntEntity.this.hasPositionTarget() && this.shouldMoveToFlower() && AbstractAntEntity.this.isFlowers(AbstractAntEntity.this.flowerPos) && !AbstractAntEntity.this.isWithinDistance(AbstractAntEntity.this.flowerPos, 2);
+            return AbstractAntEntity.this.resourcePos != null && !AbstractAntEntity.this.hasPositionTarget() && this.shouldMoveToResource() && AbstractAntEntity.this.isResource(AbstractAntEntity.this.resourcePos) && !AbstractAntEntity.this.isWithinDistance(AbstractAntEntity.this.resourcePos, 2);
         }
 
         @Override
@@ -783,22 +503,22 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
 
         @Override
         public void tick() {
-            if (AbstractAntEntity.this.flowerPos != null) {
+            if (AbstractAntEntity.this.resourcePos != null) {
                 ++this.ticks;
                 if (this.ticks > 600) {
-                    AbstractAntEntity.this.flowerPos = null;
+                    AbstractAntEntity.this.resourcePos = null;
                 } else if (!AbstractAntEntity.this.navigation.isFollowingPath()) {
-                    if (AbstractAntEntity.this.isTooFar(AbstractAntEntity.this.flowerPos)) {
-                        AbstractAntEntity.this.flowerPos = null;
+                    if (AbstractAntEntity.this.isTooFar(AbstractAntEntity.this.resourcePos)) {
+                        AbstractAntEntity.this.resourcePos = null;
                     } else {
-                        AbstractAntEntity.this.startMovingTo(AbstractAntEntity.this.flowerPos);
+                        AbstractAntEntity.this.startMovingTo(AbstractAntEntity.this.resourcePos);
                     }
                 }
             }
         }
 
-        private boolean shouldMoveToFlower() {
-            return AbstractAntEntity.this.ticksSincePollination > 2400;
+        private boolean shouldMoveToResource() {
+            return AbstractAntEntity.this.ticksSinceResourcePickup > 2400;
         }
     }
 
@@ -909,6 +629,139 @@ public abstract class AbstractAntEntity extends AnimalEntity implements Angerabl
                 Path path = AbstractAntEntity.this.navigation.getCurrentPath();
                 return path != null && path.getTarget().equals(pos) && path.reachesTarget() && path.isFinished();
             }
+        }
+    }
+
+    class ResourcePickupGoal extends Goal {
+        private final Predicate<BlockState> resourcePredicate = (blockState) -> {
+            return blockState.isIn(RYSBlockTags.ANT_RESOURCES);
+        };
+        private int resourcePickupTicks = 0;
+        private int lastResourcePickupTick = 0;
+        private boolean running;
+        private Vec3d nextTarget;
+        private int ticks = 0;
+
+        ResourcePickupGoal() {
+            super();
+        }
+
+        public boolean canStart() {
+            if (AbstractAntEntity.this.ticksUntilCanResourcePickup > 0) {
+                return false;
+            } else if (AbstractAntEntity.this.navigation.isIdle()) {
+                return false;
+            } else if (AbstractAntEntity.this.hasResource()) {
+                return false;
+            } else if (AbstractAntEntity.this.world.isRaining()) {
+                return false;
+            } else if (AbstractAntEntity.this.random.nextFloat() < 0.7F) {
+                return false;
+            } else {
+                Optional<BlockPos> optional = this.getResource();
+                if (optional.isPresent()) {
+                    AbstractAntEntity.this.resourcePos = (BlockPos) optional.get();
+                    AbstractAntEntity.this.navigation.startMovingTo((double) AbstractAntEntity.this.resourcePos.getX() + 0.5D, (double) AbstractAntEntity.this.resourcePos.getY() + 1.0D, (double) AbstractAntEntity.this.resourcePos.getZ() + 0.5D, 1.2000000476837158D);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            if (!this.running) {
+                return false;
+            } else if (AbstractAntEntity.this.hasResource()) {
+                return false;
+            } else if (AbstractAntEntity.this.world.isRaining()) {
+                return false;
+            } else if (this.completedPickup()) {
+                return AbstractAntEntity.this.random.nextFloat() < 0.2F;
+            } else if (AbstractAntEntity.this.age % 20 == 0 && !AbstractAntEntity.this.isResource(AbstractAntEntity.this.resourcePos)) {
+                AbstractAntEntity.this.resourcePos = null;
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        private boolean completedPickup() {
+            return this.resourcePickupTicks > 400;
+        }
+
+        public void start() {
+            this.resourcePickupTicks = 0;
+            this.ticks = 0;
+            this.lastResourcePickupTick = 0;
+            this.running = true;
+            AbstractAntEntity.this.resetResourcePickupTicks();
+        }
+
+        public void stop() {
+            if (this.completedPickup()) {
+                AbstractAntEntity.this.setHasResource(true);
+            }
+
+            this.running = false;
+            AbstractAntEntity.this.navigation.stop();
+            AbstractAntEntity.this.ticksUntilCanResourcePickup = 200;
+        }
+
+        public void tick() {
+            this.ticks++;
+            if (this.ticks > 600) {
+                AbstractAntEntity.this.resourcePos = null;
+            } else if (AbstractAntEntity.this.resourcePos != null) {
+                Vec3d vec3d = Vec3d.ofBottomCenter(AbstractAntEntity.this.resourcePos).add(0.0D, 1.0D, 0.0D);
+                if (this.nextTarget == null) {
+                    this.nextTarget = vec3d;
+                }
+
+                boolean isWithinRangeOfTarget = AbstractAntEntity.this.getPos().distanceTo(this.nextTarget) <= 0.1D;
+                if (!isWithinRangeOfTarget) {
+                    if (!AbstractAntEntity.this.isNavigating()) AbstractAntEntity.this.startMovingTo(AbstractAntEntity.this.resourcePos);
+
+                    if (this.ticks > 600)
+                        AbstractAntEntity.this.resourcePos = null;
+                    else {
+                        if (isWithinRangeOfTarget) {
+                            AbstractAntEntity.this.getLookControl().lookAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+                        }
+
+                        this.resourcePickupTicks++;
+                        if (AbstractAntEntity.this.random.nextFloat() < 0.05F && this.resourcePickupTicks > this.lastResourcePickupTick + 60) {
+                            this.lastResourcePickupTick = this.resourcePickupTicks;
+                            AbstractAntEntity.this.playSound(SoundEvents.ENTITY_BEE_POLLINATE, 1.0F, 1.0F);
+                        }
+                    }
+                }
+            }
+        }
+
+        private Optional<BlockPos> getResource() {
+            return this.findResource(this.resourcePredicate, 5.0D);
+        }
+
+        private Optional<BlockPos> findResource(Predicate<BlockState> predicate, double searchDistance) {
+            BlockPos blockPos = AbstractAntEntity.this.getBlockPos();
+            BlockPos.Mutable mutable = new BlockPos.Mutable();
+
+            for (int i = 0; (double) i <= searchDistance; i = i > 0 ? -i : 1 - i) {
+                for (int j = 0; (double) j < searchDistance; ++j) {
+                    for (int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
+                        for (int l = k < j && k > -j ? j : 0; l <= j; l = l > 0 ? -l : 1 - l) {
+                            mutable.set((Vec3i) blockPos, k, i - 1, l);
+                            if (blockPos.isWithinDistance(mutable, searchDistance) & predicate.test(AbstractAntEntity.this.world.getBlockState(mutable))) {
+                                return Optional.of(mutable);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return Optional.empty();
         }
     }
 

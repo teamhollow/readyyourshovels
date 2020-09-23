@@ -12,6 +12,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -32,7 +33,7 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
     public static final BlockEntityType.Builder<AntNestBlockEntity> builder = BlockEntityType.Builder.create(AntNestBlockEntity::new, RYSBlocks.ANT_NEST);
 
     private final List<AntNestBlockEntity.Ant> ants = Lists.newArrayList();
-    private BlockPos flowerPos = null;
+    private BlockPos resourcePos = null;
 
     public AntNestBlockEntity() {
         super(RYSBlockEntities.ANT_NEST);
@@ -40,8 +41,7 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
 
     public void markDirty() {
         if (this.isNearFire()) {
-            this.angerAnts((PlayerEntity) null, this.world.getBlockState(this.getPos()),
-                    AntNestBlockEntity.AntState.EMERGENCY);
+            this.angerAnts((PlayerEntity) null, this.world.getBlockState(this.getPos()), AntNestBlockEntity.AntState.EMERGENCY);
         }
 
         super.markDirty();
@@ -81,7 +81,7 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
 
             while (iterator.hasNext()) {
                 Entity entity = (Entity) iterator.next();
-                if (entity instanceof AbstractAntEntity) {
+                if (entity instanceof AbstractAntEntity && entity instanceof Angerable) {
                     AbstractAntEntity antEntity = (AbstractAntEntity) entity;
                     if (player.getPos().squaredDistanceTo(entity.getPos()) <= 16.0D) {
                         if (!this.isSmoked()) {
@@ -103,34 +103,34 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
         return list;
     }
 
-    public void tryEnterNest(Entity entity, boolean hasNectar) {
-        this.tryEnterHive(entity, hasNectar, 0);
+    public void tryEnterNest(Entity entity, boolean hasResource) {
+        this.tryEnterNest(entity, hasResource, 0);
     }
 
     public int getAntCount() {
         return this.ants.size();
     }
 
+    public static int getAcidLevel(BlockState state) {
+        return state.get(AntNestBlock.ACID_LEVEL);
+    }
+
     public boolean isSmoked() {
         return CampfireBlock.isLitCampfireInRange(this.world, this.getPos());
     }
 
-    // protected void sendDebugData() {
-    //     DebugInfoSender.sendBeehiveDebugData(this); TODO
-    // }
-
-    public void tryEnterHive(Entity entity, boolean hasResources, int ticksInHive) {
+    public void tryEnterNest(Entity entity, boolean hasResources, int ticksInNest) {
         if (this.ants.size() < 5) {
             entity.stopRiding();
             entity.removeAllPassengers();
             CompoundTag compoundTag = new CompoundTag();
             entity.saveToTag(compoundTag);
-            this.ants.add(new AntNestBlockEntity.Ant(compoundTag, ticksInHive, hasResources ? 2400 : 600));
+            this.ants.add(new AntNestBlockEntity.Ant(compoundTag, ticksInNest, hasResources ? 2400 : 600));
             if (this.world != null) {
                 if (entity instanceof AbstractAntEntity) {
                     AbstractAntEntity antEntity = (AbstractAntEntity) entity;
-                    if (antEntity.hasFlower() && (!this.hasFlowerPos() || this.world.random.nextBoolean())) {
-                        this.flowerPos = antEntity.getFlowerPos();
+                    if (antEntity.hasResource() && (!this.hasResourcePos() || this.world.random.nextBoolean())) {
+                        this.resourcePos = antEntity.getResourcePos();
                     }
                 }
 
@@ -142,8 +142,7 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
         }
     }
 
-    private boolean releaseAnt(BlockState state, AntNestBlockEntity.Ant ant, List<Entity> list,
-            AntNestBlockEntity.AntState antState) {
+    private boolean releaseAnt(BlockState state, AntNestBlockEntity.Ant ant, List<Entity> list, AntNestBlockEntity.AntState antState) {
         if ((this.world.isNight() || this.world.isRaining()) && antState != AntNestBlockEntity.AntState.EMERGENCY) {
             return false;
         } else {
@@ -167,37 +166,36 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
                     } else {
                         if (entity instanceof AbstractAntEntity) {
                             AbstractAntEntity antEntity = (AbstractAntEntity) entity;
-                            if (this.hasFlowerPos() && !antEntity.hasFlower() && this.world.random.nextFloat() < 0.9F) {
-                                antEntity.setFlowerPos(this.flowerPos);
+                            if (this.hasResourcePos() && !antEntity.hasResource() && this.world.random.nextFloat() < 0.9F) {
+                                antEntity.setResourcePos(this.resourcePos);
                             }
 
-                            // if (antState == AntNestBlockEntity.AntState.HONEY_DELIVERED) {
-                            //     antEntity.onHoneyDelivered();
-                            //     if (state.getBlock().isIn(BlockTags.BEEHIVES)) {
-                            //         int i = getHoneyLevel(state);
-                            //         if (i < 5) {
-                            //             int j = this.world.random.nextInt(100) == 0 ? 2 : 1;
-                            //             if (i + j > 5) {
-                            //                 --j;
-                            //             }
+                            if (antState == AntNestBlockEntity.AntState.RESOURCE_DELIVERED) {
+                                antEntity.onResourceDelivered();
+                                if (state.isOf(RYSBlocks.ANT_NEST)) {
+                                    int acidLevel = getAcidLevel(state);
+                                    if (acidLevel < 5) {
+                                        int toAdd = this.world.random.nextInt(100) == 0 ? 2 : 1;
+                                        if (acidLevel + toAdd > 5) {
+                                            toAdd--;
+                                        }
 
-                            //             this.world.setBlockState(this.getPos(),
-                            //                     (BlockState) state.with(AntNestBlock.HONEY_LEVEL, i + j));
-                            //         }
-                            //     }
-                            // }
+                                        this.world.setBlockState(this.getPos(), state.with(AntNestBlock.ACID_LEVEL, acidLevel + toAdd));
+                                    }
+                                }
+                            }
 
-                            this.ageAnt(ant.ticksInHive, antEntity);
+                            this.ageAnt(ant.ticksInNest, antEntity);
                             if (list != null) {
                                 list.add(antEntity);
                             }
 
                             float f = entity.getWidth();
                             double d = bl ? 0.0D : 0.55D + (double) (f / 2.0F);
-                            double e = (double) blockPos.getX() + 0.5D + d * (double) direction.getOffsetX();
-                            double g = (double) blockPos.getY() + 0.5D - (double) (entity.getHeight() / 2.0F);
-                            double h = (double) blockPos.getZ() + 0.5D + d * (double) direction.getOffsetZ();
-                            entity.refreshPositionAndAngles(e, g, h, entity.yaw, entity.pitch);
+                            double x = (double) blockPos.getX() + 0.5D + d * (double) direction.getOffsetX();
+                            double y = (double) blockPos.getY() + 0.5D - (double) (entity.getHeight() / 2.0F);
+                            double z = (double) blockPos.getZ() + 0.5D + d * (double) direction.getOffsetZ();
+                            entity.refreshPositionAndAngles(x, y, z, entity.yaw, entity.pitch);
                         }
 
                         this.world.playSound((PlayerEntity) null, blockPos, SoundEvents.BLOCK_BEEHIVE_EXIT,
@@ -220,22 +218,22 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
         }
 
         ant.setLoveTicks(Math.max(0, ant.getLoveTicks() - ticks));
-        ant.resetPollinationTicks();
+        ant.resetResourcePickupTicks();
     }
 
-    private boolean hasFlowerPos() {
-        return this.flowerPos != null;
+    private boolean hasResourcePos() {
+        return this.resourcePos != null;
     }
 
     private void tickAnts() {
         Iterator<AntNestBlockEntity.Ant> iterator = this.ants.iterator();
 
         AntNestBlockEntity.Ant ant;
-        for (BlockState blockState = this.getCachedState(); iterator.hasNext(); ant.ticksInHive++) {
+        for (BlockState blockState = this.getCachedState(); iterator.hasNext(); ant.ticksInNest++) {
             ant = (AntNestBlockEntity.Ant) iterator.next();
-            if (ant.ticksInHive > ant.minOccupationTicks) {
-                AntNestBlockEntity.AntState antState = ant.entityData.getBoolean("HasNectar")
-                        ? AntNestBlockEntity.AntState.HONEY_DELIVERED
+            if (ant.ticksInNest > ant.minOccupationTicks) {
+                AntNestBlockEntity.AntState antState = ant.entityData.getBoolean("HasResource")
+                        ? AntNestBlockEntity.AntState.RESOURCE_DELIVERED
                         : AntNestBlockEntity.AntState.ANT_RELEASED;
                 if (this.releaseAnt(blockState, ant, (List<Entity>) null, antState)) {
                     iterator.remove();
@@ -253,11 +251,8 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
                 double d = (double) blockPos.getX() + 0.5D;
                 double e = (double) blockPos.getY();
                 double f = (double) blockPos.getZ() + 0.5D;
-                this.world.playSound((PlayerEntity) null, d, e, f, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.BLOCKS,
-                        1.0F, 1.0F);
+                this.world.playSound((PlayerEntity) null, d, e, f, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
-
-            // this.sendDebugData(); TODO
         }
     }
 
@@ -268,14 +263,13 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
 
         for (int i = 0; i < listTag.size(); ++i) {
             CompoundTag compoundTag = listTag.getCompound(i);
-            AntNestBlockEntity.Ant ant = new AntNestBlockEntity.Ant(compoundTag.getCompound("EntityData"),
-                    compoundTag.getInt("TicksInHive"), compoundTag.getInt("MinOccupationTicks"));
+            AntNestBlockEntity.Ant ant = new AntNestBlockEntity.Ant(compoundTag.getCompound("EntityData"), compoundTag.getInt("TicksInNest"), compoundTag.getInt("MinOccupationTicks"));
             this.ants.add(ant);
         }
 
-        this.flowerPos = null;
-        if (tag.contains("FlowerPos")) {
-            this.flowerPos = NbtHelper.toBlockPos(tag.getCompound("FlowerPos"));
+        this.resourcePos = null;
+        if (tag.contains("ResourcePos")) {
+            this.resourcePos = NbtHelper.toBlockPos(tag.getCompound("ResourcePos"));
         }
 
     }
@@ -283,8 +277,8 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
     public CompoundTag toTag(CompoundTag tag) {
         super.toTag(tag);
         tag.put("Ants", this.getAnts());
-        if (this.hasFlowerPos()) {
-            tag.put("FlowerPos", NbtHelper.fromBlockPos(this.flowerPos));
+        if (this.hasResourcePos()) {
+            tag.put("ResourcePos", NbtHelper.fromBlockPos(this.resourcePos));
         }
 
         return tag;
@@ -299,7 +293,7 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
             ant.entityData.remove("UUID");
             CompoundTag compoundTag = new CompoundTag();
             compoundTag.put("EntityData", ant.entityData);
-            compoundTag.putInt("TicksInHive", ant.ticksInHive);
+            compoundTag.putInt("TicksInNest", ant.ticksInNest);
             compoundTag.putInt("MinOccupationTicks", ant.minOccupationTicks);
             listTag.add(compoundTag);
         }
@@ -309,18 +303,18 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
 
     static class Ant {
         private final CompoundTag entityData;
-        private int ticksInHive;
+        private int ticksInNest;
         private final int minOccupationTicks;
 
-        private Ant(CompoundTag entityData, int ticksInHive, int minOccupationTicks) {
+        private Ant(CompoundTag entityData, int ticksInNest, int minOccupationTicks) {
             entityData.remove("UUID");
             this.entityData = entityData;
-            this.ticksInHive = ticksInHive;
+            this.ticksInNest = ticksInNest;
             this.minOccupationTicks = minOccupationTicks;
         }
     }
 
     public static enum AntState {
-        HONEY_DELIVERED, ANT_RELEASED, EMERGENCY;
+        RESOURCE_DELIVERED, ANT_RELEASED, EMERGENCY;
     }
 }

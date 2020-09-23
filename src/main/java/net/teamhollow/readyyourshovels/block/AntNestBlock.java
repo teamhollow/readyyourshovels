@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.FireBlock;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.Material;
@@ -29,15 +30,22 @@ import net.minecraft.entity.projectile.WitherSkullEntity;
 import net.minecraft.entity.vehicle.TntMinecartEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -49,21 +57,23 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
 import net.teamhollow.readyyourshovels.entity.AbstractAntEntity;
+import net.teamhollow.readyyourshovels.state.property.RYSProperties;
 
 public class AntNestBlock extends BlockWithEntity {
     public static final String id = "ant_nest";
 
     private static final Direction[] GENERATE_DIRECTIONS;
     public static final DirectionProperty FACING;
+    public static final IntProperty ACID_LEVEL;
 
     public AntNestBlock() {
         super(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL));
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(ACID_LEVEL, 0));
     }
-    
+
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(ACID_LEVEL, FACING);
     }
 
     @Override
@@ -95,16 +105,6 @@ public class AntNestBlock extends BlockWithEntity {
             }
         }
     }
-
-    // private boolean hasAnts(World world, BlockPos pos) {
-    //     BlockEntity blockEntity = world.getBlockEntity(pos);
-    //     if (blockEntity instanceof AntNestBlockEntity) {
-    //         AntNestBlockEntity antNestBlockEntity = (AntNestBlockEntity) blockEntity;
-    //         return !antNestBlockEntity.hasNoAnts();
-    //     } else {
-    //         return false;
-    //     }
-    // }
 
     @Environment(EnvType.CLIENT)
     private void spawnHoneyParticles(World world, BlockPos pos, BlockState state) {
@@ -160,22 +160,22 @@ public class AntNestBlock extends BlockWithEntity {
             if (blockEntity instanceof AntNestBlockEntity) {
                 AntNestBlockEntity antBlockEntity = (AntNestBlockEntity) blockEntity;
                 ItemStack itemStack = new ItemStack(this);
-                // int i = (Integer) state.get(HONEY_LEVEL);
-                boolean bl = !antBlockEntity.hasNoAnts();
-                // if (!bl && i == 0) {
-                //     return;
-                // }
-
-                CompoundTag compoundTag2;
-                if (bl) {
-                    compoundTag2 = new CompoundTag();
-                    compoundTag2.put("Ants", antBlockEntity.getAnts());
-                    itemStack.putSubTag("BlockEntityTag", compoundTag2);
+                int acidLevel = state.get(ACID_LEVEL);
+                boolean hasAnts = !antBlockEntity.hasNoAnts();
+                if (!hasAnts && acidLevel == 0) {
+                    return;
                 }
 
-                compoundTag2 = new CompoundTag();
-                // compoundTag2.putInt("honey_level", i); TODO
-                itemStack.putSubTag("BlockStateTag", compoundTag2);
+                CompoundTag compoundTag;
+                if (hasAnts) {
+                    compoundTag = new CompoundTag();
+                    compoundTag.put("Ants", antBlockEntity.getAnts());
+                    itemStack.putSubTag("BlockEntityTag", compoundTag);
+                }
+
+                compoundTag = new CompoundTag();
+                compoundTag.putInt("acid_level", acidLevel);
+                itemStack.putSubTag("BlockStateTag", compoundTag);
                 ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX(), (double) pos.getY(),
                         (double) pos.getZ(), itemStack);
                 itemEntity.setToDefaultPickupDelay();
@@ -213,12 +213,78 @@ public class AntNestBlock extends BlockWithEntity {
         return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
     }
 
+    private boolean hasAnts(World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof AntNestBlockEntity) {
+            AntNestBlockEntity antNestBlockEntity = (AntNestBlockEntity) blockEntity;
+            return !antNestBlockEntity.hasNoAnts();
+        } else {
+            return false;
+        }
+    }
+    
+    public void takeAcid(World world, BlockState state, BlockPos pos, PlayerEntity player, AntNestBlockEntity.AntState antState) {
+        this.takeAcid(world, state, pos);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof AntNestBlockEntity) {
+            AntNestBlockEntity beehiveBlockEntity = (AntNestBlockEntity) blockEntity;
+            beehiveBlockEntity.angerAnts(player, state, antState);
+        }
+    }
+    public void takeAcid(World world, BlockState state, BlockPos pos) {
+        world.setBlockState(pos, state.with(ACID_LEVEL, 0), 3);
+    }
+
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        int i = (Integer) state.get(ACID_LEVEL);
+        boolean bl = false;
+        if (i >= 5) {
+            if (itemStack.getItem() == Items.GLASS_BOTTLE) {
+                itemStack.decrement(1);
+                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                if (itemStack.isEmpty()) {
+                    player.setStackInHand(hand, new ItemStack(Items.HONEY_BOTTLE));
+                } else if (!player.inventory.insertStack(new ItemStack(Items.HONEY_BOTTLE))) {
+                    player.dropItem(new ItemStack(Items.HONEY_BOTTLE), false);
+                }
+
+                bl = true;
+            }
+        }
+
+        if (bl) {
+            if (!CampfireBlock.isLitCampfireInRange(world, pos)) {
+                if (this.hasAnts(world, pos)) {
+                    this.angerNearbyAnts(world, pos);
+                }
+
+                this.takeAcid(world, state, pos, player, AntNestBlockEntity.AntState.EMERGENCY);
+            } else {
+                this.takeAcid(world, state, pos);
+            }
+
+            return ActionResult.success(world.isClient);
+        } else {
+            return super.onUse(state, world, pos, player, hand, hit);
+        }
+    }
+
     public static Direction getRandomGenerationDirection(Random random) {
         return (Direction) Util.getRandom((Object[]) GENERATE_DIRECTIONS, random);
+    }
+
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        return state.get(ACID_LEVEL);
     }
 
     static {
         GENERATE_DIRECTIONS = new Direction[] { Direction.WEST, Direction.EAST, Direction.SOUTH };
         FACING = HorizontalFacingBlock.FACING;
+        ACID_LEVEL = RYSProperties.ACID_LEVEL;
     }
 }

@@ -4,8 +4,10 @@ import java.util.Random;
 
 import com.mojang.serialization.Codec;
 
+import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
@@ -13,7 +15,11 @@ import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.teamhollow.readyyourshovels.block.AntNestBlock;
+import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
+import net.teamhollow.readyyourshovels.entity.garden_ant.GardenAntEntity;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
+import net.teamhollow.readyyourshovels.init.RYSEntities;
 
 public class DirtSurfaceFeature extends Feature<DefaultFeatureConfig> {
     public DirtSurfaceFeature(Codec<DefaultFeatureConfig> codec) {
@@ -22,19 +28,19 @@ public class DirtSurfaceFeature extends Feature<DefaultFeatureConfig> {
 
     @Override
     public boolean generate(ServerWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
-        BlockPos.Mutable blockPos$Mutable = new BlockPos.Mutable();
+        BlockPos.Mutable blockPos = new BlockPos.Mutable();
 
-        for (int i1 = 0; i1 < 16; ++i1) {
-            for (int i2 = 0; i2 < 16; ++i2) {
-                int x = pos.getX() + i1;
-                int z = pos.getZ() + i2;
-                int y = world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, x, z);
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                int posX = pos.getX() + x;
+                int posZ = pos.getZ() + z;
+                int posY = world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, posX, posZ);
 
-                for (int i3 = 4; i3 < 28; ++i3) {
-                    blockPos$Mutable.set(x, y - i3, z);
+                for (int y = 4; y < 28; y++) {
+                    blockPos.set(posX, posY - y, posZ);
 
-                    BlockState state = world.getBlockState(blockPos$Mutable);
-                    if ( state.isOf(Blocks.STONE)
+                    BlockState state = world.getBlockState(blockPos);
+                    if (  state.isOf(Blocks.STONE)
                        || state.isOf(Blocks.GRANITE)
                        || state.isOf(Blocks.DIORITE)
                        || state.isOf(Blocks.ANDESITE)
@@ -42,14 +48,36 @@ public class DirtSurfaceFeature extends Feature<DefaultFeatureConfig> {
                        || state.isOf(Blocks.IRON_ORE)
                        || state.isOf(Blocks.GOLD_ORE)
                     ) {
-                        if (i3 >= 27) {
-                            world.setBlockState(blockPos$Mutable, RYSBlocks.REGOLITH.getDefaultState(), 2);
+                        if (y >= 27) {
+                            world.setBlockState(blockPos, RYSBlocks.REGOLITH.getDefaultState(), 2);
                         } else {
-                            world.setBlockState(blockPos$Mutable, RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
+                            if (random.nextFloat() < 0.0075F && neigboringAreFree(blockPos.up(), world)) {
+                                world.setBlockState(blockPos.up(), RYSBlocks.ANT_NEST.getDefaultState().with(AntNestBlock.FACING, AntNestBlock.getRandomGenerationDirection(random)), 2);
+                                BlockEntity blockEntity = world.getBlockEntity(blockPos.up());
+                                if (blockEntity instanceof AntNestBlockEntity) {
+                                    AntNestBlockEntity antNestBlockEntity = (AntNestBlockEntity) blockEntity;
+                                    int rand = 2 + random.nextInt(2);
+
+                                    for (int i = 0; i < rand; ++i) {
+                                        GardenAntEntity gardenAntEntity = new GardenAntEntity(RYSEntities.GARDEN_ANT, world.getWorld());
+                                        antNestBlockEntity.tryEnterNest(gardenAntEntity, false, random.nextInt(599));
+                                    }
+                                }
+                            }
+
+                            world.setBlockState(blockPos, RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
                         }
                     }
                 }
             }
+        }
+
+        return true;
+    }
+
+    private boolean neigboringAreFree(BlockPos pos, ServerWorldAccess world) {
+        for (BlockPos i : new BlockPos[]{ pos, pos.up(), pos.north(), pos.east(), pos.south(), pos.west() }) {
+            if (!(world.getBlockState(i).getBlock() instanceof AirBlock)) return false;
         }
 
         return true;

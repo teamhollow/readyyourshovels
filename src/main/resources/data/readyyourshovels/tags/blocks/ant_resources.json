@@ -5,6 +5,8 @@
         "minecraft:honey_block",
         "minecraft:beehive",
         "#minecraft:logs",
-        "#minecraft:leaves"
+        "#minecraft:leaves",
+        "minecraft:tall_grass",
+        "readyyourshovels:clay_deposit"
     ]
 }

@@ -97,10 +97,7 @@ public class RYSBlocks {
     public RYSBlocks() {}
 
     public static boolean blockIsOfPlanterBox(BlockState blockState) {
-        for (Block block : new Block[] { OAK_PLANTER_BOX, BIRCH_PLANTER_BOX,  SPRUCE_PLANTER_BOX, DARK_OAK_PLANTER_BOX, ACACIA_PLANTER_BOX, JUNGLE_PLANTER_BOX, CRIMSON_PLANTER_BOX, WARPED_PLANTER_BOX })
-            if (blockState.isOf(block)) return true;
-
-        return false;
+        return blockState.isIn(RYSBlockTags.PLANTER_BOXES);
     };
 
     public static Block register(String id, Block block, boolean registerItem) {

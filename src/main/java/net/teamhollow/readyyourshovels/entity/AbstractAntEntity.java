@@ -89,7 +89,8 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
     @Override
     public float getPathfindingFavor(BlockPos pos, WorldView world) {
-        return world.getBlockState(pos).isAir() ? 10.0F : 0.0F;
+        BlockState blockState = world.getBlockState(pos);
+        return blockState.isIn(RYSBlockTags.ANT_RESOURCES) || blockState.isOf(RYSBlocks.ANT_NEST) ? 10.0F : 0.0F;
     }
 
     @Override

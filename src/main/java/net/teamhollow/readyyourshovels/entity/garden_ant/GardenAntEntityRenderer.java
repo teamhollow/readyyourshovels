@@ -13,7 +13,7 @@ public class GardenAntEntityRenderer extends MobEntityRenderer<GardenAntEntity, 
 
     @Override
     public Identifier getTexture(GardenAntEntity entity) {
-        return RYSEntities.texture(GardenAntEntity.id + "/" + GardenAntEntity.id);
+        return RYSEntities.texture("ant/" + GardenAntEntity.id);
     }
 
     @Override

@@ -161,29 +161,7 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     private void startMovingTo(BlockPos pos) {
-        Vec3d vec3d = this.getPos();
-        int i = 0;
-        BlockPos blockPos = this.getBlockPos();
-        int j = (int) vec3d.y - blockPos.getY();
-        if (j > 2) {
-            i = 4;
-        } else if (j < -2) {
-            i = -4;
-        }
-
-        int k = 6;
-        int l = 8;
-        int m = blockPos.getManhattanDistance(pos);
-        if (m < 15) {
-            k = m / 2;
-            l = m / 2;
-        }
-
-        Vec3d vec3d2 = TargetFinder.findGroundTargetTowards(this, k, l, i, vec3d, 0.3141592741012573D);
-        if (vec3d2 != null) {
-            this.navigation.setRangeMultiplier(0.5F);
-            this.navigation.startMovingTo(vec3d2.x, vec3d2.y, vec3d2.z, 1.0D);
-        }
+        this.navigation.startMovingTo(pos.getX(), pos.getY(), pos.getZ(), 1.5D);
     }
 
     public BlockPos getResourcePos() {
@@ -394,7 +372,11 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
         @Override
         public boolean canStart() {
-            if (AbstractAntEntity.this.hasNest() && AbstractAntEntity.this.canEnterNest() && AbstractAntEntity.this.nestPos.isWithinDistance(AbstractAntEntity.this.getPos(), 2.0D)) {
+            if (AbstractAntEntity.this.hasNest() && AbstractAntEntity.this.canEnterNest() && AbstractAntEntity.this.nestPos.isWithinDistance(AbstractAntEntity.this.getPos(), 30.0D)) {
+                if (!AbstractAntEntity.this.nestPos.isWithinDistance(AbstractAntEntity.this.getPos(), 2.0D)) {
+                    if (AbstractAntEntity.this.navigation.isIdle()) AbstractAntEntity.this.startMovingTo(nestPos);
+                    return false;
+                }
                 BlockEntity blockEntity = AbstractAntEntity.this.world.getBlockEntity(AbstractAntEntity.this.nestPos);
                 if (blockEntity instanceof AntNestBlockEntity) {
                     AntNestBlockEntity AntNestBlockEntity = (AntNestBlockEntity) blockEntity;
@@ -420,7 +402,6 @@ public abstract class AbstractAntEntity extends AnimalEntity {
                 AntNestBlockEntity AntNestBlockEntity = (AntNestBlockEntity) blockEntity;
                 AntNestBlockEntity.tryEnterNest(AbstractAntEntity.this, AbstractAntEntity.this.hasResource());
             }
-
         }
     }
 

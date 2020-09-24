@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -61,6 +62,8 @@ public class ReadyYourShovels implements ModInitializer {
         for (Biome biome : Registry.BIOME) {
             if ((biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND) && biome.getCategory() != Biome.Category.OCEAN && biome.getCategory() != Biome.Category.DESERT && biome.getCategory() != Biome.Category.BEACH && biome.getCategory() != Biome.Category.EXTREME_HILLS) {
                 biome.addFeature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSFeatures.DIRT_SURFACE_FEATURE);
+
+                biome.addFeature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSFeatures.ORE.configure(new RYSOreFeatureConfig(RYSOreFeatureConfig.Target.TOUGH_DIRT, Blocks.COBBLESTONE.getDefaultState(), 33)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(5, 0, 0, 80))));
 
                 biome.addFeature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSFeatures.ORE.configure(new RYSOreFeatureConfig(RYSOreFeatureConfig.Target.TOUGH_DIRT, RYSBlocks.CLAY_DEPOSIT.getDefaultState(), 9)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(18, 0, 0, 128))));
                 biome.addFeature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSFeatures.ORE.configure(new RYSOreFeatureConfig(RYSOreFeatureConfig.Target.TOUGH_DIRT, RYSBlocks.PEAT_DEPOSIT.getDefaultState(), 12)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(20, 0, 0, 128))));

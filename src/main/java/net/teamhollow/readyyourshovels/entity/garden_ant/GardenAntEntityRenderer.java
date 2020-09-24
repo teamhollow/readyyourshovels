@@ -18,7 +18,9 @@ public class GardenAntEntityRenderer extends MobEntityRenderer<GardenAntEntity, 
 
     @Override
     protected void scale(GardenAntEntity entity, MatrixStack matrices, float amount) {
-        amount = entity.isBaby() ? 0.5F : 0.75F;
-        matrices.scale(amount, amount, amount);
+        if (entity.isBaby()) {
+            amount = 0.6F;
+            matrices.scale(amount, amount, amount);
+        } else super.scale(entity, matrices, amount);
     }
 }

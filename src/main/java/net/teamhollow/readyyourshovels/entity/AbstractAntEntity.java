@@ -683,6 +683,9 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
         public void stop() {
             if (this.completedPickup()) {
+                BlockState blockState = AbstractAntEntity.this.world.getBlockState(AbstractAntEntity.this.resourcePos);
+                AbstractAntEntity.this.world.breakBlock(AbstractAntEntity.this.resourcePos, false);
+                AbstractAntEntity.this.world.setBlockState(AbstractAntEntity.this.resourcePos, blockState);
                 AbstractAntEntity.this.setHasResource(true);
             }
 

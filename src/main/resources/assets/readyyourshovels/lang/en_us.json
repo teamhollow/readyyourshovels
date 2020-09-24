@@ -3,6 +3,10 @@
     "itemGroup.readyyourshovels.item_group": "Ready Your Shovels",
 
     "block.readyyourshovels.clay_deposit": "Clay Deposit",
+    "block.readyyourshovels.peat_block": "Peat Block",
+    "block.readyyourshovels.peat_bricks": "Peat Bricks",
+    "block.readyyourshovels.cracked_peat_bricks": "Cracked Peat Bricks",
+    "block.readyyourshovels.chiseled_peat_bricks": "Chiseled Peat Bricks",
     "block.readyyourshovels.dirt_bricks": "Dirt Bricks",
     "block.readyyourshovels.dirt_brick_stairs": "Dirt Brick Stairs",
     "block.readyyourshovels.dirt_brick_slab": "Dirt Brick Slab",

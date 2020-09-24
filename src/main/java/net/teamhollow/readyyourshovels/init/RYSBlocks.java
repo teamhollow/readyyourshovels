@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
 import net.minecraft.block.SignBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.WallBlock;
@@ -75,6 +76,19 @@ public class RYSBlocks {
     public static final Block REGOLITH = register("regolith",
             new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
                     .hardness(2.0F).resistance(2.5F).sounds(BlockSoundGroup.GRAVEL)));
+
+    public static final Block PEAT_BLOCK = register("peat_block",
+            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool().strength(1.5F, 6.0F)));
+    public static final Block PEAT_BRICKS = register("peat_bricks",
+            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool().strength(2.0F, 6.0F)));
+    public static final Block CRACKED_PEAT_BRICKS = register("cracked_peat_bricks",
+            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool().strength(1.5F, 6.0F)));
+    public static final Block CHISELED_PEAT_BRICKS = register("chiseled_peat_bricks",
+            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool().strength(1.5F, 6.0F)));
 
     public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new Block(FabricBlockSettings
             .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));

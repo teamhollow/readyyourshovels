@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "readyyourshovels:chiseled_peat_bricks"
+    ]
+  },
+  "criteria": {
+    "has_peat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "readyyourshovels:peat"
+          }
+        ]
+      }
+    },
+    "has_peat_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "readyyourshovels:peat_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "readyyourshovels:chiseled_peat_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_peat",
+      "has_peat_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

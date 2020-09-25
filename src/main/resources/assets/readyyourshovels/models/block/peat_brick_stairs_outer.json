@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "readyyourshovels:block/peat_bricks",
+    "top": "readyyourshovels:block/peat_bricks",
+    "side": "readyyourshovels:block/peat_bricks"
+  }
+}

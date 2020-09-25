@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "readyyourshovels:dirt_brick_slab",
+        "readyyourshovels:smooth_dirt_slab",
+        "readyyourshovels:tough_dirt_slab",
+        "readyyourshovels:peat_brick_slab"
+    ]
+}

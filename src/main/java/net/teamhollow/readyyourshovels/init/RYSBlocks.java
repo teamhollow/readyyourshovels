@@ -91,21 +91,21 @@ public class RYSBlocks {
                     .breakByTool(FabricToolTags.PICKAXES).requiresTool().strength(1.5F, 6.0F)));
 
     public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
     public static final Block BIRCH_PLANTER_BOX = register("birch_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
     public static final Block SPRUCE_PLANTER_BOX = register("spruce_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
     public static final Block DARK_OAK_PLANTER_BOX = register("dark_oak_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
     public static final Block ACACIA_PLANTER_BOX = register("acacia_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
     public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
     public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
     public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).ticksRandomly().hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
+            .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
 
     public RYSBlocks() {}
 

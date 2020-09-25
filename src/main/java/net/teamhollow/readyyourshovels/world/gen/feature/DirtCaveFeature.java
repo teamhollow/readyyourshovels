@@ -21,8 +21,8 @@ import net.teamhollow.readyyourshovels.entity.garden_ant.GardenAntEntity;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSEntities;
 
-public class DirtSurfaceFeature extends Feature<DefaultFeatureConfig> {
-    public DirtSurfaceFeature(Codec<DefaultFeatureConfig> codec) {
+public class DirtCaveFeature extends Feature<DefaultFeatureConfig> {
+    public DirtCaveFeature(Codec<DefaultFeatureConfig> codec) {
         super(codec);
     }
 

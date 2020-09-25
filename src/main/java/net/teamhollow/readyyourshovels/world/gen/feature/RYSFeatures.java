@@ -13,8 +13,8 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 public abstract class RYSFeatures extends Feature<RYSOreFeatureConfig> {
     public static final Feature<RYSOreFeatureConfig> ORE = register("ore", new RYSOreFeature(RYSOreFeatureConfig.CODEC));
 
-    public static final Feature<DefaultFeatureConfig> DIRT_SURFACE = new DirtSurfaceFeature(DefaultFeatureConfig.CODEC);
-    public static final ConfiguredFeature<DefaultFeatureConfig, Feature<DefaultFeatureConfig>> DIRT_SURFACE_FEATURE = new ConfiguredFeature<>(DIRT_SURFACE, DefaultFeatureConfig.DEFAULT);
+    public static final Feature<DefaultFeatureConfig> DIRT_CAVE = new DirtCaveFeature(DefaultFeatureConfig.CODEC);
+    public static final ConfiguredFeature<DefaultFeatureConfig, Feature<DefaultFeatureConfig>> DIRT_CAVE_FEATURE = new ConfiguredFeature<>(DIRT_CAVE, DefaultFeatureConfig.DEFAULT);
 
     public RYSFeatures(Codec<RYSOreFeatureConfig> codec) {
         super(codec);

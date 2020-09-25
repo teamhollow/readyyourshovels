@@ -64,16 +64,16 @@ public class AntNestBlock extends BlockWithEntity {
 
     private static final Direction[] GENERATE_DIRECTIONS;
     public static final DirectionProperty FACING;
-    public static final IntProperty ACID_LEVEL;
+    public static final IntProperty RESOURCE_LEVEL;
 
     public AntNestBlock() {
         super(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL));
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(ACID_LEVEL, 0));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(RESOURCE_LEVEL, 0));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(ACID_LEVEL, FACING);
+        builder.add(RESOURCE_LEVEL, FACING);
     }
 
     @Override
@@ -160,9 +160,9 @@ public class AntNestBlock extends BlockWithEntity {
             if (blockEntity instanceof AntNestBlockEntity) {
                 AntNestBlockEntity antBlockEntity = (AntNestBlockEntity) blockEntity;
                 ItemStack itemStack = new ItemStack(this);
-                int acidLevel = state.get(ACID_LEVEL);
+                int resourceLevel = state.get(RESOURCE_LEVEL);
                 boolean hasAnts = !antBlockEntity.hasNoAnts();
-                if (!hasAnts && acidLevel == 0) {
+                if (!hasAnts && resourceLevel == 0) {
                     return;
                 }
 
@@ -174,7 +174,7 @@ public class AntNestBlock extends BlockWithEntity {
                 }
 
                 compoundTag = new CompoundTag();
-                compoundTag.putInt("acid_level", acidLevel);
+                compoundTag.putInt("resource_level", resourceLevel);
                 itemStack.putSubTag("BlockStateTag", compoundTag);
                 ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX(), (double) pos.getY(),
                         (double) pos.getZ(), itemStack);
@@ -232,12 +232,12 @@ public class AntNestBlock extends BlockWithEntity {
         }
     }
     public void takeAcid(World world, BlockState state, BlockPos pos) {
-        world.setBlockState(pos, state.with(ACID_LEVEL, 0), 3);
+        world.setBlockState(pos, state.with(RESOURCE_LEVEL, 0), 3);
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getStackInHand(hand);
-        int i = (Integer) state.get(ACID_LEVEL);
+        int i = (Integer) state.get(RESOURCE_LEVEL);
         boolean bl = false;
         if (i >= 5) {
             if (itemStack.getItem() == Items.GLASS_BOTTLE) {
@@ -279,12 +279,12 @@ public class AntNestBlock extends BlockWithEntity {
     }
 
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return state.get(ACID_LEVEL);
+        return state.get(RESOURCE_LEVEL);
     }
 
     static {
         GENERATE_DIRECTIONS = new Direction[] { Direction.WEST, Direction.EAST, Direction.SOUTH };
         FACING = HorizontalFacingBlock.FACING;
-        ACID_LEVEL = RYSProperties.ACID_LEVEL;
+        RESOURCE_LEVEL = RYSProperties.RESOURCE_LEVEL;
     }
 }

@@ -1,94 +1,19 @@
 {
     "variants": {
-        "facing=east,acid_level=0": {
+        "facing=east": {
             "y": 90,
             "model": "readyyourshovels:block/ant_nest"
         },
-        "facing=east,acid_level=1": {
-            "y": 90,
+        "facing=north": {
             "model": "readyyourshovels:block/ant_nest"
         },
-        "facing=east,acid_level=2": {
-            "y": 90,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=east,acid_level=3": {
-            "y": 90,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=east,acid_level=4": {
-            "y": 90,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=east,acid_level=5": {
-            "y": 90,
-            "model": "readyyourshovels:block/ant_nest_acid"
-        },
-        "facing=north,acid_level=0": {
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=north,acid_level=1": {
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=north,acid_level=2": {
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=north,acid_level=3": {
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=north,acid_level=4": {
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=north,acid_level=5": {
-            "model": "readyyourshovels:block/ant_nest_acid"
-        },
-        "facing=south,acid_level=0": {
+        "facing=south": {
             "y": 180,
             "model": "readyyourshovels:block/ant_nest"
         },
-        "facing=south,acid_level=1": {
-            "y": 180,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=south,acid_level=2": {
-            "y": 180,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=south,acid_level=3": {
-            "y": 180,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=south,acid_level=4": {
-            "y": 180,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=south,acid_level=5": {
-            "y": 180,
-            "model": "readyyourshovels:block/ant_nest_acid"
-        },
-        "facing=west,acid_level=0": {
+        "facing=west": {
             "y": 270,
             "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=west,acid_level=1": {
-            "y": 270,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=west,acid_level=2": {
-            "y": 270,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=west,acid_level=3": {
-            "y": 270,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=west,acid_level=4": {
-            "y": 270,
-            "model": "readyyourshovels:block/ant_nest"
-        },
-        "facing=west,acid_level=5": {
-            "y": 270,
-            "model": "readyyourshovels:block/ant_nest_acid"
         }
     }
 }

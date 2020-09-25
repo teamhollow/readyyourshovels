@@ -111,8 +111,8 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
         return this.ants.size();
     }
 
-    public static int getAcidLevel(BlockState state) {
-        return state.get(AntNestBlock.ACID_LEVEL);
+    public static int getResourceLevel(BlockState state) {
+        return state.get(AntNestBlock.RESOURCE_LEVEL);
     }
 
     public boolean isSmoked() {
@@ -173,14 +173,14 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
                             if (antState == AntNestBlockEntity.AntState.RESOURCE_DELIVERED) {
                                 antEntity.onResourceDelivered();
                                 if (state.isOf(RYSBlocks.ANT_NEST)) {
-                                    int acidLevel = getAcidLevel(state);
-                                    if (acidLevel < 5) {
+                                    int resourceLevel = getResourceLevel(state);
+                                    if (resourceLevel < 5) {
                                         int toAdd = this.world.random.nextInt(100) == 0 ? 2 : 1;
-                                        if (acidLevel + toAdd > 5) {
+                                        if (resourceLevel + toAdd > 5) {
                                             toAdd--;
                                         }
 
-                                        this.world.setBlockState(this.getPos(), state.with(AntNestBlock.ACID_LEVEL, acidLevel + toAdd));
+                                        this.world.setBlockState(this.getPos(), state.with(AntNestBlock.RESOURCE_LEVEL, resourceLevel + toAdd));
                                     }
                                 }
                             }

@@ -10,7 +10,6 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.structure.StructureManager;
 import teamhollow.readyyourshovels.registry.RYSBlocks;
 
 import java.util.Random;
@@ -21,7 +20,7 @@ public class DirtSurfaceFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_230362_a_(ISeedReader world, StructureManager structureManager, ChunkGenerator chunkGenerator, Random random, BlockPos pos, NoFeatureConfig config) {
+    public boolean func_241855_a(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, NoFeatureConfig config) {
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
         for (int i = 0; i < 16; ++i) {
@@ -49,4 +48,5 @@ public class DirtSurfaceFeature extends Feature<NoFeatureConfig> {
 
         return true;
     }
+
 }

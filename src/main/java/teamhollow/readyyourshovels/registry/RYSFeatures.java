@@ -1,6 +1,13 @@
 package teamhollow.readyyourshovels.registry;
 
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.template.BlockMatchRuleTest;
+import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -11,12 +18,16 @@ import teamhollow.readyyourshovels.feature.DirtSurfaceFeature;
 public class RYSFeatures {
     public static final Feature<NoFeatureConfig> DIRT_SURFACE = new DirtSurfaceFeature(NoFeatureConfig.field_236558_a_);
 
-    public static final ConfiguredFeature<NoFeatureConfig, Feature<NoFeatureConfig>> DIRT_SURFACE_FEATURE = new ConfiguredFeature<>(DIRT_SURFACE, IFeatureConfig.NO_FEATURE_CONFIG);
+    public static final ConfiguredFeature<?, ?> DIRT_SURFACE_CONFIGURATE_FEATURE = DIRT_SURFACE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
-    public static final OreFeatureConfig.FillerBlockType DIRT_FILLER = OreFeatureConfig.FillerBlockType.create("readyyourshovels:dirt_filler", "readyyourshovels:dirt_filler", (state) -> state.getBlock() == RYSBlocks.TOUGH_DIRT);
+    public static final RuleTest TOUGH_DIRT_RULE = new BlockMatchRuleTest(RYSBlocks.TOUGH_DIRT);
 
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> registry) {
-        registry.getRegistry().register(DIRT_SURFACE.setRegistryName("clay_deposit"));
+        registry.getRegistry().register(DIRT_SURFACE.setRegistryName("dirt_surface"));
+    }
+
+    private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, feature);
     }
 }

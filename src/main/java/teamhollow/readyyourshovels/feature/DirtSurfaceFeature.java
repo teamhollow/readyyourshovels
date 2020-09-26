@@ -31,7 +31,7 @@ public class DirtSurfaceFeature extends Feature<NoFeatureConfig> {
 
 
                 Biome biome = world.getBiome(blockpos$mutable);
-                for (int d = 4; d < 28; ++d) {
+                for (int d = 0; d < 28; ++d) {
                     blockpos$mutable.setPos(k, i1 - d, l);
 
                     BlockState state = world.getBlockState(blockpos$mutable);

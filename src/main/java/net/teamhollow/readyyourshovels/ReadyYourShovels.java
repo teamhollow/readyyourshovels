@@ -35,6 +35,7 @@ public class ReadyYourShovels implements ModInitializer {
     public void onInitialize() {
         log("Initializing");
 
+        new RYSSoundEvents();
         new RYSPointOfInterests();
 
         new RYSBlocks();

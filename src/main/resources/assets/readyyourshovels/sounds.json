@@ -1,0 +1,10 @@
+{
+    "entity.garden_ant.ambient": {
+        "sounds": [
+            "readyyourshovels:entity/garden_ant/ambient1",
+            "readyyourshovels:entity/garden_ant/ambient2",
+            "readyyourshovels:entity/garden_ant/ambient3"
+        ],
+        "subtitle": "subtitles.readyyourshovels.entity.garden_ant.ambient"
+    }
+}

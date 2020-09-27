@@ -39,5 +39,7 @@
     "item.readyyourshovels.peat": "Peat",
     "item.readyyourshovels.garden_ant_spawn_egg": "Garden Ant Spawn Egg",
 
-    "entity.readyyourshovels.garden_ant": "Garden Ant"
+    "entity.readyyourshovels.garden_ant": "Garden Ant",
+
+    "subtitles.readyyourshovels.entity.garden_ant.ambient": "Garden Ant hisses"
 }

@@ -5,9 +5,11 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import net.teamhollow.readyyourshovels.entity.AbstractAntEntity;
 import net.teamhollow.readyyourshovels.init.RYSEntities;
+import net.teamhollow.readyyourshovels.init.RYSSoundEvents;
 
 public class GardenAntEntity extends AbstractAntEntity {
     public static final String id = "garden_ant";
@@ -24,6 +26,11 @@ public class GardenAntEntity extends AbstractAntEntity {
 
     public GardenAntEntity(EntityType<? extends AbstractAntEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return RYSSoundEvents.ENTITY_GARDEN_ANT_AMBIENT;
     }
 
     @Override

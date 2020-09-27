@@ -17,6 +17,7 @@ import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.AntNestBlock;
 import net.teamhollow.readyyourshovels.block.vanilla.*;
+import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
 
 public class RYSBlocks {
     public static final Block DIRT_BRICKS = register("dirt_bricks",

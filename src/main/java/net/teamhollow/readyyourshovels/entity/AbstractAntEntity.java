@@ -53,10 +53,10 @@ import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
 import net.teamhollow.readyyourshovels.init.RYSBlockEntities;
-import net.teamhollow.readyyourshovels.init.RYSBlockTags;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
-import net.teamhollow.readyyourshovels.init.RYSItemTags;
 import net.teamhollow.readyyourshovels.init.RYSPointOfInterests;
+import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
+import net.teamhollow.readyyourshovels.tag.RYSItemTags;
 
 public abstract class AbstractAntEntity extends AnimalEntity {
     private static final TrackedData<Byte> multipleByteTracker;

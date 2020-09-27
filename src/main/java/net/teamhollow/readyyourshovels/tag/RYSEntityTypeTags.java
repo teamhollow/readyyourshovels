@@ -1,4 +1,4 @@
-package net.teamhollow.readyyourshovels.init;
+package net.teamhollow.readyyourshovels.tag;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.entity.EntityType;

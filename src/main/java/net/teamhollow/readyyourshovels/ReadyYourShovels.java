@@ -16,14 +16,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.teamhollow.readyyourshovels.init.RYSBlockEntities;
-import net.teamhollow.readyyourshovels.init.RYSBlockTags;
-import net.teamhollow.readyyourshovels.init.RYSBlocks;
-import net.teamhollow.readyyourshovels.init.RYSEntities;
-import net.teamhollow.readyyourshovels.init.RYSEntityTypeTags;
-import net.teamhollow.readyyourshovels.init.RYSItemTags;
-import net.teamhollow.readyyourshovels.init.RYSItems;
-import net.teamhollow.readyyourshovels.init.RYSPointOfInterests;
+import net.teamhollow.readyyourshovels.init.*;
 import net.teamhollow.readyyourshovels.world.gen.feature.RYSFeatures;
 import net.teamhollow.readyyourshovels.world.gen.feature.RYSOreFeatureConfig;
 
@@ -41,10 +34,6 @@ public class ReadyYourShovels implements ModInitializer {
     @Override
     public void onInitialize() {
         log("Initializing");
-
-        new RYSBlockTags();
-        new RYSEntityTypeTags();
-        new RYSItemTags();
 
         new RYSPointOfInterests();
 

@@ -26,7 +26,7 @@ import net.teamhollow.readyyourshovels.block.AntNestBlock;
 import net.teamhollow.readyyourshovels.entity.AbstractAntEntity;
 import net.teamhollow.readyyourshovels.init.RYSBlockEntities;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
-import net.teamhollow.readyyourshovels.init.RYSEntityTypeTags;
+import net.teamhollow.readyyourshovels.tag.RYSEntityTypeTags;
 
 public class AntNestBlockEntity extends BlockEntity implements Tickable {
     public static final String id = AntNestBlock.id;

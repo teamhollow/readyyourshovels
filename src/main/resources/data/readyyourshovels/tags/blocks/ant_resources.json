@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:sugar_cane",
+    "minecraft:honey_block",
+    "minecraft:beehive",
+    "#minecraft:logs",
+    "#minecraft:leaves",
+    "#minecraft:crops",
+    "minecraft:tall_grass",
+    "readyyourshovels:clay_deposit"
+  ]
+}

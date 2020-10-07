@@ -21,7 +21,7 @@ public class RYSEntity {
     public static void registerEntity(RegistryEvent.Register<EntityType<?>> event) {
         GlobalEntityTypeAttributes.put(GARDEN_ANT, GardenAntEntity.registerAttributes().create());
 
-        event.getRegistry().register(GARDEN_ANT.setRegistryName("tofunian"));
+        event.getRegistry().register(GARDEN_ANT.setRegistryName("garden_ant"));
         EntitySpawnPlacementRegistry.register(GARDEN_ANT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
     }
 

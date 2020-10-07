@@ -10,6 +10,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import teamhollow.readyyourshovels.ReadyYourShovels;
+import teamhollow.readyyourshovels.block.AntNestBlock;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ReadyYourShovels.MODID)
 public class RYSBlocks {
@@ -37,6 +38,7 @@ public class RYSBlocks {
     public static final Block TOUGH_DIRT_STAIRS = new StairsBlock(TOUGH_DIRT::getDefaultState, Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block TOUGH_DIRT_WALL = new WallBlock(AbstractBlock.Properties.from(TOUGH_DIRT));
 
+    public static final Block ANT_NEST = new AntNestBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).tickRandomly().setRequiresTool().harvestLevel(0).hardnessAndResistance(1.5F, 2.0F).sound(SoundType.GROUND));
 
 
     @SubscribeEvent
@@ -63,6 +65,7 @@ public class RYSBlocks {
         registry.getRegistry().register(TOUGH_DIRT_STAIRS.setRegistryName("tough_dirt_stairs"));
         registry.getRegistry().register(TOUGH_DIRT_WALL.setRegistryName("tough_dirt_wall"));
 
+        registry.getRegistry().register(ANT_NEST.setRegistryName("ant_nest"));
     }
 
     @SubscribeEvent

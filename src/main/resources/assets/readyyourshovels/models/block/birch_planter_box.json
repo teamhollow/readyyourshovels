@@ -1,0 +1,8 @@
+{
+  "parent": "readyyourshovels:block/template_planter_box",
+  "textures": {
+    "bottom": "readyyourshovels:block/birch_planter_box_bottom",
+    "top": "readyyourshovels:block/birch_planter_box_top",
+    "side": "readyyourshovels:block/birch_planter_box_side"
+  }
+}

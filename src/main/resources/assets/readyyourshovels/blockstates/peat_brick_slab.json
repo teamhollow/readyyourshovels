@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "readyyourshovels:block/peat_brick_slab"
+    },
+    "type=double": {
+      "model": "readyyourshovels:block/peat_bricks"
+    },
+    "type=top": {
+      "model": "readyyourshovels:block/peat_brick_slab_top"
+    }
+  }
+}

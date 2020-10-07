@@ -92,5 +92,7 @@ public class RYSBlocks {
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_WALL, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
+        RYSItems.register(registry, new BlockItem(ANT_NEST, (new Item.Properties()).group(ItemGroup.DECORATIONS)));
+
     }
 }

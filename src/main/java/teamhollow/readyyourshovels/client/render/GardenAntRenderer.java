@@ -23,11 +23,12 @@ public class GardenAntRenderer extends MobRenderer<GardenAntEntity, GardenAntMod
     protected void preRenderCallback(GardenAntEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         if (entitylivingbaseIn.isChild()) {
             matrixStackIn.scale(0.6F, 0.6F, 0.6F);
-        } else super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        }
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
     }
 
     @Override
     public ResourceLocation getEntityTexture(GardenAntEntity entity) {
-        return null;
+        return ANT_TEXTURE;
     }
 }

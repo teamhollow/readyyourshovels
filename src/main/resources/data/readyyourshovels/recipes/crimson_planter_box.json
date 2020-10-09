@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "readyyourshovels:planter_box",
+  "pattern": [
+    "WBW",
+    "WDW",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:crimson_slab"
+    },
+    "B": {
+      "item": "minecraft:water_bucket"
+    },
+    "D": {
+      "item": "minecraft:dirt"
+    }
+  },
+  "result": {
+    "item": "readyyourshovels:crimson_planter_box"
+  }
+}

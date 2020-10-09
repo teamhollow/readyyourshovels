@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "teamhollow.readyyourshovels.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "readyyourshovels.refmap.json",
+  "mixins": [
+    "AttachedStemBlockMixin",
+    "CropsBlockMixin",
+    "StemBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

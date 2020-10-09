@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import teamhollow.readyyourshovels.ReadyYourShovels;
 import teamhollow.readyyourshovels.block.AntNestBlock;
+import teamhollow.readyyourshovels.tag.RYSBlockTags;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ReadyYourShovels.MODID)
 public class RYSBlocks {
@@ -37,6 +38,23 @@ public class RYSBlocks {
     public static final Block TOUGH_DIRT_SLAB = new SlabBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block TOUGH_DIRT_STAIRS = new StairsBlock(TOUGH_DIRT::getDefaultState, Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block TOUGH_DIRT_WALL = new WallBlock(AbstractBlock.Properties.from(TOUGH_DIRT));
+
+    public static final Block OAK_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
+    public static final Block BIRCH_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
+    public static final Block SPRUCE_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
+    public static final Block DARK_OAK_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
+    public static final Block ACACIA_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
+    public static final Block JUNGLE_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
+    public static final Block CRIMSON_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
+    public static final Block WARPED_PLANTER_BOX = new Block(Block.Properties
+            .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
 
     public static final Block ANT_NEST = new AntNestBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).tickRandomly().setRequiresTool().harvestLevel(0).hardnessAndResistance(1.5F, 2.0F).sound(SoundType.GROUND));
 
@@ -65,6 +83,15 @@ public class RYSBlocks {
         registry.getRegistry().register(TOUGH_DIRT_STAIRS.setRegistryName("tough_dirt_stairs"));
         registry.getRegistry().register(TOUGH_DIRT_WALL.setRegistryName("tough_dirt_wall"));
 
+        registry.getRegistry().register(OAK_PLANTER_BOX.setRegistryName("oak_planter_box"));
+        registry.getRegistry().register(BIRCH_PLANTER_BOX.setRegistryName("birch_planter_box"));
+        registry.getRegistry().register(SPRUCE_PLANTER_BOX.setRegistryName("spruce_planter_box"));
+        registry.getRegistry().register(DARK_OAK_PLANTER_BOX.setRegistryName("dark_oak_planter_box"));
+        registry.getRegistry().register(ACACIA_PLANTER_BOX.setRegistryName("acacia_planter_box"));
+        registry.getRegistry().register(JUNGLE_PLANTER_BOX.setRegistryName("jungle_planter_box"));
+        registry.getRegistry().register(CRIMSON_PLANTER_BOX.setRegistryName("crimson_planter_box"));
+        registry.getRegistry().register(WARPED_PLANTER_BOX.setRegistryName("warped_planter_box"));
+
         registry.getRegistry().register(ANT_NEST.setRegistryName("ant_nest"));
     }
 
@@ -92,7 +119,21 @@ public class RYSBlocks {
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_WALL, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
-        RYSItems.register(registry, new BlockItem(ANT_NEST, (new Item.Properties()).group(ItemGroup.DECORATIONS)));
+        RYSItems.register(registry, new BlockItem(OAK_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(BIRCH_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(SPRUCE_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(DARK_OAK_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(ACACIA_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(JUNGLE_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(CRIMSON_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(WARPED_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
+        RYSItems.register(registry, new BlockItem(ANT_NEST, (new Item.Properties()).group(ItemGroup.DECORATIONS)));
     }
+
+    public static boolean blockIsOfPlanterBox(BlockState blockState) {
+        return blockState.isIn(RYSBlockTags.PLANTER_BOXES);
+    }
+
+    ;
 }

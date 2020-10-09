@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class AntNestBlock extends Block {
+public class AntNestBlock extends Block implements ITileEntityProvider {
     public AntNestBlock(Properties properties) {
         super(properties);
     }
@@ -138,11 +138,6 @@ public class AntNestBlock extends Block {
 
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new AntNestTileEntity();
     }
 
     public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
@@ -271,5 +266,10 @@ public class AntNestBlock extends Block {
 
     public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
         return blockState.get(RESOURCE_LEVEL);
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(IBlockReader worldIn) {
+        return new AntNestTileEntity();
     }
 }

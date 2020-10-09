@@ -23,6 +23,7 @@ public class RYSPointOfInterests {
 
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<PointOfInterestType> registry) {
+        PointOfInterestType.registerBlockStates(ANT_NEST);
         registry.getRegistry().register(ANT_NEST.setRegistryName("ant_nest"));
     }
 }

@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
@@ -29,8 +28,6 @@ public class DirtSurfaceFeature extends Feature<NoFeatureConfig> {
                 int l = pos.getZ() + j;
                 int i1 = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, k, l);
 
-
-                Biome biome = world.getBiome(blockpos$mutable);
                 for (int d = 0; d < 28; ++d) {
                     blockpos$mutable.setPos(k, i1 - d, l);
 

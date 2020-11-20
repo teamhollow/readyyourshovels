@@ -1,7 +1,5 @@
 package teamhollow.readyyourshovels.registry;
 
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
@@ -25,9 +23,5 @@ public class RYSFeatures {
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> registry) {
         registry.getRegistry().register(DIRT_SURFACE.setRegistryName("dirt_surface"));
-    }
-
-    private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, feature);
     }
 }

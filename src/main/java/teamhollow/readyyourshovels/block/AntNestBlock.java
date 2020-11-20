@@ -44,6 +44,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class AntNestBlock extends Block implements ITileEntityProvider {
     public AntNestBlock(Properties properties) {
         super(properties);

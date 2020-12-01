@@ -23,10 +23,10 @@ public class BiomeLoadHandler {
             if (event.getCategory() != Biome.Category.NETHER && event.getCategory() != Biome.Category.THEEND && event.getCategory() != Biome.Category.RIVER && event.getCategory() != Biome.Category.OCEAN && event.getCategory() != Biome.Category.DESERT && event.getCategory() != Biome.Category.EXTREME_HILLS) {
                 generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, RYSFeatures.DIRT_SURFACE_CONFIGURATE_FEATURE);
 
-                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.CLAY_DEPOSIT.getDefaultState(), 9)).func_242733_d(128).func_242728_a().func_242731_b(18));
-                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.PEAT_DEPOSIT.getDefaultState(), 12)).func_242733_d(128).func_242728_a().func_242731_b(20));
-                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.IRON_DEPOSIT.getDefaultState(), 9)).func_242733_d(64).func_242728_a().func_242731_b(20));
-                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.GOLD_DEPOSIT.getDefaultState(), 6)).func_242733_d(32).func_242728_a().func_242731_b(2));
+                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.CLAY_DEPOSIT.getDefaultState(), 9)).range(128).square().func_242731_b(18));
+                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.PEAT_DEPOSIT.getDefaultState(), 12)).range(128).square().func_242731_b(20));
+                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.IRON_DEPOSIT.getDefaultState(), 9)).range(64).square().func_242731_b(20));
+                generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.GOLD_DEPOSIT.getDefaultState(), 6)).range(32).square().func_242731_b(2));
             }
         }
     }

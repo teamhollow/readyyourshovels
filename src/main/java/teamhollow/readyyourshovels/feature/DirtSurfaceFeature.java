@@ -19,7 +19,7 @@ public class DirtSurfaceFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_241855_a(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, NoFeatureConfig config) {
+    public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, NoFeatureConfig config) {
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
         for (int i = 0; i < 16; ++i) {

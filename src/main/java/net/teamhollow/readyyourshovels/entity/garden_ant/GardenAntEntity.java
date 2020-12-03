@@ -5,6 +5,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import net.teamhollow.readyyourshovels.entity.AbstractAntEntity;
@@ -34,7 +35,7 @@ public class GardenAntEntity extends AbstractAntEntity {
     }
 
     @Override
-    public PassiveEntity createChild(PassiveEntity mate) {
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity mate) {
         return RYSEntities.GARDEN_ANT.create(this.world);
     }
 }

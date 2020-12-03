@@ -19,7 +19,7 @@ public class RYSBlockEntities {
     private static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.Builder<T> builder) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);
 
-        Type<?> type = Util.method_29187(TypeReferences.BLOCK_ENTITY, identifier.toString());
+        Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, identifier.toString());
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, identifier, builder.build(type));
     }
 }

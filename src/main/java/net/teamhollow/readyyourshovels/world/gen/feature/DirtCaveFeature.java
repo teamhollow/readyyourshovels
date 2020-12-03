@@ -11,7 +11,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -27,7 +27,7 @@ public class DirtCaveFeature extends Feature<DefaultFeatureConfig> {
     }
 
     @Override
-    public boolean generate(ServerWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
         BlockPos.Mutable blockPos = new BlockPos.Mutable();
 
         for (int x = 0; x < 16; x++) {
@@ -59,7 +59,7 @@ public class DirtCaveFeature extends Feature<DefaultFeatureConfig> {
                                     int rand = 2 + random.nextInt(2);
 
                                     for (int i = 0; i < rand; ++i) {
-                                        GardenAntEntity gardenAntEntity = new GardenAntEntity(RYSEntities.GARDEN_ANT, world.getWorld());
+                                        GardenAntEntity gardenAntEntity = new GardenAntEntity(RYSEntities.GARDEN_ANT, world.toServerWorld());
                                         antNestBlockEntity.tryEnterNest(gardenAntEntity, false, random.nextInt(599));
                                     }
                                 }

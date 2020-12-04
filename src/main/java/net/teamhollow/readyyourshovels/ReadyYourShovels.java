@@ -49,16 +49,14 @@ public class ReadyYourShovels implements ModInitializer {
 
         new RYSFeatures();
         new RYSConfiguredFeatures();
+        new RYSStructureFeatures();
         addBiomeModifications();
 
         log("Initialized");
     }
 
     private static void addBiomeModifications() {
-        //
-        // DIRT CAVES
-        //
-
+        // add dirt caves
         Predicate<BiomeSelectionContext> DIRT_CAVE_FEATURE_BIOME_SELECTOR = BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS).negate());
 
         // add to underground decoration step
@@ -68,6 +66,9 @@ public class ReadyYourShovels implements ModInitializer {
         for (ConfiguredFeature<?, ?> feature : new ConfiguredFeature[]{ RYSConfiguredFeatures.TOUGH_DIRT_MOSSY_COBBLESTONE, RYSConfiguredFeatures.DEPOSIT_CLAY, RYSConfiguredFeatures.DEPOSIT_PEAT, RYSConfiguredFeatures.DEPOSIT_IRON, RYSConfiguredFeatures.DEPOSIT_GOLD }) {
             BiomeModifications.addFeature(DIRT_CAVE_FEATURE_BIOME_SELECTOR, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(feature)));
         }
+
+        // add structures
+        BiomeModifications.addStructure(DIRT_CAVE_FEATURE_BIOME_SELECTOR, RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));
     }
 
     public static void log(Level level, String message) {

@@ -10,11 +10,13 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.world.gen.feature.AntHillFeature;
 
 public class RYSConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> DIRT_CAVE = register(
@@ -90,10 +92,18 @@ public class RYSConfiguredFeatures {
         .repeat(2)
     );
 
+    public static final ConfiguredStructureFeature<?, ?> ANT_HILL = register(
+        AntHillFeature.id,
+        RYSStructureFeatures.ANT_HILL.configure(DefaultFeatureConfig.DEFAULT)
+    );
+
     public RYSConfiguredFeatures() {}
 
     private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(ReadyYourShovels.MOD_ID, id), configuredFeature);
+    }
+    private static <FC extends FeatureConfig> ConfiguredStructureFeature<FC, ?> register(String id, ConfiguredStructureFeature<FC, ?> configuredFeature) {
+        return Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new Identifier(ReadyYourShovels.MOD_ID, id), configuredFeature);
     }
 
     private static class States {

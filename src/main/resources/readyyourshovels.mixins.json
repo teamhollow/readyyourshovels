@@ -3,9 +3,7 @@
     "package": "net.teamhollow.readyyourshovels.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-        "AttachedStemBlockMixin",
-        "CropBlockMixin",
-        "StemBlockMixin"
+        "PlantBlockMixin"
     ],
     "client": [],
     "injectors": {

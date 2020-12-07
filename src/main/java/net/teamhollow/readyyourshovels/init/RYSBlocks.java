@@ -3,7 +3,6 @@ package net.teamhollow.readyyourshovels.init;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.SignBlock;
@@ -15,9 +14,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.block.AntNestBlock;
+import net.teamhollow.readyyourshovels.block.*;
 import net.teamhollow.readyyourshovels.block.vanilla.*;
-import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
 
 public class RYSBlocks {
     public static final Block DIRT_BRICKS = register("dirt_bricks",
@@ -106,10 +104,6 @@ public class RYSBlocks {
             .of(Material.WOOD).hardness(2.5F).resistance(2.5F).sounds(BlockSoundGroup.WOOD)));
 
     public RYSBlocks() {}
-
-    public static boolean blockIsOfPlanterBox(BlockState blockState) {
-        return blockState.isIn(RYSBlockTags.PLANTER_BOXES);
-    };
 
     public static Block register(String id, Block block, boolean registerItem) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);

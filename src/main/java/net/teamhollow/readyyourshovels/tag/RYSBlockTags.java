@@ -8,7 +8,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
 public class RYSBlockTags {
     public static final Tag<Block> ANT_RESOURCES = register("ant_resources");
-    public static final Tag<Block> PLANTER_BOXES = register("planter_boxes");
+    public static final Tag<Block> PLANT_SUPPORTERS = register("plant_supporters");
 
     public RYSBlockTags() {}
 

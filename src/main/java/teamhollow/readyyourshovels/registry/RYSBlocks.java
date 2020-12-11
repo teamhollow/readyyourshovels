@@ -2,6 +2,7 @@ package teamhollow.readyyourshovels.registry;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -38,6 +39,14 @@ public class RYSBlocks {
     public static final Block TOUGH_DIRT_SLAB = new SlabBlock(Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block TOUGH_DIRT_STAIRS = new StairsBlock(TOUGH_DIRT::getDefaultState, Block.Properties.create(Material.EARTH).harvestTool(ToolType.SHOVEL).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.0F, 1.5F).sound(SoundType.GROUND));
     public static final Block TOUGH_DIRT_WALL = new WallBlock(AbstractBlock.Properties.from(TOUGH_DIRT));
+
+    public static final Block PEAT_BLOCK = new Block(Block.Properties.create(Material.ROCK, MaterialColor.BROWN).harvestTool(ToolType.PICKAXE).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.5F, 6.0F).sound(SoundType.STONE));
+
+    public static final Block PEAT_BRICK = new Block(Block.Properties.create(Material.ROCK, MaterialColor.BROWN).harvestTool(ToolType.PICKAXE).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.5F, 6.0F).sound(SoundType.STONE));
+    public static final Block PEAT_BRICK_SLAB = new SlabBlock(Block.Properties.create(Material.ROCK, MaterialColor.BROWN).harvestTool(ToolType.PICKAXE).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.5F, 6.0F).sound(SoundType.STONE));
+    public static final Block PEAT_BRICK_STAIRS = new StairsBlock(PEAT_BRICK::getDefaultState, Block.Properties.create(Material.ROCK, MaterialColor.BROWN).harvestTool(ToolType.PICKAXE).setRequiresTool().harvestLevel(0).hardnessAndResistance(1.5F, 6.0F).sound(SoundType.STONE));
+    public static final Block PEAT_BRICK_WALL = new WallBlock(AbstractBlock.Properties.from(PEAT_BRICK));
+
 
     public static final Block OAK_PLANTER_BOX = new Block(Block.Properties
             .create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
@@ -83,6 +92,13 @@ public class RYSBlocks {
         registry.getRegistry().register(TOUGH_DIRT_STAIRS.setRegistryName("tough_dirt_stairs"));
         registry.getRegistry().register(TOUGH_DIRT_WALL.setRegistryName("tough_dirt_wall"));
 
+        registry.getRegistry().register(PEAT_BLOCK.setRegistryName("peat_block"));
+
+        registry.getRegistry().register(PEAT_BRICK.setRegistryName("peat_bricks"));
+        registry.getRegistry().register(PEAT_BRICK_SLAB.setRegistryName("peat_brick_slab"));
+        registry.getRegistry().register(PEAT_BRICK_STAIRS.setRegistryName("peat_brick_stairs"));
+        registry.getRegistry().register(PEAT_BRICK_WALL.setRegistryName("peat_brick_wall"));
+
         registry.getRegistry().register(OAK_PLANTER_BOX.setRegistryName("oak_planter_box"));
         registry.getRegistry().register(BIRCH_PLANTER_BOX.setRegistryName("birch_planter_box"));
         registry.getRegistry().register(SPRUCE_PLANTER_BOX.setRegistryName("spruce_planter_box"));
@@ -118,6 +134,13 @@ public class RYSBlocks {
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_SLAB, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(TOUGH_DIRT_WALL, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+
+        RYSItems.register(registry, new BlockItem(PEAT_BLOCK, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+
+        RYSItems.register(registry, new BlockItem(PEAT_BRICK, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(PEAT_BRICK_SLAB, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(PEAT_BRICK_STAIRS, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
+        RYSItems.register(registry, new BlockItem(PEAT_BRICK_WALL, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
 
         RYSItems.register(registry, new BlockItem(OAK_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));
         RYSItems.register(registry, new BlockItem(BIRCH_PLANTER_BOX, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)));

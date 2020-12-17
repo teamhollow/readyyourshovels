@@ -1,0 +1,36 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:smooth_dirt"
+    ]
+  },
+  "criteria": {
+    "has_water_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:water_bucket"
+          }
+        ]
+      }
+    },
+    "has_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:dirt"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_water_bucket",
+      "has_dirt"
+    ]
+  ]
+}

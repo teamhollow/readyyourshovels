@@ -1,0 +1,8 @@
+{
+    "parent": "block/outer_stairs",
+    "textures": {
+        "bottom": "rys:block/smooth_dirt",
+        "top": "rys:block/smooth_dirt",
+        "side": "rys:block/smooth_dirt"
+    }
+}

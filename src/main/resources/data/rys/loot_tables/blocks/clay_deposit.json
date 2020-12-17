@@ -1,0 +1,56 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:match_tool",
+									"predicate": {
+										"enchantments": [
+											{
+												"enchantment": "minecraft:silk_touch",
+												"levels": {
+													"min": 1
+												}
+											}
+										]
+									}
+								},
+								{
+									"condition": "rys:match_harvest_level",
+									"harvest_level": 1
+								},
+								{
+									"condition": "rys:match_harvest_tool",
+									"harvest_tool": "shovel"
+								}
+							],
+							"name": "rys:clay_deposit"
+						},
+						{
+							"type": "minecraft:item",
+                          "functions": [
+								{
+									"function": "rys:apply_fortune",
+									"bonus": 4,
+									"count": {
+										"min": 1,
+										"max": 4
+									}
+								}
+							],
+							"name": "minecraft:clay_ball"
+						}
+					]
+				}
+			]
+		}
+	]
+}

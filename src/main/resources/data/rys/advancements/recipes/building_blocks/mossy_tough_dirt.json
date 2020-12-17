@@ -1,0 +1,37 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:mossy_tough_dirt"
+    ]
+  },
+  "criteria": {
+    "has_tough_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rys:tough_dirt"
+          }
+        ]
+      }
+    },
+    "has_vines": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:vine"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tough_dirt",
+      "has_vines"
+
+    ]
+  ]
+}

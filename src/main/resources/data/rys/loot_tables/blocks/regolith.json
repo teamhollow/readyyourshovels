@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"conditions": [
+						{
+							"condition": "rys:match_harvest_level",
+							"harvest_level": 3
+						},
+						{
+							"condition": "rys:match_harvest_tool",
+							"harvest_tool": "shovel"
+						}
+					],
+					"name": "rys:regolith"
+				}
+			],
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			]
+		}
+	]
+}

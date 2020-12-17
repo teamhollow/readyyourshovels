@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"A  ",
+		"AA ",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"item": "rys:smooth_dirt"
+		}
+	},
+	"result": {
+		"item": "rys:smooth_dirt_stairs",
+		"count": 4
+	}
+}

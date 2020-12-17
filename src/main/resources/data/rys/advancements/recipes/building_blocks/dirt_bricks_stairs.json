@@ -1,0 +1,25 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:dirt_bricks_stairs"
+    ]
+  },
+  "criteria": {
+    "has_dirt_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rys:dirt_bricks"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dirt_bricks"
+    ]
+  ]
+}

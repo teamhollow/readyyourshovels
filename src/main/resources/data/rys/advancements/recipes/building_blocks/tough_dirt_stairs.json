@@ -1,0 +1,25 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:tough_dirt_stairs"
+    ]
+  },
+  "criteria": {
+    "has_tough_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rys:tough_dirt"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tough_dirt"
+    ]
+  ]
+}

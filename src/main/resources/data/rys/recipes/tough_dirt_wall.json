@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"AAA",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"item": "rys:tough_dirt"
+		}
+	},
+	"result": {
+		"item": "rys:tough_dirt_wall",
+		"count": 6
+	}
+}

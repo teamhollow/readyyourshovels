@@ -1,0 +1,8 @@
+{
+    "parent": "block/inner_stairs",
+    "textures": {
+        "bottom": "rys:block/dirt_bricks",
+        "top": "rys:block/dirt_bricks",
+        "side": "rys:block/dirt_bricks"
+    }
+}

@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"half=lower": { "model": "rys:block/dayroot_bottom" },
+		"half=upper": { "model": "rys:block/dayroot_top" }
+	}
+}

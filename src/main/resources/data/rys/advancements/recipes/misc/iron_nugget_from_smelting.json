@@ -1,0 +1,25 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:iron_nugget_from_smelting"
+    ]
+  },
+  "criteria": {
+    "has_iron_deposit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rys:iron_deposit"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron_deposit"
+    ]
+  ]
+}

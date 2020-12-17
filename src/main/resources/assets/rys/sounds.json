@@ -1,0 +1,11 @@
+{
+  "music.record.colly": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "rys:record/colly",
+        "stream": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:peat_from_peat_block"
+    ]
+  },
+  "criteria": {
+    "has_peat_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rys:peat_block"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_peat_block"
+    ]
+  ]
+}

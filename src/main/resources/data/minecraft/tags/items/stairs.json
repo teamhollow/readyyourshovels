@@ -1,0 +1,8 @@
+{
+	"replace": false,
+	"values": [
+		"rys:tough_dirt_stairs",
+		"rys:dirt_bricks_stairs",
+		"rys:smooth_dirt_stairs"
+	]
+}

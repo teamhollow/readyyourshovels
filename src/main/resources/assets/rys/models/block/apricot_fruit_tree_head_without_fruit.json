@@ -1,0 +1,7 @@
+{
+  "parent": "rys:block/apple_fruit_tree_head_without_fruit",
+  "textures": {
+    "tree": "rys:block/apricottreefruit",
+    "particle": "minecraft:block/jungle_leaves"
+  }
+}

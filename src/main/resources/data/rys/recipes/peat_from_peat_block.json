@@ -1,0 +1,12 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "rys:peat_block"
+		}
+	],
+	"result": {
+		"item": "rys:peat",
+		"count": 9
+	}
+}

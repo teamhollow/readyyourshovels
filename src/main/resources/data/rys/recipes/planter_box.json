@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"ABA",
+		"ACA",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"tag": "minecraft:planks"
+		},
+		"B": {
+			"item": "rys:peat"
+		},
+		"C": {
+			"item": "minecraft:dirt"
+		}
+	},
+	"result": {
+		"item": "rys:planter_box"
+	}
+}

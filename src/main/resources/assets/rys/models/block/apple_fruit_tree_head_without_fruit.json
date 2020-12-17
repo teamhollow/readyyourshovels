@@ -1,0 +1,321 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "tree": "rys:block/appletreefruit",
+    "particle": "minecraft:block/oak_leaves"
+  },
+  "elements": [
+    {
+      "name": "canopy",
+      "from": [
+        -3,
+        -3,
+        -3
+      ],
+      "to": [
+        19,
+        11,
+        19
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          6,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            6,
+            2.875,
+            8.75,
+            4.625
+          ],
+          "texture": "#tree"
+        },
+        "east": {
+          "uv": [
+            6,
+            2.875,
+            8.75,
+            4.625
+          ],
+          "texture": "#tree"
+        },
+        "south": {
+          "uv": [
+            6,
+            2.875,
+            8.75,
+            4.625
+          ],
+          "texture": "#tree"
+        },
+        "west": {
+          "uv": [
+            6,
+            2.875,
+            8.75,
+            4.625
+          ],
+          "texture": "#tree"
+        },
+        "up": {
+          "uv": [
+            5.875,
+            0.125,
+            8.625,
+            2.875
+          ],
+          "texture": "#tree"
+        },
+        "down": {
+          "uv": [
+            3.25,
+            0.125,
+            6,
+            2.875
+          ],
+          "texture": "#tree"
+        }
+      }
+    },
+    {
+      "name": "crown",
+      "from": [
+        2,
+        10,
+        2
+      ],
+      "to": [
+        14,
+        20,
+        14
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          6,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            11.875,
+            1.5,
+            13.375,
+            2.75
+          ],
+          "texture": "#tree"
+        },
+        "east": {
+          "uv": [
+            11.875,
+            1.5,
+            13.375,
+            2.75
+          ],
+          "texture": "#tree"
+        },
+        "south": {
+          "uv": [
+            11.875,
+            1.5,
+            13.375,
+            2.75
+          ],
+          "texture": "#tree"
+        },
+        "west": {
+          "uv": [
+            11.875,
+            1.5,
+            13.375,
+            2.75
+          ],
+          "texture": "#tree"
+        },
+        "up": {
+          "uv": [
+            10.375,
+            0,
+            11.875,
+            1.5
+          ],
+          "texture": "#tree"
+        },
+        "down": {
+          "uv": [
+            11.875,
+            0,
+            13.25,
+            1.5
+          ],
+          "texture": "#tree"
+        }
+      }
+    },
+    {
+      "name": "decor_1",
+      "from": [
+        -11,
+        -10,
+        8
+      ],
+      "to": [
+        27,
+        23,
+        8
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "east": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "south": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "up": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "down": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        }
+      }
+    },
+    {
+      "name": "decor_2",
+      "from": [
+        -11,
+        -10,
+        8
+      ],
+      "to": [
+        27,
+        24,
+        8
+      ],
+      "rotation": {
+        "angle": -45,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "east": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "south": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "up": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        },
+        "down": {
+          "uv": [
+            0.5,
+            8.25,
+            5.25,
+            12.375
+          ],
+          "texture": "#tree"
+        }
+      }
+    }
+  ]
+}

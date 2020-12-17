@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"AAA",
+		"ABA",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"item": "rys:tough_dirt"
+		},
+		"B": {
+			"item": "minecraft:water_bucket"
+		}
+	},
+	"result": {
+		"item": "rys:smooth_dirt",
+		"count": 8
+	}
+}

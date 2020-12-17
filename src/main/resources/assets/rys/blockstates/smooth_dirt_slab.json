@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "rys:block/smooth_dirt_slab" },
+        "type=top": { "model": "rys:block/smooth_dirt_slab_top" },
+        "type=double": { "model": "rys:block/smooth_dirt" }
+    }
+}

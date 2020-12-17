@@ -1,0 +1,36 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:torch"
+    ]
+  },
+  "criteria": {
+    "has_peat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rys:peat"
+          }
+        ]
+      }
+    },
+      "has_stick": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "item": "minecraft:stick"
+            }
+          ]
+        }
+      }
+  },
+  "requirements": [
+    [
+      "has_stick",
+      "has_peat"
+    ]
+  ]
+}

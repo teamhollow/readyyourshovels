@@ -1,0 +1,7 @@
+{
+  "parent": "rys:block/apple_fruit_tree_head",
+  "textures": {
+    "tree": "rys:block/appletreebare",
+    "particle": "minecraft:block/oak_log"
+  }
+}

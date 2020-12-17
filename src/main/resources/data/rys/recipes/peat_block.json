@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"AAA",
+		"AAA",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"item": "rys:peat"
+		}
+	},
+	"result": {
+		"item": "rys:peat_block"
+	}
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "rys:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rys:gold_nugget_from_blasting"
+    ]
+  },
+  "criteria": {
+    "has_gold_deposit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rys:gold_deposit"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_gold_deposit"
+    ]
+  ]
+}

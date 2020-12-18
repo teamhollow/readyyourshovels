@@ -29,7 +29,7 @@ import java.util.List;
 public class AntNestTileEntity extends TileEntity implements ITickableTileEntity {
     private final List<AntNestTileEntity.Ant> ants = Lists.newArrayList();
     @Nullable
-    private BlockPos flowerPos = null;
+    private BlockPos resourcePos = null;
 
     public AntNestTileEntity() {
         super(RYSTileEntity.ANT_NEST);
@@ -123,7 +123,7 @@ public class AntNestTileEntity extends TileEntity implements ITickableTileEntity
                 if (p_226962_1_ instanceof AbstractAntEntity) {
                     AbstractAntEntity antEntity = (AbstractAntEntity) p_226962_1_;
                     if (antEntity.hasResource() && (!this.hasResourcePos() || this.world.rand.nextBoolean())) {
-                        this.flowerPos = antEntity.getResourcePos();
+                        this.resourcePos = antEntity.getResourcePos();
                     }
                 }
 
@@ -160,7 +160,7 @@ public class AntNestTileEntity extends TileEntity implements ITickableTileEntity
                         if (entity instanceof AbstractAntEntity) {
                             AbstractAntEntity antEntity = (AbstractAntEntity) entity;
                             if (this.hasResourcePos() && !antEntity.hasResource() && this.world.rand.nextFloat() < 0.9F) {
-                                antEntity.setResourcePos(this.flowerPos);
+                                antEntity.setResourcePos(this.resourcePos);
                             }
 
                             if (p_235651_4_ == AntNestTileEntity.State.HONEY_DELIVERED) {
@@ -214,7 +214,7 @@ public class AntNestTileEntity extends TileEntity implements ITickableTileEntity
     }
 
     private boolean hasResourcePos() {
-        return this.flowerPos != null;
+        return this.resourcePos != null;
     }
 
     private void tickAnts() {
@@ -224,7 +224,7 @@ public class AntNestTileEntity extends TileEntity implements ITickableTileEntity
         for (BlockState blockstate = this.getBlockState(); iterator.hasNext(); beehivetileentity$bee.ticksInHive++) {
             beehivetileentity$bee = iterator.next();
             if (beehivetileentity$bee.ticksInHive > beehivetileentity$bee.minOccupationTicks) {
-                AntNestTileEntity.State beehivetileentity$state = beehivetileentity$bee.entityData.getBoolean("HasNectar") ? AntNestTileEntity.State.HONEY_DELIVERED : AntNestTileEntity.State.BEE_RELEASED;
+                AntNestTileEntity.State beehivetileentity$state = beehivetileentity$bee.entityData.getBoolean("HasNectar") ? AntNestTileEntity.State.HONEY_DELIVERED : AntNestTileEntity.State.ANT_RELEASED;
                 if (this.func_235651_a_(blockstate, beehivetileentity$bee, (List<Entity>) null, beehivetileentity$state)) {
                     iterator.remove();
                 }
@@ -257,9 +257,9 @@ public class AntNestTileEntity extends TileEntity implements ITickableTileEntity
             this.ants.add(beehivetileentity$bee);
         }
 
-        this.flowerPos = null;
-        if (nbt.contains("FlowerPos")) {
-            this.flowerPos = NBTUtil.readBlockPos(nbt.getCompound("FlowerPos"));
+        this.resourcePos = null;
+        if (nbt.contains("ResourcePos")) {
+            this.resourcePos = NBTUtil.readBlockPos(nbt.getCompound("ResourcePos"));
         }
 
     }
@@ -268,7 +268,7 @@ public class AntNestTileEntity extends TileEntity implements ITickableTileEntity
         super.write(compound);
         compound.put("Ants", this.getAnts());
         if (this.hasResourcePos()) {
-            compound.put("ResourcePos", NBTUtil.writeBlockPos(this.flowerPos));
+            compound.put("ResourcePos", NBTUtil.writeBlockPos(this.resourcePos));
         }
 
         return compound;
@@ -304,7 +304,7 @@ public class AntNestTileEntity extends TileEntity implements ITickableTileEntity
 
     public static enum State {
         HONEY_DELIVERED,
-        BEE_RELEASED,
+        ANT_RELEASED,
         EMERGENCY;
     }
 }

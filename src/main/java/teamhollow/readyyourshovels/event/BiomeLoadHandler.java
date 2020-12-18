@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import teamhollow.readyyourshovels.ReadyYourShovels;
 import teamhollow.readyyourshovels.registry.RYSBlocks;
 import teamhollow.readyyourshovels.registry.RYSFeatures;
+import teamhollow.readyyourshovels.registry.RYSStructures;
 
 @Mod.EventBusSubscriber(modid = ReadyYourShovels.MODID)
 public class BiomeLoadHandler {
@@ -27,6 +28,8 @@ public class BiomeLoadHandler {
                 generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.PEAT_DEPOSIT.getDefaultState(), 12)).range(128).square().func_242731_b(20));
                 generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.IRON_DEPOSIT.getDefaultState(), 9)).range(64).square().func_242731_b(20));
                 generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(RYSFeatures.TOUGH_DIRT_RULE, RYSBlocks.GOLD_DEPOSIT.getDefaultState(), 6)).range(32).square().func_242731_b(2));
+
+                generation.withStructure(RYSStructures.ANT_HILL_FEATURE);
             }
         }
     }

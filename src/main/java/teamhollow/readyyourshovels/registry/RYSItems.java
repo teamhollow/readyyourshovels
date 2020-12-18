@@ -8,10 +8,11 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import teamhollow.readyyourshovels.ReadyYourShovels;
+import teamhollow.readyyourshovels.item.PeatItem;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ReadyYourShovels.MODID)
 public class RYSItems {
-    public static final Item PEAT = new Item(new Item.Properties().group(ItemGroup.MISC));
+    public static final Item PEAT = new PeatItem(new Item.Properties().group(ItemGroup.MISC));
 
 
     public static void register(RegistryEvent.Register<Item> registry, Item item, String id) {

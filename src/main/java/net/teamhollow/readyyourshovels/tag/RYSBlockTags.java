@@ -6,9 +6,10 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
+@SuppressWarnings("unused")
 public class RYSBlockTags {
-    public static final Tag<Block> ANT_RESOURCES = register("ant_resources");
-    public static final Tag<Block> PLANT_SUPPORTERS = register("plant_supporters");
+    public static final Tag<Block> ANT_RESOURCES = register("ant_resources"); // TODO
+    public static final Tag<Block> PLANTER_BOXES = register("planter_boxes");
 
     public RYSBlockTags() {}
 

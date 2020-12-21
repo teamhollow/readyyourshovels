@@ -19,6 +19,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.teamhollow.readyyourshovels.init.RYSSoundEvents;
 import net.teamhollow.readyyourshovels.tag.RYSItemTags;
 
 public abstract class AbstractAntEntity extends AnimalEntity {
@@ -60,7 +61,7 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     protected void playStepSound(BlockPos pos, BlockState state) {}
 
     protected SoundEvent getAmbientSound() {
-        return null;
+        return RYSSoundEvents.ENTITY_ANT_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {

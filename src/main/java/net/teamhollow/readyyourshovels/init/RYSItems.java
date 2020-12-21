@@ -7,12 +7,20 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.item.vanilla.PublicMusicDiscItem;
 
 @SuppressWarnings("unused")
 public class RYSItems {
     public static final Item PEAT = register("peat");
+    public static final Item MUSIC_DISC_COLLY = register("music_disc_colly", new PublicMusicDiscItem(12, RYSSoundEvents.MUSIC_DISC_COLLY, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE).group(ReadyYourShovels.ITEM_GROUP)));
+
+    //
+    // FRUITS
+    //
+
     public static final Item ROTTEN_APPLE = register(
         "rotten_apple",
         new Item(

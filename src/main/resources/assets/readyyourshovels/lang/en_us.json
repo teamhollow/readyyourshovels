@@ -43,6 +43,8 @@
     "block.readyyourshovels.apricot_fruit_sapling": "Apricot Fruit Sapling",
 
     "item.readyyourshovels.peat": "Peat",
+    "item.readyyourshovels.music_disc_colly": "Music Disc",
+    "item.readyyourshovels.music_disc_colly.desc": "Axoladdy - Colly",
     "item.readyyourshovels.rotten_apple": "Rotten Apple",
     "item.readyyourshovels.orange": "Orange",
     "item.readyyourshovels.rotten_orange": "Rotten Orange",
@@ -52,5 +54,5 @@
 
     "entity.readyyourshovels.garden_ant": "Garden Ant",
 
-    "subtitles.readyyourshovels.entity.garden_ant.ambient": "Garden Ant hisses"
+    "subtitles.readyyourshovels.entity.ant.ambient": "Ant hisses"
 }

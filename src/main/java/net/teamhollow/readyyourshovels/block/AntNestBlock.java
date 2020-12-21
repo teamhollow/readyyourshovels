@@ -1,70 +1,42 @@
 package net.teamhollow.readyyourshovels.block;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.CampfireBlock;
-import net.minecraft.block.FireBlock;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.TntEntity;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.WitherSkullEntity;
-import net.minecraft.entity.vehicle.TntMinecartEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
 import net.teamhollow.readyyourshovels.entity.AbstractAntEntity;
 import net.teamhollow.readyyourshovels.state.property.RYSProperties;
 
+import java.util.List;
+
 public class AntNestBlock extends BlockWithEntity {
     public static final String id = "ant_nest";
 
-    private static final Direction[] GENERATE_DIRECTIONS;
-    public static final DirectionProperty FACING;
-    public static final IntProperty RESOURCE_LEVEL;
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final IntProperty RESOURCE_LEVEL = RYSProperties.RESOURCE_LEVEL;
 
     public AntNestBlock() {
         super(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL));
@@ -80,33 +52,29 @@ public class AntNestBlock extends BlockWithEntity {
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
         super.afterBreak(world, player, pos, state, blockEntity, stack);
         if (!world.isClient && blockEntity instanceof AntNestBlockEntity) {
-            AntNestBlockEntity antNestBlockEntity = (AntNestBlockEntity) blockEntity;
+            // AntNestBlockEntity antNestBlockEntity = (AntNestBlockEntity) blockEntity; TODO
             if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 0) {
-                antNestBlockEntity.angerAnts(player, state, AntNestBlockEntity.AntState.EMERGENCY);
+                // antNestBlockEntity.angerAnts(player, state, AntNestBlockEntity.AntState.EMERGENCY);
                 this.angerNearbyAnts(world, pos);
             }
         }
-
     }
 
     private void angerNearbyAnts(World world, BlockPos pos) {
-        List<AbstractAntEntity> list1 = world.getNonSpectatingEntities(AbstractAntEntity.class, (new Box(pos)).expand(8.0D, 6.0D, 8.0D));
-        if (!list1.isEmpty()) {
-            List<PlayerEntity> list2 = world.getNonSpectatingEntities(PlayerEntity.class,
-                    (new Box(pos)).expand(8.0D, 6.0D, 8.0D));
-            int i = list2.size();
-            Iterator<AbstractAntEntity> iterator = list1.iterator();
+        List<AbstractAntEntity> ants = world.getNonSpectatingEntities(AbstractAntEntity.class, new Box(pos).expand(8.0D, 6.0D, 8.0D));
+        if (!ants.isEmpty()) {
+            List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos).expand(8.0D, 6.0D, 8.0D));
+            int i = players.size();
 
-            while (iterator.hasNext()) {
-                AbstractAntEntity antEntity = (AbstractAntEntity) iterator.next();
+            for (AbstractAntEntity antEntity : ants) {
                 if (antEntity.getTarget() == null) {
-                    antEntity.setTarget((LivingEntity) list2.get(world.random.nextInt(i)));
+                    antEntity.setTarget(players.get(world.random.nextInt(i)));
                 }
             }
         }
     }
 
-    @Environment(EnvType.CLIENT)
+    /*@Environment(EnvType.CLIENT)
     private void spawnHoneyParticles(World world, BlockPos pos, BlockState state) {
         if (state.getFluidState().isEmpty() && world.random.nextFloat() >= 0.3F) {
             VoxelShape voxelShape = state.getCollisionShape(world, pos);
@@ -127,35 +95,39 @@ public class AntNestBlock extends BlockWithEntity {
             }
 
         }
-    }
+    } TODO */
 
-    @Environment(EnvType.CLIENT)
+    /*@Environment(EnvType.CLIENT)
     private void addHoneyParticle(World world, BlockPos pos, VoxelShape shape, double height) {
         this.addHoneyParticle(world, (double) pos.getX() + shape.getMin(Direction.Axis.X),
                 (double) pos.getX() + shape.getMax(Direction.Axis.X),
                 (double) pos.getZ() + shape.getMin(Direction.Axis.Z),
                 (double) pos.getZ() + shape.getMax(Direction.Axis.Z), height);
-    }
+    } TODO */
 
-    @Environment(EnvType.CLIENT)
+    /*@Environment(EnvType.CLIENT)
     private void addHoneyParticle(World world, double minX, double maxX, double minZ, double maxZ, double height) {
         world.addParticle(ParticleTypes.DRIPPING_HONEY, MathHelper.lerp(world.random.nextDouble(), minX, maxX), height, MathHelper.lerp(world.random.nextDouble(), minZ, maxZ), 0.0D, 0.0D, 0.0D);
-    }
+    } TODO */
 
+    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState) this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
     }
 
+    @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
+    @Override
     public BlockEntity createBlockEntity(BlockView world) {
         return new AntNestBlockEntity();
     }
 
+    @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient && player.isCreative() && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
+        /*if (!world.isClient && player.isCreative() && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof AntNestBlockEntity) {
                 AntNestBlockEntity antBlockEntity = (AntNestBlockEntity) blockEntity;
@@ -176,44 +148,45 @@ public class AntNestBlock extends BlockWithEntity {
                 compoundTag = new CompoundTag();
                 compoundTag.putInt("resource_level", resourceLevel);
                 itemStack.putSubTag("BlockStateTag", compoundTag);
-                ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX(), (double) pos.getY(),
-                        (double) pos.getZ(), itemStack);
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
             }
-        }
+        } TODO */
 
         super.onBreak(world, pos, state, player);
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
     public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-        Entity entity = (Entity) builder.getNullable(LootContextParameters.THIS_ENTITY);
-        if (entity instanceof TntEntity || entity instanceof CreeperEntity || entity instanceof WitherSkullEntity
-                || entity instanceof WitherEntity || entity instanceof TntMinecartEntity) {
-            BlockEntity blockEntity = (BlockEntity) builder.getNullable(LootContextParameters.BLOCK_ENTITY);
+        /*Entity entity = builder.getNullable(LootContextParameters.THIS_ENTITY);
+        if (entity instanceof TntEntity || entity instanceof CreeperEntity || entity instanceof WitherSkullEntity || entity instanceof WitherEntity || entity instanceof TntMinecartEntity) {
+            BlockEntity blockEntity = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
             if (blockEntity instanceof AntNestBlockEntity) {
                 AntNestBlockEntity antBlockEntity = (AntNestBlockEntity) blockEntity;
                 antBlockEntity.angerAnts((PlayerEntity) null, state, AntNestBlockEntity.AntState.EMERGENCY);
             }
-        }
+        } TODO */
 
         return super.getDroppedStacks(state, builder);
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState,
-            WorldAccess world, BlockPos pos, BlockPos posFrom) {
-        if (world.getBlockState(posFrom).getBlock() instanceof FireBlock) {
+    @SuppressWarnings("deprecation")
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+        /*if (world.getBlockState(posFrom).getBlock() instanceof FireBlock) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof AntNestBlockEntity) {
                 AntNestBlockEntity antBlockEntity = (AntNestBlockEntity) blockEntity;
                 antBlockEntity.angerAnts((PlayerEntity) null, state, AntNestBlockEntity.AntState.EMERGENCY);
             }
-        }
+        } TODO */
 
         return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
     }
 
-    private boolean hasAnts(World world, BlockPos pos) {
+    /*private boolean hasAnts(World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof AntNestBlockEntity) {
             AntNestBlockEntity antNestBlockEntity = (AntNestBlockEntity) blockEntity;
@@ -221,9 +194,9 @@ public class AntNestBlock extends BlockWithEntity {
         } else {
             return false;
         }
-    }
+    } TODO */
     
-    public void takeAcid(World world, BlockState state, BlockPos pos, PlayerEntity player, AntNestBlockEntity.AntState antState) {
+    /*public void takeAcid(World world, BlockState state, BlockPos pos, PlayerEntity player, AntNestBlockEntity.AntState antState) {
         this.takeAcid(world, state, pos);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof AntNestBlockEntity) {
@@ -233,11 +206,13 @@ public class AntNestBlock extends BlockWithEntity {
     }
     public void takeAcid(World world, BlockState state, BlockPos pos) {
         world.setBlockState(pos, state.with(RESOURCE_LEVEL, 0), 3);
-    }
+    } TODO */
 
+    @SuppressWarnings("deprecation")
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getStackInHand(hand);
-        int i = (Integer) state.get(RESOURCE_LEVEL);
+        int i = state.get(RESOURCE_LEVEL);
         boolean bl = false;
         if (i >= 5) {
             if (itemStack.getItem() == Items.GLASS_BOTTLE) {
@@ -254,7 +229,7 @@ public class AntNestBlock extends BlockWithEntity {
         }
 
         if (bl) {
-            if (!CampfireBlock.isLitCampfireInRange(world, pos)) {
+            /*if (!CampfireBlock.isLitCampfireInRange(world, pos)) {
                 if (this.hasAnts(world, pos)) {
                     this.angerNearbyAnts(world, pos);
                 }
@@ -262,7 +237,7 @@ public class AntNestBlock extends BlockWithEntity {
                 this.takeAcid(world, state, pos, player, AntNestBlockEntity.AntState.EMERGENCY);
             } else {
                 this.takeAcid(world, state, pos);
-            }
+            } TODO */
 
             return ActionResult.success(world.isClient);
         } else {
@@ -270,21 +245,15 @@ public class AntNestBlock extends BlockWithEntity {
         }
     }
 
-    public static Direction getRandomGenerationDirection(Random random) {
-        return (Direction) Util.getRandom((Object[]) GENERATE_DIRECTIONS, random);
-    }
-
+    @SuppressWarnings("deprecation")
+    @Override
     public boolean hasComparatorOutput(BlockState state) {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return state.get(RESOURCE_LEVEL);
-    }
-
-    static {
-        GENERATE_DIRECTIONS = new Direction[] { Direction.WEST, Direction.EAST, Direction.SOUTH };
-        FACING = HorizontalFacingBlock.FACING;
-        RESOURCE_LEVEL = RYSProperties.RESOURCE_LEVEL;
     }
 }

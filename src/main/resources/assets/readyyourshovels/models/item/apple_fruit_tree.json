@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "readyyourshovels:item/apple_fruit_tree"
+    }
+}

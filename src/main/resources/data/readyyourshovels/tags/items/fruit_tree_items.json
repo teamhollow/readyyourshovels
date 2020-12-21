@@ -1,0 +1,11 @@
+{
+    "replace": false,
+    "values": [
+        "minecraft:apple",
+        "readyyourshovels:rotten_apple",
+        "readyyourshovels:orange",
+        "readyyourshovels:rotten_orange",
+        "readyyourshovels:apricot",
+        "readyyourshovels:rotten_apricot"
+    ]
+}

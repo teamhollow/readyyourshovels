@@ -12,7 +12,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
 
 public class RYSBlockEntities {
-    public static final BlockEntityType<AntNestBlockEntity> ANT_NEST = register(AntNestBlockEntity.id, AntNestBlockEntity.builder);
+    public static final BlockEntityType<AntNestBlockEntity> ANT_NEST = register(AntNestBlockEntity.id, BlockEntityType.Builder.create(AntNestBlockEntity::new, RYSBlocks.ANT_NEST));
 
     public RYSBlockEntities() {}
 

@@ -3,6 +3,8 @@
   "package": "net.teamhollow.readyyourshovels.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BoneMealItemMixin",
+
     "CropBlockMixin",
     "StemBlockMixin"
   ],

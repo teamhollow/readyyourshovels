@@ -47,37 +47,9 @@ public class DirtCaveFeature extends Feature<DefaultFeatureConfig> {
                        || state.isOf(Blocks.COAL_ORE)
                        || state.isOf(Blocks.IRON_ORE)
                        || state.isOf(Blocks.GOLD_ORE)
-                    ) {
-                        if (y >= 27) {
-                            world.setBlockState(blockPos, RYSBlocks.REGOLITH.getDefaultState(), 2);
-                        } else {
-                            if (random.nextFloat() < 0.0075F && neigboringAreFree(blockPos.up(), world)) {
-                                world.setBlockState(blockPos.up(), RYSBlocks.ANT_NEST.getDefaultState().with(AntNestBlock.FACING, AntNestBlock.getRandomGenerationDirection(random)), 2);
-                                BlockEntity blockEntity = world.getBlockEntity(blockPos.up());
-                                if (blockEntity instanceof AntNestBlockEntity) {
-                                    AntNestBlockEntity antNestBlockEntity = (AntNestBlockEntity) blockEntity;
-                                    int rand = 2 + random.nextInt(2);
-
-                                    for (int i = 0; i < rand; ++i) {
-                                        GardenAntEntity gardenAntEntity = new GardenAntEntity(RYSEntities.GARDEN_ANT, world.toServerWorld());
-                                        antNestBlockEntity.tryEnterNest(gardenAntEntity, false, random.nextInt(599));
-                                    }
-                                }
-                            }
-
-                            world.setBlockState(blockPos, RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
-                        }
-                    }
+                    ) world.setBlockState(blockPos, y >= 27 ? RYSBlocks.REGOLITH.getDefaultState() : RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
                 }
             }
-        }
-
-        return true;
-    }
-
-    private boolean neigboringAreFree(BlockPos pos, ServerWorldAccess world) {
-        for (BlockPos i : new BlockPos[]{ pos, pos.up(), pos.north(), pos.east(), pos.south(), pos.west() }) {
-            if (!(world.getBlockState(i).getBlock() instanceof AirBlock)) return false;
         }
 
         return true;

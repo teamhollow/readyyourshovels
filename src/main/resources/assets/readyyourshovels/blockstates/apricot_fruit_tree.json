@@ -1,5 +1,5 @@
 {
-	"variants": {
+    "variants": {
       "age=0,half=lower": {
         "model": "readyyourshovels:block/apricot_fruit_tree_lower"
       },
@@ -25,5 +25,5 @@
       "age=3,half=upper": {
         "model": "readyyourshovels:block/apricot_fruit_tree_upper_stage3"
       }
-	}
+    }
 }

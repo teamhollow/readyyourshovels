@@ -15,92 +15,115 @@ import net.teamhollow.readyyourshovels.block.vanilla.*;
 
 @SuppressWarnings("unused")
 public class RYSBlocks {
-
     //
     // TOUGH DIRT
     //
 
-    public static final Block TOUGH_DIRT = register("tough_dirt",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
-                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block TOUGH_DIRT_SLAB = register("tough_dirt_slab",
-            new SlabBlock(FabricBlockSettings.copy(TOUGH_DIRT)));
-    public static final Block TOUGH_DIRT_STAIRS = register("tough_dirt_stairs",
-            new PublicStairsBlock(TOUGH_DIRT.getDefaultState(), FabricBlockSettings.copy(TOUGH_DIRT)));
-    public static final Block TOUGH_DIRT_WALL = register("tough_dirt_wall",
-            new WallBlock(FabricBlockSettings.copy(TOUGH_DIRT)));
+    public static final Block TOUGH_DIRT = register("tough_dirt", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
+    public static final Block TOUGH_DIRT_SLAB = register("tough_dirt_slab", new SlabBlock(FabricBlockSettings.copy(TOUGH_DIRT)));
+    public static final Block TOUGH_DIRT_STAIRS = register("tough_dirt_stairs", new PublicStairsBlock(TOUGH_DIRT.getDefaultState(), FabricBlockSettings.copy(TOUGH_DIRT)));
+    public static final Block TOUGH_DIRT_WALL = register("tough_dirt_wall", new WallBlock(FabricBlockSettings.copy(TOUGH_DIRT)));
 
     //
     // TOUGH DIRT COUNTERPARTS
     //
 
-    public static final Block CLAY_DEPOSIT = register("clay_deposit",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
-                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block GOLD_DEPOSIT = register("gold_deposit",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
-                    .strength(2.0F, 2.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block IRON_DEPOSIT = register("iron_deposit",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 1).requiresTool()
-                    .strength(1.5F, 2.0F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block PEAT_DEPOSIT = register("peat_deposit",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
-                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block CLAY_DEPOSIT = register("clay_deposit", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
+    public static final Block GOLD_DEPOSIT = register("gold_deposit", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
+                    .strength(2.0F, 2.5F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
+    public static final Block IRON_DEPOSIT = register("iron_deposit", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS, 1).requiresTool()
+                    .strength(1.5F, 2.0F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
+    public static final Block PEAT_DEPOSIT = register("peat_deposit", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
 
-    public static final Block REGOLITH = register("regolith",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
-                    .strength(2.0F, 2.5F).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block REGOLITH = register("regolith", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
+                    .strength(2.0F, 2.5F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
 
     //
     // DIRT BRICKS
     //
 
-    public static final Block DIRT_BRICKS = register("dirt_bricks",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
-                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block DIRT_BRICK_SLAB = register("dirt_brick_slab",
-            new SlabBlock(FabricBlockSettings.copy(DIRT_BRICKS)));
-    public static final Block DIRT_BRICK_STAIRS = register("dirt_brick_stairs",
-            new PublicStairsBlock(DIRT_BRICKS.getDefaultState(), FabricBlockSettings.copy(DIRT_BRICKS)));
-    public static final Block DIRT_BRICK_WALL = register("dirt_brick_wall",
-            new WallBlock(FabricBlockSettings.copy(DIRT_BRICKS)));
+    public static final Block DIRT_BRICKS = register("dirt_bricks", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
+    public static final Block DIRT_BRICK_SLAB = register("dirt_brick_slab", new SlabBlock(FabricBlockSettings.copy(DIRT_BRICKS)));
+    public static final Block DIRT_BRICK_STAIRS = register("dirt_brick_stairs", new PublicStairsBlock(DIRT_BRICKS.getDefaultState(), FabricBlockSettings.copy(DIRT_BRICKS)));
+    public static final Block DIRT_BRICK_WALL = register("dirt_brick_wall", new WallBlock(FabricBlockSettings.copy(DIRT_BRICKS)));
 
     //
     // SMOOTH DIRT
     //
 
-    public static final Block SMOOTH_DIRT = register("smooth_dirt",
-            new Block(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool()
-                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)));
-    public static final Block SMOOTH_DIRT_SLAB = register("smooth_dirt_slab",
-            new SlabBlock(FabricBlockSettings.copy(SMOOTH_DIRT)));
-    public static final Block SMOOTH_DIRT_STAIRS = register("smooth_dirt_stairs",
-            new PublicStairsBlock(SMOOTH_DIRT.getDefaultState(), FabricBlockSettings.copy(SMOOTH_DIRT)));
-    public static final Block SMOOTH_DIRT_WALL = register("smooth_dirt_wall",
-            new WallBlock(FabricBlockSettings.copy(SMOOTH_DIRT)));
+    public static final Block SMOOTH_DIRT = register("smooth_dirt", new Block(
+            FabricBlockSettings.of(Material.SOIL)
+                    .breakByTool(FabricToolTags.SHOVELS).requiresTool()
+                    .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
+    public static final Block SMOOTH_DIRT_SLAB = register("smooth_dirt_slab", new SlabBlock(FabricBlockSettings.copy(SMOOTH_DIRT)));
+    public static final Block SMOOTH_DIRT_STAIRS = register("smooth_dirt_stairs", new PublicStairsBlock(SMOOTH_DIRT.getDefaultState(), FabricBlockSettings.copy(SMOOTH_DIRT)));
+    public static final Block SMOOTH_DIRT_WALL = register("smooth_dirt_wall", new WallBlock(FabricBlockSettings.copy(SMOOTH_DIRT)));
 
     //
     // PEAT BLOCKS
     //
 
-    public static final Block PEAT_BLOCK = register("peat_block",
-            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN).breakByTool(FabricToolTags.PICKAXES)
-                    .requiresTool().strength(1.5F, 6.0F)));
-    public static final Block PEAT_BRICKS = register("peat_bricks",
-            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN).breakByTool(FabricToolTags.PICKAXES)
-                    .requiresTool().strength(2.0F, 6.0F)));
-    public static final Block PEAT_BRICK_SLAB = register("peat_brick_slab",
-            new SlabBlock(FabricBlockSettings.copy(PEAT_BRICKS)));
-    public static final Block PEAT_BRICK_STAIRS = register("peat_brick_stairs",
-            new PublicStairsBlock(PEAT_BRICKS.getDefaultState(), FabricBlockSettings.copy(PEAT_BRICKS)));
-    public static final Block PEAT_BRICK_WALL = register("peat_brick_wall",
-            new WallBlock(FabricBlockSettings.copy(PEAT_BRICKS)));
-    public static final Block CRACKED_PEAT_BRICKS = register("cracked_peat_bricks",
-            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN).breakByTool(FabricToolTags.PICKAXES)
-                    .requiresTool().strength(1.5F, 6.0F)));
-    public static final Block CHISELED_PEAT_BRICKS = register("chiseled_peat_bricks",
-            new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN).breakByTool(FabricToolTags.PICKAXES)
-                    .requiresTool().strength(1.5F, 6.0F)));
+    public static final Block PEAT_BLOCK = register("peat_block", new Block(
+            FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool()
+                    .strength(1.5F, 6.0F)
+            )
+    );
+    public static final Block PEAT_BRICKS = register("peat_bricks", new Block(
+            FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool()
+                    .strength(2.0F, 6.0F)
+            )
+    );
+    public static final Block PEAT_BRICK_SLAB = register("peat_brick_slab", new SlabBlock(FabricBlockSettings.copy(PEAT_BRICKS)));
+    public static final Block PEAT_BRICK_STAIRS = register("peat_brick_stairs", new PublicStairsBlock(PEAT_BRICKS.getDefaultState(), FabricBlockSettings.copy(PEAT_BRICKS)));
+    public static final Block PEAT_BRICK_WALL = register("peat_brick_wall", new WallBlock(FabricBlockSettings.copy(PEAT_BRICKS)));
+    public static final Block CRACKED_PEAT_BRICKS = register("cracked_peat_bricks", new Block(
+            FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool()
+                    .strength(1.5F, 6.0F)
+            )
+    );
+    public static final Block CHISELED_PEAT_BRICKS = register("chiseled_peat_bricks", new Block(
+            FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+                    .breakByTool(FabricToolTags.PICKAXES).requiresTool()
+                    .strength(1.5F, 6.0F)
+            )
+    );
 
     //
     // ANTS
@@ -120,65 +143,28 @@ public class RYSBlocks {
         .noCollision().ticksRandomly()
         .breakInstantly().sounds(BlockSoundGroup.GRASS);
 
-    public static final Block APPLE_FRUIT_TREE = register("apple_fruit_tree",
-            new FruitTreeBlock(
-                Items.APPLE, RYSItems.ROTTEN_APPLE,
-                FRUIT_TREE_SETTINGS
-            )
-    );
-    public static final Block APPLE_FRUIT_SAPLING = register("apple_fruit_sapling",
-            new FruitSaplingBlock(
-                (FruitTreeBlock)APPLE_FRUIT_TREE,
-                FRUIT_TREE_SAPLING_SETTINGS
-            )
-    );
+    public static final Block APPLE_FRUIT_TREE = register("apple_fruit_tree", new FruitTreeBlock(Items.APPLE, RYSItems.ROTTEN_APPLE, FRUIT_TREE_SETTINGS));
+    public static final Block APPLE_FRUIT_SAPLING = register("apple_fruit_sapling", new FruitSaplingBlock((FruitTreeBlock)APPLE_FRUIT_TREE, FRUIT_TREE_SAPLING_SETTINGS));
 
-    public static final Block ORANGE_FRUIT_TREE = register("orange_fruit_tree",
-            new FruitTreeBlock(
-                RYSItems.ORANGE, RYSItems.ROTTEN_ORANGE,
-                FRUIT_TREE_SETTINGS
-            )
-    );
-    public static final Block ORANGE_FRUIT_SAPLING = register("orange_fruit_sapling",
-            new FruitSaplingBlock(
-                (FruitTreeBlock)ORANGE_FRUIT_TREE,
-                FRUIT_TREE_SAPLING_SETTINGS
-            )
-    );
+    public static final Block ORANGE_FRUIT_TREE = register("orange_fruit_tree", new FruitTreeBlock(RYSItems.ORANGE, RYSItems.ROTTEN_ORANGE, FRUIT_TREE_SETTINGS));
+    public static final Block ORANGE_FRUIT_SAPLING = register("orange_fruit_sapling", new FruitSaplingBlock((FruitTreeBlock)ORANGE_FRUIT_TREE, FRUIT_TREE_SAPLING_SETTINGS));
 
-    public static final Block APRICOT_FRUIT_TREE = register("apricot_fruit_tree",
-            new FruitTreeBlock(
-                RYSItems.APRICOT, RYSItems.ROTTEN_APRICOT,
-                FRUIT_TREE_SETTINGS
-            )
-    );
-    public static final Block APRICOT_FRUIT_SAPLING = register("apricot_fruit_sapling",
-            new FruitSaplingBlock(
-                (FruitTreeBlock)APRICOT_FRUIT_TREE,
-                FRUIT_TREE_SAPLING_SETTINGS
-            )
-    );
+    public static final Block APRICOT_FRUIT_TREE = register("apricot_fruit_tree", new FruitTreeBlock(RYSItems.APRICOT, RYSItems.ROTTEN_APRICOT, FRUIT_TREE_SETTINGS));
+    public static final Block APRICOT_FRUIT_SAPLING = register("apricot_fruit_sapling", new FruitSaplingBlock((FruitTreeBlock)APRICOT_FRUIT_TREE, FRUIT_TREE_SAPLING_SETTINGS));
 
     //
     // PLANTER BOXES
     //
 
-    public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block BIRCH_PLANTER_BOX = register("birch_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block SPRUCE_PLANTER_BOX = register("spruce_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block DARK_OAK_PLANTER_BOX = register("dark_oak_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block ACACIA_PLANTER_BOX = register("acacia_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
-    public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new Block(FabricBlockSettings
-            .of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD)));
+    private static final AbstractBlock.Settings PLANTER_BOX_SETTINGS = FabricBlockSettings.of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD);
+    public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block BIRCH_PLANTER_BOX = register("birch_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block SPRUCE_PLANTER_BOX = register("spruce_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block DARK_OAK_PLANTER_BOX = register("dark_oak_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block ACACIA_PLANTER_BOX = register("acacia_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new Block(PLANTER_BOX_SETTINGS));
 
     public RYSBlocks() {}
 

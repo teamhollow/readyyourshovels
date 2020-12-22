@@ -32,7 +32,9 @@
     "block.readyyourshovels.crimson_planter_box": "Caixa de plantio carmesim",
     "block.readyyourshovels.warped_planter_box": "Caixa de plantio distorcida",
     "block.readyyourshovels.ant_nest": "Ninho de formigas",
+
     "item.readyyourshovels.peat": "Turfa",
     "item.readyyourshovels.garden_ant_spawn_egg": "Ovo gerador de formiga de jardim",
+
     "entity.readyyourshovels.garden_ant": "Formiga de jardim"
 }

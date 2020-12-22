@@ -1,10 +1,19 @@
 {
-  "entity.garden_ant.ambient": {
-    "sounds": [
-      "readyyourshovels:entity/garden_ant/ambient1",
-      "readyyourshovels:entity/garden_ant/ambient2",
-      "readyyourshovels:entity/garden_ant/ambient3"
-    ],
-    "subtitle": "subtitles.readyyourshovels.entity.garden_ant.ambient"
-  }
+    "entity.ant.ambient": {
+        "sounds": [
+            "readyyourshovels:entity/ant/ambient1",
+            "readyyourshovels:entity/ant/ambient2",
+            "readyyourshovels:entity/ant/ambient3"
+        ],
+        "subtitle": "subtitles.readyyourshovels.entity.ant.ambient"
+    },
+
+    "music_disc.colly": {
+        "sounds": [
+            {
+                "name": "readyyourshovels:music_disc/colly",
+                "stream": true
+            }
+        ]
+    }
 }

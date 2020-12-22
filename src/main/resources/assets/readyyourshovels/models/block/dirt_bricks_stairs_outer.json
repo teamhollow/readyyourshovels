@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "readyyourshovels:block/dirt_bricks",
-    "top": "readyyourshovels:block/dirt_bricks",
-    "side": "readyyourshovels:block/dirt_bricks"
-  }
-}

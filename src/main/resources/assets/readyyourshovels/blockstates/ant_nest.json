@@ -1,19 +1,19 @@
 {
-  "variants": {
-    "facing=east": {
-      "y": 90,
-      "model": "readyyourshovels:block/ant_nest"
-    },
-    "facing=north": {
-      "model": "readyyourshovels:block/ant_nest"
-    },
-    "facing=south": {
-      "y": 180,
-      "model": "readyyourshovels:block/ant_nest"
-    },
-    "facing=west": {
-      "y": 270,
-      "model": "readyyourshovels:block/ant_nest"
+    "variants": {
+        "facing=east": {
+            "y": 90,
+            "model": "readyyourshovels:block/ant_nest"
+        },
+        "facing=north": {
+            "model": "readyyourshovels:block/ant_nest"
+        },
+        "facing=south": {
+            "y": 180,
+            "model": "readyyourshovels:block/ant_nest"
+        },
+        "facing=west": {
+            "y": 270,
+            "model": "readyyourshovels:block/ant_nest"
+        }
     }
-  }
 }

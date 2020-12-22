@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "readyyourshovels:dirt_bricks"
+    }
+  },
+  "result": {
+    "item": "readyyourshovels:dirt_brick_stairs",
+    "count": 4
+  }
+}

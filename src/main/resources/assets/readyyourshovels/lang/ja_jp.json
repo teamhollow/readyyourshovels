@@ -1,12 +1,12 @@
 {
-  "block.readyyourshovels.clay_deposit": "粘土の堆積土",
-  "block.readyyourshovels.dirt_bricks": "土レンガ",
-  "block.readyyourshovels.dirt_bricks_stairs": "土レンガの階段",
-  "block.readyyourshovels.gold_deposit": "金の堆積土",
-  "block.readyyourshovels.iron_deposit": "鉄の堆積土",
-  "block.readyyourshovels.peat_deposit": "泥の堆積土",
-  "block.readyyourshovels.smooth_dirt": "滑らかな土",
-  "block.readyyourshovels.smooth_dirt_stairs": "滑らかな土の階段",
-  "block.readyyourshovels.tough_dirt": "丈夫な土",
-  "block.readyyourshovels.tough_dirt_stairs": "丈夫な土の階段"
+    "block.readyyourshovels.clay_deposit": "粘土の堆積土",
+    "block.readyyourshovels.dirt_bricks": "土レンガ",
+    "block.readyyourshovels.dirt_brick_stairs": "土レンガの階段",
+    "block.readyyourshovels.gold_deposit": "金の堆積土",
+    "block.readyyourshovels.iron_deposit": "鉄の堆積土",
+    "block.readyyourshovels.peat_deposit": "泥の堆積土",
+    "block.readyyourshovels.smooth_dirt": "滑らかな土",
+    "block.readyyourshovels.smooth_dirt_stairs": "滑らかな土の階段",
+    "block.readyyourshovels.tough_dirt": "丈夫な土",
+    "block.readyyourshovels.tough_dirt_stairs": "丈夫な土の階段"
 }

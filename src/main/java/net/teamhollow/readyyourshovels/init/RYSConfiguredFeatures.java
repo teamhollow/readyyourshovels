@@ -25,6 +25,13 @@ public class RYSConfiguredFeatures {
             .spreadHorizontally()
             .repeat(20)
     );
+    public static final ConfiguredFeature<?, ?> DAYROOT = register(
+        "dayroot",
+        RYSFeatures.DAYROOT.configure(FeatureConfig.DEFAULT)
+            .rangeOf(128)
+            .spreadHorizontally()
+            .repeat(25)
+    );
 
     public static final ConfiguredFeature<?, ?> TOUGH_DIRT_MOSSY_COBBLESTONE = register(
         "tough_dirt_mossy_cobblestone",

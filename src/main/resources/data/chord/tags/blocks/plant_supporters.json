@@ -2,6 +2,7 @@
     "replace": false,
     "values": [
         "#readyyourshovels:planter_boxes",
-        "readyyourshovels:tough_dirt"
+        "readyyourshovels:tough_dirt",
+        "readyyourshovels:dayroot_crown"
     ]
 }

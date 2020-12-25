@@ -21,7 +21,7 @@ public class ReadyYourShovelsClient implements ClientModInitializer {
 
         BlockRenderLayerMap brlmInstance = BlockRenderLayerMap.INSTANCE;
         brlmInstance.putBlocks(RenderLayer.getCutoutMipped(), RYSBlocks.APPLE_FRUIT_TREE, RYSBlocks.ORANGE_FRUIT_TREE, RYSBlocks.APRICOT_FRUIT_TREE);
-        brlmInstance.putBlocks(RenderLayer.getCutout(), RYSBlocks.APPLE_FRUIT_SAPLING, RYSBlocks.ORANGE_FRUIT_SAPLING, RYSBlocks.APRICOT_FRUIT_SAPLING);
+        brlmInstance.putBlocks(RenderLayer.getCutout(), RYSBlocks.APPLE_FRUIT_SAPLING, RYSBlocks.ORANGE_FRUIT_SAPLING, RYSBlocks.APRICOT_FRUIT_SAPLING, RYSBlocks.DAYROOT, RYSBlocks.DAYROOT_PLANT);
 
         log("Initialized client");
     }

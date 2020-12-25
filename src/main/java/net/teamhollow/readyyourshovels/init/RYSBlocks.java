@@ -166,9 +166,29 @@ public class RYSBlocks {
     public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new Block(PLANTER_BOX_SETTINGS));
     public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new Block(PLANTER_BOX_SETTINGS));
 
+    //
+    // STANDALONE BLOCKS
+    //
+
+    public static final Block DAYROOT = register("dayroot", new DayrootBlock(
+            FabricBlockSettings.of(Material.PLANT, MaterialColor.GREEN)
+                    .ticksRandomly().noCollision()
+                    .breakInstantly().luminance(10)
+                    .sounds(BlockSoundGroup.WEEPING_VINES)
+            )
+    );
+    public static final Block DAYROOT_PLANT = register("dayroot_plant", new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance((state) -> 6)), false);
+    public static final Block DAYROOT_CROWN = register("dayroot_crown", new Block(
+            FabricBlockSettings.of(Material.SOLID_ORGANIC, MaterialColor.BROWN)
+                    .strength(1.0F).luminance(2)
+                    .breakByTool(FabricToolTags.SHOVELS)
+                    .sounds(BlockSoundGroup.WART_BLOCK)
+            )
+    );
+
     public RYSBlocks() {}
 
-    public static Block register(String id, Block block, boolean registerItem) {
+    private static Block register(String id, Block block, boolean registerItem) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);
 
         Block registeredBlock = Registry.register(Registry.BLOCK, identifier, block);
@@ -181,7 +201,7 @@ public class RYSBlocks {
 
         return registeredBlock;
     }
-    public static Block register(String id, Block block) {
+    private static Block register(String id, Block block) {
         return register(id, block, true);
     }
 }

@@ -97,10 +97,10 @@ public class RYSItems {
         FuelRegistry.INSTANCE.add(RYSItems.PEAT, 800);
     }
 
-    public static Item register(String id, Item item) {
+    private static Item register(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(ReadyYourShovels.MOD_ID, id), item);
     }
-    public static Item register(String id) {
+    private static Item register(String id) {
         return register(id, new Item(new FabricItemSettings().group(ReadyYourShovels.ITEM_GROUP)));
     }
 }

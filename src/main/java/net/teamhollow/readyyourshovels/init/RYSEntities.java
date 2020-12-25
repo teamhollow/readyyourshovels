@@ -29,7 +29,7 @@ public class RYSEntities {
         EntityType<T> builtEntityType = entityType.build(id);
 
         if (spawnEggColors != null)
-            RYSItems.register(id + "_spawn_egg", new SpawnEggItem(builtEntityType, spawnEggColors[0], spawnEggColors[1],
+            Registry.register(Registry.ITEM, new Identifier(ReadyYourShovels.MOD_ID, id + "_spawn_egg"), new SpawnEggItem(builtEntityType, spawnEggColors[0], spawnEggColors[1],
                     new Item.Settings().maxCount(64).group(ReadyYourShovels.ITEM_GROUP)));
 
         return Registry.register(Registry.ENTITY_TYPE, new Identifier(ReadyYourShovels.MOD_ID, id), builtEntityType);

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "root=false": {
+      "model": "readyyourshovels:block/dayroot_plant"
+    },
+    "root=true": {
+      "model": "readyyourshovels:block/dayroot_plant_root"
+    }
+  }
+}

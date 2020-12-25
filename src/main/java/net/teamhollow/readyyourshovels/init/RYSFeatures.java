@@ -6,10 +6,12 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.world.gen.feature.DayrootFeature;
 import net.teamhollow.readyyourshovels.world.gen.feature.DirtCaveFeature;
 
 public class RYSFeatures {
     public static final Feature<DefaultFeatureConfig> DIRT_CAVE = register("dirt_cave", new DirtCaveFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> DAYROOT = register("dayroot", new DayrootFeature(DefaultFeatureConfig.CODEC));
 
     public RYSFeatures() {}
 

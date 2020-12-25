@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "readyyourshovels:block/dayroot_plant_root"
+  }
+}

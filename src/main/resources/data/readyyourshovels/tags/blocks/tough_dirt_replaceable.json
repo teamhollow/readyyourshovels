@@ -1,0 +1,10 @@
+{
+    "replace": false,
+    "values": [
+        "#readyyourshovels:ore_tough_dirt_replaceable",
+        "minecraft:stone",
+        "minecraft:granite",
+        "minecraft:diorite",
+        "minecraft:andesite"
+    ]
+}

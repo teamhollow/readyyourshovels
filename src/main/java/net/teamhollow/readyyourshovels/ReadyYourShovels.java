@@ -57,16 +57,16 @@ public class ReadyYourShovels implements ModInitializer {
 
     private static void addBiomeModifications() {
         // add dirt caves
-        Predicate<BiomeSelectionContext> DIRT_CAVE_FEATURE_BIOME_SELECTOR = BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS, Biome.Category.RIVER).negate());
+        Predicate<BiomeSelectionContext> DIRT_CAVE_FEATURE_BIOME_SELECTOR = BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS, Biome.Category.RIVER, Biome.Category.MESA).negate());
 
         // add to underground decoration step
         BiomeModifications.addFeature(DIRT_CAVE_FEATURE_BIOME_SELECTOR, GenerationStep.Feature.UNDERGROUND_DECORATION, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(RYSConfiguredFeatures.DIRT_CAVE)));
 
         // add generic features
-        BiomeModifications.addFeature(DIRT_CAVE_FEATURE_BIOME_SELECTOR, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(RYSConfiguredFeatures.DAYROOT)));
+        BiomeModifications.addFeature(DIRT_CAVE_FEATURE_BIOME_SELECTOR, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(RYSConfiguredFeatures.DIRT_CAVE_DAYROOT)));
 
         // add to underground ores step
-        for (ConfiguredFeature<?, ?> feature : new ConfiguredFeature[]{ RYSConfiguredFeatures.TOUGH_DIRT_MOSSY_COBBLESTONE, RYSConfiguredFeatures.DEPOSIT_CLAY, RYSConfiguredFeatures.DEPOSIT_PEAT, RYSConfiguredFeatures.DEPOSIT_IRON, RYSConfiguredFeatures.DEPOSIT_GOLD }) {
+        for (ConfiguredFeature<?, ?> feature : new ConfiguredFeature[]{ RYSConfiguredFeatures.DIRT_CAVE_COBBLESTONE, RYSConfiguredFeatures.DIRT_CAVE_CLAY_DEPOSIT, RYSConfiguredFeatures.DIRT_CAVE_MOSSY_BOULDER }) {
             BiomeModifications.addFeature(DIRT_CAVE_FEATURE_BIOME_SELECTOR, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(feature)));
         }
 

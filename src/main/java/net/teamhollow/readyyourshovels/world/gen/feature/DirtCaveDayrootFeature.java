@@ -17,10 +17,10 @@ import net.teamhollow.readyyourshovels.block.DayrootPlantBlock;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
 
-public class DayrootFeature extends Feature<DefaultFeatureConfig> {
+public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
 
-    public DayrootFeature(Codec<DefaultFeatureConfig> codec) {
+    public DirtCaveDayrootFeature(Codec<DefaultFeatureConfig> codec) {
         super(codec);
     }
 

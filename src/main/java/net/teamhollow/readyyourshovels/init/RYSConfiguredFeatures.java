@@ -54,16 +54,6 @@ public class RYSConfiguredFeatures {
         .repeat(18)
     );
 
-    public static final ConfiguredFeature<?, ?> DIRT_CAVE_MOSSY_BOULDER = register(
-        "dirt_cave_mossy_boulder",
-        RYSFeatures.DIRT_CAVE_MOSSY_BOULDER.configure(
-                new SingleStateFeatureConfig(States.MOSSY_COBBLESTONE)
-            )
-            .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
-            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
-            .repeat(25)
-    );
-
     public static final ConfiguredStructureFeature<?, ?> ANT_HILL = register(AntHillFeature.id, RYSStructureFeatures.ANT_HILL.configure(DefaultFeatureConfig.DEFAULT));
 
     public RYSConfiguredFeatures() {}

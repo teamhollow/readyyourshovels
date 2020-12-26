@@ -66,7 +66,7 @@ public class ReadyYourShovels implements ModInitializer {
         BiomeModifications.addFeature(DIRT_CAVE_FEATURE_BIOME_SELECTOR, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(RYSConfiguredFeatures.DIRT_CAVE_DAYROOT)));
 
         // add to underground ores step
-        for (ConfiguredFeature<?, ?> feature : new ConfiguredFeature[]{ RYSConfiguredFeatures.DIRT_CAVE_COBBLESTONE, RYSConfiguredFeatures.DIRT_CAVE_CLAY_DEPOSIT, RYSConfiguredFeatures.DIRT_CAVE_MOSSY_BOULDER }) {
+        for (ConfiguredFeature<?, ?> feature : new ConfiguredFeature[]{ RYSConfiguredFeatures.DIRT_CAVE_COBBLESTONE, RYSConfiguredFeatures.DIRT_CAVE_CLAY_DEPOSIT }) {
             BiomeModifications.addFeature(DIRT_CAVE_FEATURE_BIOME_SELECTOR, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(feature)));
         }
 

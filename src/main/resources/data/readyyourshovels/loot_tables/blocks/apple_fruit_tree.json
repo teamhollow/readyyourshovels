@@ -39,7 +39,7 @@
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "readyyourshovels:template_fruit_tree",
+          "block": "readyyourshovels:apple_fruit_tree",
           "properties": {
             "half": "upper"
           }
@@ -48,7 +48,7 @@
           "condition": "minecraft:location_check",
           "predicate": {
             "block": {
-              "block": "readyyourshovels:template_fruit_tree",
+              "block": "readyyourshovels:apple_fruit_tree",
               "state": {
                 "half": "lower"
               }

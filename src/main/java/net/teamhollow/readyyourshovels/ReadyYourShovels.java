@@ -2,6 +2,7 @@ package net.teamhollow.readyyourshovels;
 
 import java.util.function.Predicate;
 
+import net.minecraft.entity.SpawnGroup;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,6 +40,7 @@ public class ReadyYourShovels implements ModInitializer {
     public void onInitialize() {
         log("Initializing");
 
+        new RYSParticles();
         new RYSSoundEvents();
         new RYSPointOfInterests();
 
@@ -72,6 +74,9 @@ public class ReadyYourShovels implements ModInitializer {
 
         // add structures
         BiomeModifications.addStructure(DIRT_CAVE_FEATURE_BIOME_SELECTOR, RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));
+
+        // add entities
+        BiomeModifications.addSpawn(DIRT_CAVE_FEATURE_BIOME_SELECTOR, SpawnGroup.MONSTER, RYSEntities.PEATY_SLIME, 10, 2, 5);
     }
 
     public static void log(Level level, String message) {

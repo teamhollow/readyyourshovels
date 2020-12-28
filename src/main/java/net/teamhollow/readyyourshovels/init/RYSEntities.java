@@ -1,38 +1,60 @@
 package net.teamhollow.readyyourshovels.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnGroup;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.entity.garden_ant.GardenAntEntity;
+import net.teamhollow.readyyourshovels.entity.peaty_slime.PeatySlimeEntity;
 
 public class RYSEntities {
     public static final EntityType<GardenAntEntity> GARDEN_ANT = register(
         GardenAntEntity.id,
-        EntityType.Builder.create(GardenAntEntity::new, SpawnGroup.CREATURE).setDimensions(0.5F, 0.5F).maxTrackingRange(8),
+        FabricEntityTypeBuilder.createMob()
+            .entityFactory(GardenAntEntity::new)
+            .spawnGroup(SpawnGroup.CREATURE)
+            .dimensions(EntityDimensions.fixed(0.5F, 0.5F))
+           .trackRangeBlocks(8),
         new int[]{ 5065037, 9433559 }
+    );
+
+    public static final EntityType<PeatySlimeEntity> PEATY_SLIME = register(
+        PeatySlimeEntity.id,
+        FabricEntityTypeBuilder.createMob()
+            .entityFactory(PeatySlimeEntity::new)
+            .spawnGroup(SpawnGroup.MONSTER)
+            .dimensions(EntityDimensions.changing(2.04F, 2.04F))
+            .trackRangeBlocks(10)
+            .spawnRestriction(
+                    SpawnRestriction.Location.ON_GROUND,
+                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                    (type, world, spawnReason, pos, random) -> world.getBlockState(pos.down()).isOf(RYSBlocks.TOUGH_DIRT)
+            ),
+        new int[]{ 7352576, 8306542 }
     );
 
     public RYSEntities() {
         registerDefaultAttributes(GARDEN_ANT, GardenAntEntity.createAntAttributes());
+        registerDefaultAttributes(PEATY_SLIME, PeatySlimeEntity.createPeatySlimeAttributes());
     }
 
-    private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> entityType,
-            int[] spawnEggColors) {
-        EntityType<T> builtEntityType = entityType.build(id);
-
+    private static <T extends Entity> EntityType<T> register(String id, EntityType<T> entityType, int[] spawnEggColors) {
         if (spawnEggColors != null)
-            Registry.register(Registry.ITEM, new Identifier(ReadyYourShovels.MOD_ID, id + "_spawn_egg"), new SpawnEggItem(builtEntityType, spawnEggColors[0], spawnEggColors[1],
-                    new Item.Settings().maxCount(64).group(ReadyYourShovels.ITEM_GROUP)));
+            Registry.register(Registry.ITEM, new Identifier(ReadyYourShovels.MOD_ID, id + "_spawn_egg"), new SpawnEggItem(entityType, spawnEggColors[0], spawnEggColors[1], new Item.Settings().maxCount(64).group(ReadyYourShovels.ITEM_GROUP)));
 
-        return Registry.register(Registry.ENTITY_TYPE, new Identifier(ReadyYourShovels.MOD_ID, id), builtEntityType);
+        return Registry.register(Registry.ENTITY_TYPE, new Identifier(ReadyYourShovels.MOD_ID, id), entityType);
+    }
+    private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> entityType, int[] spawnEggColors) {
+        return register(id, entityType.build(id), spawnEggColors);
+    }
+    private static <T extends Entity> EntityType<T> register(String id, FabricEntityTypeBuilder<T> entityType, int[] spawnEggColors) {
+        return register(id, entityType.build(), spawnEggColors);
     }
 
     public static void registerDefaultAttributes(EntityType<? extends LivingEntity> type, DefaultAttributeContainer.Builder builder) {

@@ -1,0 +1,17 @@
+package net.teamhollow.readyyourshovels.init;
+
+import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.particle.vanilla.PublicDefaultParticleType;
+
+public class RYSParticles {
+    public static final DefaultParticleType ITEM_PEAT = register("item_peat", false);
+
+    public RYSParticles() {}
+
+    private static DefaultParticleType register(String id, boolean alwaysShow) {
+        return Registry.register(Registry.PARTICLE_TYPE, new Identifier(ReadyYourShovels.MOD_ID, id), new PublicDefaultParticleType(alwaysShow));
+    }
+}

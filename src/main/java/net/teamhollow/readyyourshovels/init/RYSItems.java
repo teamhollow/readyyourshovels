@@ -15,6 +15,7 @@ import net.teamhollow.readyyourshovels.item.vanilla.PublicMusicDiscItem;
 @SuppressWarnings("unused")
 public class RYSItems {
     public static final Item PEAT = register("peat");
+
     public static final Item MUSIC_DISC_COLLY = register("music_disc_colly", new PublicMusicDiscItem(
             12, RYSSoundEvents.MUSIC_DISC_COLLY,
             new FabricItemSettings()

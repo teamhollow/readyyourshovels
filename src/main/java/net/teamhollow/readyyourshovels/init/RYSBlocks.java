@@ -132,27 +132,6 @@ public class RYSBlocks {
     public static final Block ANT_NEST = register(AntNestBlock.id, new AntNestBlock());
 
     //
-    // FRUIT TREES
-    //
-
-    private static final AbstractBlock.Settings FRUIT_TREE_SETTINGS = FabricBlockSettings.of(Material.PLANT)
-        .ticksRandomly().nonOpaque()
-        .breakByTool(FabricToolTags.AXES, 0)
-        .strength(2.0F, 2.0F).sounds(BlockSoundGroup.WOOD);
-    private static final AbstractBlock.Settings FRUIT_TREE_SAPLING_SETTINGS = FabricBlockSettings.of(Material.PLANT)
-        .noCollision().ticksRandomly()
-        .breakInstantly().sounds(BlockSoundGroup.GRASS);
-
-    public static final Block APPLE_FRUIT_TREE = register("apple_fruit_tree", new FruitTreeBlock(Items.APPLE, RYSItems.ROTTEN_APPLE, FRUIT_TREE_SETTINGS));
-    public static final Block APPLE_FRUIT_SAPLING = register("apple_fruit_sapling", new FruitSaplingBlock((FruitTreeBlock)APPLE_FRUIT_TREE, FRUIT_TREE_SAPLING_SETTINGS));
-
-    public static final Block ORANGE_FRUIT_TREE = register("orange_fruit_tree", new FruitTreeBlock(RYSItems.ORANGE, RYSItems.ROTTEN_ORANGE, FRUIT_TREE_SETTINGS));
-    public static final Block ORANGE_FRUIT_SAPLING = register("orange_fruit_sapling", new FruitSaplingBlock((FruitTreeBlock)ORANGE_FRUIT_TREE, FRUIT_TREE_SAPLING_SETTINGS));
-
-    public static final Block APRICOT_FRUIT_TREE = register("apricot_fruit_tree", new FruitTreeBlock(RYSItems.APRICOT, RYSItems.ROTTEN_APRICOT, FRUIT_TREE_SETTINGS));
-    public static final Block APRICOT_FRUIT_SAPLING = register("apricot_fruit_sapling", new FruitSaplingBlock((FruitTreeBlock)APRICOT_FRUIT_TREE, FRUIT_TREE_SAPLING_SETTINGS));
-
-    //
     // PLANTER BOXES
     //
 

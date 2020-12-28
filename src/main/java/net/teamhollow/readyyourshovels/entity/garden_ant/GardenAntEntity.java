@@ -10,6 +10,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.world.ServerWorld;
@@ -104,6 +105,6 @@ public class GardenAntEntity extends AbstractAntEntity {
 
     @Override
     public boolean canPickupItem(ItemStack stack) {
-        return stack.getItem().isIn(RYSItemTags.FRUIT_TREE_ITEMS);
+        return stack.getItem() == Items.APPLE;
     }
 }

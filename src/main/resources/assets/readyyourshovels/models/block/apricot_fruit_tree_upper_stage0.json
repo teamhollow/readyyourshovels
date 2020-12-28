@@ -1,6 +1,0 @@
-{
-  "parent": "readyyourshovels:block/template_fruit_tree_upper",
-  "textures": {
-    "texture": "readyyourshovels:block/apricot_fruit_tree_stage0"
-  }
-}

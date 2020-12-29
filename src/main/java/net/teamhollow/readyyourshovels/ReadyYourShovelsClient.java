@@ -34,7 +34,7 @@ public class ReadyYourShovelsClient implements ClientModInitializer {
 
         // render layers
         BlockRenderLayerMap brlmInstance = BlockRenderLayerMap.INSTANCE;
-        brlmInstance.putBlocks(RenderLayer.getCutout(), RYSBlocks.DAYROOT, RYSBlocks.DAYROOT_PLANT);
+        brlmInstance.putBlocks(RenderLayer.getCutout(), RYSBlocks.DAYROOT, RYSBlocks.DAYROOT_PLANT, RYSBlocks.TOUGHROOT, RYSBlocks.TOUGHROOT_STEM);
 
         // particles
         ParticleFactoryRegistry pfrInstance = ParticleFactoryRegistry.getInstance();

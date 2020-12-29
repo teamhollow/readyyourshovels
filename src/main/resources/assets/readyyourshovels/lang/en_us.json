@@ -37,6 +37,8 @@
     "block.readyyourshovels.ant_nest": "Ant Nest",
     "block.readyyourshovels.dayroot": "Dayroot",
     "block.readyyourshovels.dayroot_plant": "Dayroot Plant",
+    "block.readyyourshovels.toughroot": "Toughroot",
+    "block.readyyourshovels.toughroot_stem": "Toughroot Stem",
     "block.readyyourshovels.dayroot_crown": "Dayroot Crown",
 
     "item.readyyourshovels.peat": "Peat",
@@ -49,5 +51,7 @@
     "entity.readyyourshovels.garden_ant": "Garden Ant",
     "entity.readyyourshovels.peaty_slime": "Peaty Slime",
 
-    "subtitles.readyyourshovels.entity.ant.ambient": "Ant hisses"
+    "subtitles.readyyourshovels.entity.ant.ambient": "Ant hisses",
+
+    "biome.readyyourshovels.plains_mound": "Plains Mound"
 }

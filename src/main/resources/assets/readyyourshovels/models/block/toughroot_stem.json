@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "readyyourshovels:block/toughroot_stem"
+  }
+}

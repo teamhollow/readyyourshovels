@@ -30,12 +30,8 @@ public class RYSEntities {
             .entityFactory(PeatySlimeEntity::new)
             .spawnGroup(SpawnGroup.MONSTER)
             .dimensions(EntityDimensions.changing(2.04F, 2.04F))
-            .trackRangeBlocks(10)
-            .spawnRestriction(
-                    SpawnRestriction.Location.ON_GROUND,
-                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                    (type, world, spawnReason, pos, random) -> world.getBlockState(pos.down()).isOf(RYSBlocks.TOUGH_DIRT)
-            ),
+            .spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PeatySlimeEntity::canMobSpawn)
+            .trackRangeBlocks(10),
         new int[]{ 7352576, 8306542 }
     );
 

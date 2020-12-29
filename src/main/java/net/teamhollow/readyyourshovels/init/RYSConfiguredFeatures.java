@@ -7,17 +7,22 @@ import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.decorator.CountNoiseDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placer.SimpleBlockPlacer;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.world.gen.feature.AntHillFeature;
 
 public class RYSConfiguredFeatures {
+    // dirt caves
     public static final ConfiguredFeature<?, ?> DIRT_CAVE = register(
         "dirt_cave",
         RYSFeatures.DIRT_CAVE.configure(new DefaultFeatureConfig())
             .spreadHorizontally()
+            .repeat(30)
     );
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_DAYROOT = register(
         "dirt_cave_dayroot",
@@ -27,8 +32,9 @@ public class RYSConfiguredFeatures {
             .repeat(25)
     );
 
-    public static final ConfiguredFeature<?, ?> DIRT_CAVE_COBBLESTONE = register(
-        "dirt_cave_cobblestone",
+    // tough dirt replacements
+    public static final ConfiguredFeature<?, ?> TOUGH_DIRT_PATCH_COBBLESTONE = register(
+        "tough_dirt_patch_cobblestone",
         Feature.ORE.configure(
             new OreFeatureConfig(
                 Rules.TOUGH_DIRT,
@@ -40,8 +46,8 @@ public class RYSConfiguredFeatures {
         .spreadHorizontally()
         .repeat(5)
     );
-    public static final ConfiguredFeature<?, ?> DIRT_CAVE_CLAY_DEPOSIT = register(
-        "dirt_cave_clay_deposit",
+    public static final ConfiguredFeature<?, ?> TOUGH_DIRT_DEPOSIT_CLAY = register(
+        "tough_dirt_deposit_clay",
         Feature.ORE.configure(
             new OreFeatureConfig(
                 Rules.TOUGH_DIRT,
@@ -51,7 +57,20 @@ public class RYSConfiguredFeatures {
         )
         .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 128)))
         .spreadHorizontally()
-        .repeat(18)
+        .repeat(32)
+    );
+
+    // above ground
+    public static final ConfiguredFeature<?, ?> PATCH_TOUGHROOT_STEM = register(
+        "patch_toughroot_stem",
+        Feature.RANDOM_PATCH.configure(
+            new RandomPatchFeatureConfig.Builder(
+                new SimpleBlockStateProvider(States.TOUGHROOT_STEM),
+                SimpleBlockPlacer.INSTANCE
+            ).tries(32).build()
+        )
+        .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE)
+        .decorate(Decorator.COUNT_NOISE.configure(new CountNoiseDecoratorConfig(-0.8D, 5, 10)))
     );
 
     public static final ConfiguredStructureFeature<?, ?> ANT_HILL = register(AntHillFeature.id, RYSStructureFeatures.ANT_HILL.configure(DefaultFeatureConfig.DEFAULT));
@@ -67,8 +86,8 @@ public class RYSConfiguredFeatures {
 
     private static class States {
         private static final BlockState COBBLESTONE = Blocks.COBBLESTONE.getDefaultState();
-        private static final BlockState MOSSY_COBBLESTONE = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         private static final BlockState CLAY_DEPOSIT = RYSBlocks.CLAY_DEPOSIT.getDefaultState();
+        private static final BlockState TOUGHROOT_STEM = RYSBlocks.TOUGHROOT_STEM.getDefaultState();
     }
     private static final class Rules {
         public static final RuleTest TOUGH_DIRT = new BlockMatchRuleTest(RYSBlocks.TOUGH_DIRT);

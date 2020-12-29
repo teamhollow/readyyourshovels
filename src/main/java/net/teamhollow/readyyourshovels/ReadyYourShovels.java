@@ -37,6 +37,7 @@ public class ReadyYourShovels implements ModInitializer {
 
         new RYSFeatures();
         new RYSConfiguredFeatures();
+        new RYSConfiguredCarvers();
         new RYSStructureFeatures();
         new RYSSurfaceBuilders();
         new RYSBiomes();

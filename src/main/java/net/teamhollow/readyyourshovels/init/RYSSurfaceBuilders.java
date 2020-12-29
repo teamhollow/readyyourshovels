@@ -14,7 +14,7 @@ public class RYSSurfaceBuilders {
         "tough_dirt",
         SurfaceBuilder.DEFAULT.withConfig(
             new TernarySurfaceConfig(
-                RYSBlocks.TOUGH_DIRT.getDefaultState(),
+                Blocks.GRASS_BLOCK.getDefaultState(),
                 RYSBlocks.TOUGH_DIRT.getDefaultState(),
                 Blocks.GRAVEL.getDefaultState()
             )

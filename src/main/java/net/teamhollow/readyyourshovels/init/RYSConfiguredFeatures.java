@@ -24,9 +24,18 @@ public class RYSConfiguredFeatures {
             .spreadHorizontally()
             .repeat(30)
     );
+
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_DAYROOT = register(
         "dirt_cave_dayroot",
         RYSFeatures.DIRT_CAVE_DAYROOT.configure(FeatureConfig.DEFAULT)
+            .rangeOf(128)
+            .spreadHorizontally()
+            .repeat(8)
+            .repeat(8)
+    );
+    public static final ConfiguredFeature<?, ?> DIRT_CAVE_TOUGHROOT = register(
+        "dirt_cave_toughroot",
+        RYSFeatures.DIRT_CAVE_TOUGHROOT.configure(FeatureConfig.DEFAULT)
             .rangeOf(128)
             .spreadHorizontally()
             .repeat(25)

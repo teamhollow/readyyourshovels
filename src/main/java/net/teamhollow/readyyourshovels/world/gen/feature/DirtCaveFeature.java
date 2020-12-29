@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -27,14 +28,18 @@ public class DirtCaveFeature extends Feature<DefaultFeatureConfig> {
         for (int x = 0; x < 38; x++) {
             for (int z = 0; z < 38; z++) {
                 blockPos.set(pos.getX() + x, pos.getY(), pos.getZ() + z);
-                if (!Objects.equals(world.method_31081(blockPos), Optional.of(RYSBiomes.PLAINS_MOUND))) return false;
+                if (!Objects.equals(world.method_31081(blockPos), Optional.of(RYSBiomes.FOREST_MOUND))) return false;
 
-                for (int y = 0; y <= 70; y++) {
-                    blockPos.set(blockPos.getX(), y, blockPos.getZ());
+                int bottomOffset = 15;
+                int height = 50;
+                for (int y = 0; y <= height; y++) {
+                    blockPos.set(blockPos.getX(), y + bottomOffset, blockPos.getZ());
                     BlockState state = world.getBlockState(blockPos);
 
-                    if (state.isOf(Blocks.STONE)) {
-                        world.setBlockState(blockPos, y <= 12 ? RYSBlocks.REGOLITH.getDefaultState() : RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
+                    if (y <= 3 && !state.isAir()) {
+                        world.setBlockState(blockPos, RYSBlocks.REGOLITH.getDefaultState() , 2);
+                    } else if (state.isOf(Blocks.STONE) || (state.isOf(Blocks.ANDESITE) || state.isOf(Blocks.DIORITE) || state.isOf(Blocks.GRANITE))) {
+                        world.setBlockState(blockPos, RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
                     } else if (state.isOf(Blocks.IRON_ORE)) {
                         world.setBlockState(blockPos, RYSBlocks.IRON_DEPOSIT.getDefaultState(), 2);
                     } else if (state.isOf(Blocks.GOLD_ORE)) {

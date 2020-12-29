@@ -8,11 +8,13 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.world.gen.feature.DirtCaveDayrootFeature;
 import net.teamhollow.readyyourshovels.world.gen.feature.DirtCaveFeature;
+import net.teamhollow.readyyourshovels.world.gen.feature.DirtCaveToughrootFeature;
 
 public class RYSFeatures {
     public static final Feature<DefaultFeatureConfig> DIRT_CAVE = register("dirt_cave", new DirtCaveFeature(DefaultFeatureConfig.CODEC));
 
     public static final Feature<DefaultFeatureConfig> DIRT_CAVE_DAYROOT = register("dirt_cave_dayroot", new DirtCaveDayrootFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> DIRT_CAVE_TOUGHROOT = register("dirt_cave_toughroot", new DirtCaveToughrootFeature(DefaultFeatureConfig.CODEC));
 
     public RYSFeatures() {}
 

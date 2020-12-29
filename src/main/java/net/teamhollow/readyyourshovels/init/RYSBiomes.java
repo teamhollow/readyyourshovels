@@ -14,16 +14,16 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
 public class RYSBiomes {
-    public static final RegistryKey<Biome> PLAINS_MOUND = register("plains_mound", createPlainsMound());
+    public static final RegistryKey<Biome> FOREST_MOUND = register("forest_mound", createForestMound());
 
-    private static Biome createPlainsMound() {
+    private static Biome createForestMound() {
         // spawn settingss
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.BAT, 10, 8, 8));
@@ -32,16 +32,21 @@ public class RYSBiomes {
         // generation settings
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder().surfaceBuilder(RYSSurfaceBuilders.TOUGH_DIRT_SURFACE_BUILDER);
 
+        DefaultBiomeFeatures.addForestTrees(generationSettings);
+
         DefaultBiomeFeatures.addDefaultUndergroundStructures(generationSettings);
         generationSettings.structureFeature(ConfiguredStructureFeatures.RUINED_PORTAL);
-        DefaultBiomeFeatures.addLandCarvers(generationSettings);
+        generationSettings.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
+        generationSettings.carver(GenerationStep.Carver.AIR, RYSConfiguredCarvers.DIRT_CANYON);
         DefaultBiomeFeatures.addDefaultLakes(generationSettings);
         DefaultBiomeFeatures.addDungeons(generationSettings);
 
         DefaultBiomeFeatures.addMineables(generationSettings);
         DefaultBiomeFeatures.addDefaultOres(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_TOUGHROOT_STEM);
+        DefaultBiomeFeatures.addForestGrass(generationSettings);
+        DefaultBiomeFeatures.addDefaultFlowers(generationSettings);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.FOREST_FLOWER_VEGETATION_COMMON);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_SUGAR_CANE);
 
         DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
@@ -52,18 +57,18 @@ public class RYSBiomes {
 
         generationSettings.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSConfiguredFeatures.DIRT_CAVE);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_DAYROOT);
-        for (ConfiguredFeature<?, ?> feature : new ConfiguredFeature[]{ RYSConfiguredFeatures.TOUGH_DIRT_PATCH_COBBLESTONE, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_CLAY}) {
-            generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);
-        }
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_TOUGHROOT);
+        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_PATCH_COBBLESTONE);
+        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_CLAY);
 
         return new Biome.Builder()
             .precipitation(Biome.Precipitation.RAIN)
-            .category(Biome.Category.PLAINS)
-            .depth(0.125F).scale(0.05F).temperature(0.8F).downfall(0.4F)
+            .category(Biome.Category.FOREST)
+            .depth(0.3F).scale(0.2F).temperature(0.4F).downfall(0.8F)
             .effects(
                 new BiomeEffects.Builder()
-                    .waterColor(4159204).waterFogColor(329011)
-                    .fogColor(12638463)
+                    .waterColor(0x127ee3).waterFogColor(0x10107d)
+                    .fogColor(0xa6c8ff)
                     .skyColor(getSkyColor(0.8F))
                     .moodSound(BiomeMoodSound.CAVE)
                     .build()
@@ -75,7 +80,7 @@ public class RYSBiomes {
 
     public RYSBiomes() {
         // add biomes to spawn
-        OverworldBiomes.addContinentalBiome(PLAINS_MOUND, OverworldClimate.TEMPERATE, 1.0D);
+        OverworldBiomes.addContinentalBiome(FOREST_MOUND, OverworldClimate.TEMPERATE, 1.0D);
 
         // modify biomes
         BiomeModifications.addStructure(BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS, Biome.Category.RIVER, Biome.Category.MESA).negate()), RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));

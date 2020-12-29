@@ -34,7 +34,7 @@ public class DirtCaveFeature extends Feature<DefaultFeatureConfig> {
                     BlockState state = world.getBlockState(blockPos);
 
                     if (state.isOf(Blocks.STONE)) {
-                        world.setBlockState(blockPos, y <= 12 ? RYSBlocks.TOUGH_DIRT.getDefaultState() : RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
+                        world.setBlockState(blockPos, y <= 12 ? RYSBlocks.REGOLITH.getDefaultState() : RYSBlocks.TOUGH_DIRT.getDefaultState(), 2);
                     } else if (state.isOf(Blocks.IRON_ORE)) {
                         world.setBlockState(blockPos, RYSBlocks.IRON_DEPOSIT.getDefaultState(), 2);
                     } else if (state.isOf(Blocks.GOLD_ORE)) {

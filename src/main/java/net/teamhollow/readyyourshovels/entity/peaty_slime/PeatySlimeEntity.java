@@ -32,6 +32,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.ChunkRandom;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSParticles;
+import net.teamhollow.readyyourshovels.tag.RYSItemTags;
 
 import java.util.EnumSet;
 import java.util.Objects;
@@ -123,7 +124,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         if (!this.isTouchingWater()) {
             ItemStack itemStack = player.getStackInHand(hand);
             Item item = itemStack.getItem();
-            if (item instanceof FlintAndSteelItem || item instanceof FireChargeItem) {
+            if (item.isIn(RYSItemTags.PEATY_SLIME_IGNITERS)) {
                 if (item instanceof FlintAndSteelItem) {
                     player.playSound(SoundEvents.ITEM_FLINTANDSTEEL_USE, 1.0F, 1.0F);
                 } else {

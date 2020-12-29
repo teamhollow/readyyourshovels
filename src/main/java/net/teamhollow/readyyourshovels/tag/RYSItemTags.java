@@ -8,6 +8,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
 public class RYSItemTags {
     public static final Tag<Item> ANT_TEMPTERS = register("ant_tempters");
+    public static final Tag<Item> PEATY_SLIME_IGNITERS = register("peaty_slime_igniters");
 
     public RYSItemTags() {}
 

@@ -15,11 +15,14 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -27,12 +30,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.ChunkRandom;
+import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSParticles;
 
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class PeatySlimeEntity extends MobEntity implements Monster {
     public static final String id = "peaty_slime";
@@ -114,6 +119,34 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        if (!this.isTouchingWater()) {
+            ItemStack itemStack = player.getStackInHand(hand);
+            Item item = itemStack.getItem();
+            if (item instanceof FlintAndSteelItem || item instanceof FireChargeItem) {
+                if (item instanceof FlintAndSteelItem) {
+                    player.playSound(SoundEvents.ITEM_FLINTANDSTEEL_USE, 1.0F, 1.0F);
+                } else {
+                    player.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0F, 1.0F);
+                }
+
+                if (itemStack.isDamageable()) {
+                    itemStack.damage(1, player, (Consumer<LivingEntity>) ((p) -> {
+                        p.sendToolBreakStatus(hand);
+                    }));
+                } else {
+                    itemStack.decrement(1);
+                }
+
+                this.setFireTicks(Math.min(200, Math.max(60, this.getFireTicks() + 60) + (int) (player.getRandom().nextDouble() * 20 * 2)));
+                return ActionResult.success(this.world.isClient);
+            }
+        }
+
+        return super.interactMob(player, hand);
+    }
+
+    @Override
     protected boolean isDisallowedInPeaceful() {
         return this.getSize() > 0;
     }
@@ -150,6 +183,10 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
     protected int getTicksUntilNextJump() {
         return this.random.nextInt(20) + 10;
+    }
+
+    public static boolean canMobSpawn(EntityType<? extends PeatySlimeEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && pos.getY() <= 60 && serverWorldAccess.getBlockState(pos.down()).isOf(RYSBlocks.TOUGH_DIRT);
     }
 
     @Override

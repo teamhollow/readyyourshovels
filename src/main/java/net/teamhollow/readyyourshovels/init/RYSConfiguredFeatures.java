@@ -38,7 +38,8 @@ public class RYSConfiguredFeatures {
         RYSFeatures.DIRT_CAVE_TOUGHROOT.configure(FeatureConfig.DEFAULT)
             .rangeOf(128)
             .spreadHorizontally()
-            .repeat(25)
+            .repeat(16)
+            .repeat(16)
     );
 
     // tough dirt replacements

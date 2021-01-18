@@ -12,9 +12,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeEffects;
+import net.minecraft.world.biome.GenerationSettings;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -30,13 +32,13 @@ public class RYSBiomes {
         spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(RYSEntities.PEATY_SLIME, 10, 4, 6));
 
         // generation settings
-        GenerationSettings.Builder generationSettings = new GenerationSettings.Builder().surfaceBuilder(RYSSurfaceBuilders.TOUGH_DIRT_SURFACE_BUILDER);
+        GenerationSettings.Builder generationSettings = new GenerationSettings.Builder().surfaceBuilder(RYSConfiguredSurfaceBuilders.TOUGH_DIRT);
 
         DefaultBiomeFeatures.addForestTrees(generationSettings);
 
         DefaultBiomeFeatures.addDefaultUndergroundStructures(generationSettings);
         generationSettings.structureFeature(ConfiguredStructureFeatures.RUINED_PORTAL);
-        generationSettings.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
+        generationSettings.carver(GenerationStep.Carver.AIR, RYSConfiguredCarvers.DIRT_CAVE);
         generationSettings.carver(GenerationStep.Carver.AIR, RYSConfiguredCarvers.DIRT_CANYON);
         DefaultBiomeFeatures.addDefaultLakes(generationSettings);
         DefaultBiomeFeatures.addDungeons(generationSettings);
@@ -55,9 +57,10 @@ public class RYSBiomes {
         DefaultBiomeFeatures.addSprings(generationSettings);
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
 
-        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSConfiguredFeatures.DIRT_CAVE);
+        // generationSettings.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSConfiguredFeatures.DIRT_CAVE);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_DAYROOT);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_TOUGHROOT);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_TOUGHROOT_STEM);
         generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_PATCH_COBBLESTONE);
         generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_CLAY);
 
@@ -78,6 +81,7 @@ public class RYSBiomes {
             .build();
     }
 
+    @SuppressWarnings("deprecation")
     public RYSBiomes() {
         // add biomes to spawn
         OverworldBiomes.addContinentalBiome(FOREST_MOUND, OverworldClimate.TEMPERATE, 1.0D);

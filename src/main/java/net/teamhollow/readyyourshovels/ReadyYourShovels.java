@@ -36,10 +36,13 @@ public class ReadyYourShovels implements ModInitializer {
         new RYSEntities();
 
         new RYSFeatures();
-        new RYSConfiguredFeatures();
-        new RYSConfiguredCarvers();
         new RYSStructureFeatures();
+        new RYSConfiguredFeatures();
+        new RYSCarvers();
+        new RYSConfiguredCarvers();
         new RYSSurfaceBuilders();
+        new RYSConfiguredSurfaceBuilders();
+
         new RYSBiomes();
 
         log("Initialized");

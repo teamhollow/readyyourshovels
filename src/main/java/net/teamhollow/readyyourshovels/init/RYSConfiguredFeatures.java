@@ -1,5 +1,6 @@
 package net.teamhollow.readyyourshovels.init;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
@@ -7,7 +8,7 @@ import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.decorator.CountNoiseDecoratorConfig;
+import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
@@ -17,14 +18,6 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.world.gen.feature.AntHillFeature;
 
 public class RYSConfiguredFeatures {
-    // dirt caves
-    public static final ConfiguredFeature<?, ?> DIRT_CAVE = register(
-        "dirt_cave",
-        RYSFeatures.DIRT_CAVE.configure(new DefaultFeatureConfig())
-            .spreadHorizontally()
-            .repeat(30)
-    );
-
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_DAYROOT = register(
         "dirt_cave_dayroot",
         RYSFeatures.DIRT_CAVE_DAYROOT.configure(FeatureConfig.DEFAULT)
@@ -73,14 +66,22 @@ public class RYSConfiguredFeatures {
     // above ground
     public static final ConfiguredFeature<?, ?> PATCH_TOUGHROOT_STEM = register(
         "patch_toughroot_stem",
-        Feature.RANDOM_PATCH.configure(
-            new RandomPatchFeatureConfig.Builder(
-                new SimpleBlockStateProvider(States.TOUGHROOT_STEM),
-                SimpleBlockPlacer.INSTANCE
-            ).tries(32).build()
+        Feature.SIMPLE_RANDOM_SELECTOR.configure(
+            new SimpleRandomFeatureConfig(
+                ImmutableList.of(
+                    () -> Feature.NO_BONEMEAL_FLOWER.configure(
+                        new RandomPatchFeatureConfig.Builder(
+                            new SimpleBlockStateProvider(States.TOUGHROOT_STEM),
+                            SimpleBlockPlacer.INSTANCE
+                        ).tries(64).build()
+                    )
+                )
+            )
         )
-        .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE)
-        .decorate(Decorator.COUNT_NOISE.configure(new CountNoiseDecoratorConfig(-0.8D, 5, 10)))
+        .repeat(UniformIntDistribution.of(-1, 4))
+        .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
+        .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
+        .repeat(5)
     );
 
     public static final ConfiguredStructureFeature<?, ?> ANT_HILL = register(AntHillFeature.id, RYSStructureFeatures.ANT_HILL.configure(DefaultFeatureConfig.DEFAULT));

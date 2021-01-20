@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.WeepingVinesBlock;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -13,10 +14,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSParticles;
+import net.teamhollow.readyyourshovels.init.RYSSoundEvents;
 
 import java.util.Random;
 
 public class DayrootBlock extends WeepingVinesBlock {
+    public static final String id = "dayroot";
+
     public DayrootBlock(Settings settings) {
         super(settings);
     }
@@ -42,7 +46,9 @@ public class DayrootBlock extends WeepingVinesBlock {
                 double x = pos.getX() + Math.min(1 - clamp, Math.max(clamp, random.nextDouble()));
                 double y = pos.getY() + 0.1D;
                 double z = pos.getZ() + Math.min(1 - clamp, Math.max(clamp, random.nextDouble()));
+
                 world.addParticle(RYSParticles.DAYROOT, x, y, z, 0.0D, 0.0D, 0.0D);
+                if (random.nextDouble() <= 0.115D) world.playSound(x, y, z, RYSSoundEvents.BLOCK_DAYROOT_AMBIENT, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
             }
         }
     }

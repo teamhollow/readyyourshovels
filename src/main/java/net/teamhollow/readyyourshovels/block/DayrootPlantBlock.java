@@ -14,6 +14,7 @@ import net.teamhollow.readyyourshovels.state.property.RYSProperties;
 import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
 
 public class DayrootPlantBlock extends WeepingVinesPlantBlock {
+    public static final String id = DayrootBlock.id + "_plant";
     public static final BooleanProperty ROOT = RYSProperties.ROOT;
 
     public DayrootPlantBlock(Settings settings) {

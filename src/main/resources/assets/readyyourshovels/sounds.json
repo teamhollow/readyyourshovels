@@ -15,5 +15,27 @@
                 "stream": true
             }
         ]
+    },
+
+    "block.dayroot.ambient": {
+        "sounds": [
+            {
+                "name": "readyyourshovels:block/dayroot/ambient",
+                "pitch": 0.3,
+                "volume": 0.2
+            },
+            {
+                "name": "readyyourshovels:block/dayroot/ambient",
+                "pitch": 1.0,
+                "volume": 0.2,
+                "weight": 2
+            },
+            {
+                "name": "readyyourshovels:block/dayroot/ambient",
+                "pitch": 1.7,
+                "volume": 0.2
+            }
+        ],
+        "subtitle": "subtitles.readyyourshovels.block.dayroot.ambient"
     }
 }

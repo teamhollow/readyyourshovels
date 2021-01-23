@@ -21,9 +21,9 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
     }
 
     @Override
-    public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
-        int chunkX = x & 15;
-        int chunkZ = z & 15;
+    public void generate(Random random, Chunk chunk, Biome biome, int chunkX, int chunkZ, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
+        int x = chunkX & 15;
+        int z = chunkZ & 15;
         BlockState toughDirt = TOUGH_DIRT;
         SurfaceConfig surfaceConfig = biome.getGenerationSettings().getSurfaceConfig();
         BlockState underMaterial = surfaceConfig.getUnderMaterial();
@@ -37,7 +37,7 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
 
         for(int y = height; y >= 0; --y) {
             BlockState iDefaultBlock = defaultBlock;
-            pos.set(chunkX, y, chunkZ);
+            pos.set(x, y, z);
 
             BlockState newDefaultBlock = y <= 12 && random.nextDouble() <= 0.76
                 ? RYSBlocks.REGOLITH.getDefaultState()

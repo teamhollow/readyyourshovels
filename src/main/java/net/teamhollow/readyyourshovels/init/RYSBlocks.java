@@ -151,14 +151,14 @@ public class RYSBlocks {
     public static final Block DAYROOT = register(DayrootBlock.id, new DayrootBlock(
         FabricBlockSettings.of(Material.PLANT, MaterialColor.GREEN)
             .ticksRandomly().noCollision()
-            .breakInstantly().luminance(10)
+            .breakInstantly().luminance(13)
             .sounds(BlockSoundGroup.WEEPING_VINES)
         )
     );
-    public static final Block DAYROOT_PLANT = register(DayrootPlantBlock.id, new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance((state) -> 6)), false);
+    public static final Block DAYROOT_PLANT = register(DayrootPlantBlock.id, new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance((state) -> 1)), false);
     public static final Block DAYROOT_CROWN = register(DayrootBlock.id + "_crown", new Block(
         FabricBlockSettings.of(Material.SOLID_ORGANIC, MaterialColor.BROWN)
-            .strength(1.0F).luminance(2)
+            .strength(1.0F).luminance(1)
             .breakByTool(FabricToolTags.SHOVELS)
             .sounds(BlockSoundGroup.WART_BLOCK)
         )

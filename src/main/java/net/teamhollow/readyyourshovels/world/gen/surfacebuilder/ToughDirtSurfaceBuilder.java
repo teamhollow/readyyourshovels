@@ -24,11 +24,11 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
     public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
         int chunkX = x & 15;
         int chunkZ = z & 15;
-        BlockState blockState3 = TOUGH_DIRT;
+        BlockState toughDirt = TOUGH_DIRT;
         SurfaceConfig surfaceConfig = biome.getGenerationSettings().getSurfaceConfig();
-        BlockState blockState4 = surfaceConfig.getUnderMaterial();
-        BlockState blockState5 = surfaceConfig.getTopMaterial();
-        BlockState blockState6 = blockState4;
+        BlockState underMaterial = surfaceConfig.getUnderMaterial();
+        BlockState topMaterial = surfaceConfig.getTopMaterial();
+        BlockState setState = underMaterial;
         int noiseRandInt = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
         boolean noiseRandBool = Math.cos(noise / 3.0D * 3.141592653589793D) > 0.0D;
         int q = -1;
@@ -51,15 +51,15 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                 } else if (state.isOf(iDefaultBlock.getBlock())) {
                     if (q == -1) {
                         if (noiseRandInt <= 0) {
-                            blockState3 = Blocks.AIR.getDefaultState();
-                            blockState6 = iDefaultBlock;
+                            toughDirt = Blocks.AIR.getDefaultState();
+                            setState = iDefaultBlock;
                         } else if (y >= seaLevel - 4 && y <= seaLevel + 1) {
-                            blockState3 = TOUGH_DIRT;
-                            blockState6 = blockState4;
+                            toughDirt = TOUGH_DIRT;
+                            setState = underMaterial;
                         }
 
-                        if (y < seaLevel && (blockState3 == null || blockState3.isAir())) {
-                            blockState3 = defaultFluid;
+                        if (y < seaLevel && (toughDirt == null || toughDirt.isAir())) {
+                            toughDirt = defaultFluid;
                         }
 
                         q = noiseRandInt + Math.max(0, y - seaLevel);
@@ -71,24 +71,24 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                                     chunk.setBlockState(pos, Blocks.GRASS_BLOCK.getDefaultState(), false);
                                 }
                             } else if (y > seaLevel + 3 + noiseRandInt) {
-                                BlockState blockState10;
+                                BlockState layerState;
                                 if (y >= 64 && y <= 127) {
                                     if (noiseRandBool) {
-                                        blockState10 = GRASS_BLOCK;
+                                        layerState = GRASS_BLOCK;
                                     } else {
-                                        blockState10 = TOUGH_DIRT;
+                                        layerState = TOUGH_DIRT;
                                     }
                                 } else {
-                                    blockState10 = TOUGH_DIRT;
+                                    layerState = TOUGH_DIRT;
                                 }
 
-                                chunk.setBlockState(pos, blockState10, false);
+                                chunk.setBlockState(pos, layerState, false);
                             } else {
-                                chunk.setBlockState(pos, blockState5, false);
+                                chunk.setBlockState(pos, topMaterial, false);
                             }
                         } else {
-                            chunk.setBlockState(pos, blockState6, false);
-                            if (blockState6 == TOUGH_DIRT) {
+                            chunk.setBlockState(pos, setState, false);
+                            if (setState == TOUGH_DIRT) {
                                 chunk.setBlockState(pos, TOUGH_DIRT, false);
                             }
                         }

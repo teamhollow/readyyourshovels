@@ -11,7 +11,7 @@ import net.teamhollow.readyyourshovels.world.gen.carver.ToughDirtCanyonCarver;
 
 public class RYSConfiguredCarvers {
     public static final ConfiguredCarver<ProbabilityConfig> DIRT_CAVE = register(ToughDirtCaveCarver.id, RYSCarvers.TOUGH_DIRT_CAVE.configure(new ProbabilityConfig(0.14285715F)));
-    public static final ConfiguredCarver<ProbabilityConfig> DIRT_CANYON = register(ToughDirtCanyonCarver.id, RYSCarvers.TOUGH_DIRT_CANYON.configure(new ProbabilityConfig(0.1F)));
+    public static final ConfiguredCarver<ProbabilityConfig> DIRT_CANYON = register(ToughDirtCanyonCarver.id, RYSCarvers.TOUGH_DIRT_CANYON.configure(new ProbabilityConfig(0.1625F)));
 
     public RYSConfiguredCarvers() {}
 

@@ -172,14 +172,10 @@ public class RYSBlocks {
         FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD)
             .noCollision().breakInstantly()
             .sounds(BlockSoundGroup.GRASS)
+            .luminance(1)
         )
     );
-    public static final Block TOUGHROOT_STEM = register("toughroot_stem", new PublicFernBlock(
-        FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD)
-            .noCollision().breakInstantly()
-            .sounds(BlockSoundGroup.GRASS)
-        )
-    );
+    public static final Block TOUGHROOT_STEM = register("toughroot_stem", new PublicFernBlock(FabricBlockSettings.copy(TOUGHROOT)));
 
     public RYSBlocks() {}
 

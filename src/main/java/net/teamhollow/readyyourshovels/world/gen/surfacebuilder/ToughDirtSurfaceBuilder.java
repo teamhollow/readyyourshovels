@@ -31,7 +31,7 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
         BlockState setState = underMaterial;
         int noiseRandInt = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
         boolean noiseRandBool = Math.cos(noise / 3.0D * 3.141592653589793D) > 0.0D;
-        int q = -1;
+        int setY = -1;
         int loop = 0;
         BlockPos.Mutable pos = new BlockPos.Mutable();
 
@@ -39,7 +39,11 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
             BlockState iDefaultBlock = defaultBlock;
             pos.set(chunkX, y, chunkZ);
 
-            BlockState newDefaultBlock = RYSBlocks.TOUGH_DIRT.getDefaultState();
+            BlockState newDefaultBlock = y <= 12 && random.nextDouble() <= 0.76
+                ? RYSBlocks.REGOLITH.getDefaultState()
+                : y <= 16 && random.nextDouble() <= 0.4
+                    ? RYSBlocks.REGOLITH.getDefaultState()
+                    : RYSBlocks.TOUGH_DIRT.getDefaultState();
             if (chunk.getBlockState(pos).isOf(iDefaultBlock.getBlock())) chunk.setBlockState(pos, newDefaultBlock, false);
 
             if (loop < 15) {
@@ -47,9 +51,9 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                 iDefaultBlock = newDefaultBlock;
 
                 if (state.isAir()) {
-                    q = -1;
+                    setY = -1;
                 } else if (state.isOf(iDefaultBlock.getBlock())) {
-                    if (q == -1) {
+                    if (setY == -1) {
                         if (noiseRandInt <= 0) {
                             toughDirt = Blocks.AIR.getDefaultState();
                             setState = iDefaultBlock;
@@ -62,7 +66,7 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                             toughDirt = defaultFluid;
                         }
 
-                        q = noiseRandInt + Math.max(0, y - seaLevel);
+                        setY = noiseRandInt + Math.max(0, y - seaLevel);
                         if (y >= seaLevel - 1) {
                             if (y > 86 + noiseRandInt * 2) {
                                 if (noiseRandBool) {
@@ -92,8 +96,8 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                                 chunk.setBlockState(pos, TOUGH_DIRT, false);
                             }
                         }
-                    } else if (q > 0) {
-                        q--;
+                    } else if (setY > 0) {
+                        setY--;
                         chunk.setBlockState(pos, TOUGH_DIRT, false);
                     }
 

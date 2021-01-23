@@ -12,6 +12,6 @@ public class ToughDirtCaveCarver extends CaveCarver {
 
     public ToughDirtCaveCarver(Codec<ProbabilityConfig> configCodec, int heightLimit) {
         super(configCodec, heightLimit);
-        this.alwaysCarvableBlocks = ImmutableSet.of(RYSBlocks.TOUGH_DIRT, Blocks.GRASS_BLOCK, Blocks.DIRT);
+        this.alwaysCarvableBlocks = ImmutableSet.of(RYSBlocks.TOUGH_DIRT, RYSBlocks.REGOLITH, Blocks.GRASS_BLOCK, Blocks.DIRT);
     }
 }

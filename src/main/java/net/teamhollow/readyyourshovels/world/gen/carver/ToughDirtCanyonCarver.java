@@ -12,6 +12,6 @@ public class ToughDirtCanyonCarver extends RavineCarver {
 
     public ToughDirtCanyonCarver(Codec<ProbabilityConfig> configCodec) {
         super(configCodec);
-        this.alwaysCarvableBlocks = ImmutableSet.of(RYSBlocks.TOUGH_DIRT, Blocks.GRASS_BLOCK, Blocks.DIRT);
+        this.alwaysCarvableBlocks = ImmutableSet.of(RYSBlocks.TOUGH_DIRT, RYSBlocks.REGOLITH, Blocks.GRASS_BLOCK, Blocks.DIRT);
     }
 }

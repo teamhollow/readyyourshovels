@@ -1,7 +1,5 @@
 package net.teamhollow.readyyourshovels;
 
-import static net.teamhollow.readyyourshovels.ReadyYourShovels.log;
-
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -9,11 +7,13 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.teamhollow.readyyourshovels.client.particle.DayrootParticle;
 import net.teamhollow.readyyourshovels.client.particle.RYSCrackParticle;
-import net.teamhollow.readyyourshovels.entity.garden_ant.GardenAntEntityRenderer;
+import net.teamhollow.readyyourshovels.entity.ant.garden_ant.GardenAntEntityRenderer;
 import net.teamhollow.readyyourshovels.entity.peaty_slime.PeatySlimeEntityRenderer;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSEntities;
 import net.teamhollow.readyyourshovels.init.RYSParticles;
+
+import static net.teamhollow.readyyourshovels.ReadyYourShovels.log;
 
 @SuppressWarnings("unused")
 public class ReadyYourShovelsClient implements ClientModInitializer {

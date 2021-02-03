@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.entity.garden_ant.GardenAntEntity;
+import net.teamhollow.readyyourshovels.entity.ant.garden_ant.GardenAntEntity;
 import net.teamhollow.readyyourshovels.entity.peaty_slime.PeatySlimeEntity;
 
 public class RYSEntities {

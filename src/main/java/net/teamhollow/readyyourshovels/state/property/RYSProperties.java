@@ -5,9 +5,9 @@ import net.minecraft.state.property.IntProperty;
 
 public class RYSProperties {
     /**
-     * A property that specifies the resource level of an ant nest.
+     * A property that specifies the acid level of an ant nest.
      */
-    public static final IntProperty RESOURCE_LEVEL = IntProperty.of("resource_level", 0, 5);
+    public static final IntProperty ACID_LEVEL = IntProperty.of("acid_level", 0, 5);
     /**
      * A property that defines whether a dayroot is connected to a dirt-like block.
      */

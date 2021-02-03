@@ -15,7 +15,9 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.FlintAndSteelItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundEvent;
@@ -24,19 +26,18 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.gen.ChunkRandom;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSParticles;
 import net.teamhollow.readyyourshovels.tag.RYSItemTags;
 
 import java.util.EnumSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -132,9 +133,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
                 }
 
                 if (itemStack.isDamageable()) {
-                    itemStack.damage(1, player, (Consumer<LivingEntity>) ((p) -> {
-                        p.sendToolBreakStatus(hand);
-                    }));
+                    itemStack.damage(1, player, (Consumer<LivingEntity>) ((p) -> p.sendToolBreakStatus(hand)));
                 } else {
                     itemStack.decrement(1);
                 }
@@ -186,6 +185,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         return this.random.nextInt(20) + 10;
     }
 
+    @SuppressWarnings("unused")
     public static boolean canMobSpawn(EntityType<? extends PeatySlimeEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
         return serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && pos.getY() <= 60 && serverWorldAccess.getBlockState(pos.down()).isOf(RYSBlocks.TOUGH_DIRT);
     }
@@ -298,27 +298,6 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         return this.isSmall() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
     }
 
-    @SuppressWarnings("unused")
-    public static boolean canSpawn(EntityType<PeatySlimeEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) { // TODO
-        if (world.getDifficulty() != Difficulty.PEACEFUL) {
-            if (Objects.equals(world.method_31081(pos), Optional.of(BiomeKeys.SWAMP)) && pos.getY() > 50 && pos.getY() < 70 && random.nextFloat() < 0.5F && random.nextFloat() < world.getMoonSize() && world.getLightLevel(pos) <= random.nextInt(8)) {
-                return canMobSpawn(type, world, spawnReason, pos, random);
-            }
-
-            if (!(world instanceof StructureWorldAccess)) {
-                return false;
-            }
-
-            ChunkPos chunkPos = new ChunkPos(pos);
-            boolean bl = ChunkRandom.getSlimeRandom(chunkPos.x, chunkPos.z, ((StructureWorldAccess)world).getSeed(), 987234911L).nextInt(10) == 0;
-            if (random.nextInt(10) == 0 && bl && pos.getY() < 40) {
-                return canMobSpawn(type, world, spawnReason, pos, random);
-            }
-        }
-
-        return false;
-    }
-
     @Override
     protected float getSoundVolume() {
         return 0.4F * (float)this.getSize();
@@ -374,10 +353,12 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             this.setControls(EnumSet.of(Goal.Control.JUMP, Goal.Control.MOVE));
         }
 
+        @Override
         public boolean canStart() {
             return !this.slime.hasVehicle();
         }
 
+        @Override
         public void tick() {
             ((PeatySlimeEntity.SlimeMoveControl)this.slime.getMoveControl()).move(1.0D);
         }
@@ -392,10 +373,12 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             slime.getNavigation().setCanSwim(true);
         }
 
+        @Override
         public boolean canStart() {
             return (this.slime.isTouchingWater() || this.slime.isInLava()) && this.slime.getMoveControl() instanceof PeatySlimeEntity.SlimeMoveControl;
         }
 
+        @Override
         public void tick() {
             if (this.slime.getRandom().nextFloat() < 0.8F) {
                 this.slime.getJumpControl().setActive();
@@ -415,10 +398,12 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             this.setControls(EnumSet.of(Goal.Control.LOOK));
         }
 
+        @Override
         public boolean canStart() {
             return this.slime.getTarget() == null && (this.slime.onGround || this.slime.isTouchingWater() || this.slime.isInLava() || this.slime.hasStatusEffect(StatusEffects.LEVITATION)) && this.slime.getMoveControl() instanceof PeatySlimeEntity.SlimeMoveControl;
         }
 
+        @Override
         public void tick() {
             if (--this.timer <= 0) {
                 this.timer = 40 + this.slime.getRandom().nextInt(60);
@@ -438,6 +423,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             this.setControls(EnumSet.of(Goal.Control.LOOK));
         }
 
+        @Override
         public boolean canStart() {
             LivingEntity livingEntity = this.slime.getTarget();
             if (livingEntity == null) {
@@ -449,11 +435,13 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             }
         }
 
+        @Override
         public void start() {
             this.ticksLeft = 300;
             super.start();
         }
 
+        @Override
         public boolean shouldContinue() {
             LivingEntity livingEntity = this.slime.getTarget();
             if (livingEntity == null) {
@@ -467,6 +455,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             }
         }
 
+        @Override
         public void tick() {
             this.slime.lookAtEntity(this.slime.getTarget(), 10.0F, 10.0F);
             ((PeatySlimeEntity.SlimeMoveControl)this.slime.getMoveControl()).look(this.slime.yaw, this.slime.canAttack());
@@ -495,6 +484,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             this.state = MoveControl.State.MOVE_TO;
         }
 
+        @Override
         public void tick() {
             this.entity.yaw = this.changeAngle(this.entity.yaw, this.targetYaw, 90.0F);
             this.entity.headYaw = this.entity.yaw;

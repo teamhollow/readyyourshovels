@@ -1,4 +1,4 @@
-package net.teamhollow.readyyourshovels.entity.garden_ant;
+package net.teamhollow.readyyourshovels.entity.ant.garden_ant;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,7 +11,7 @@ import net.teamhollow.readyyourshovels.init.RYSEntities;
 @Environment(EnvType.CLIENT)
 public class GardenAntEntityRenderer extends MobEntityRenderer<GardenAntEntity, GardenAntEntityModel<GardenAntEntity>> {
     public GardenAntEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new GardenAntEntityModel<GardenAntEntity>(), 0.25F);
+        super(entityRenderDispatcher, new GardenAntEntityModel<>(), 0.25F);
     }
 
     @Override

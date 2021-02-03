@@ -1,0 +1,6 @@
+{
+    "parent": "readyyourshovels:block/ant_nest",
+    "textures": {
+        "front": "readyyourshovels:block/ant_nest_front_acid"
+    }
+}

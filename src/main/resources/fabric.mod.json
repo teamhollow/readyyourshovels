@@ -14,7 +14,8 @@
     "contributors": [],
     "contact": {
         "homepage": "https://readyyourshovels.teamhollow.net",
-        "sources": "https://github.com/teamhollow/readyyourshovels"
+        "sources": "https://github.com/teamhollow/readyyourshovels",
+        "issues": "https://github.com/teamhollow/readyyourshovels/issues"
     },
 
     "environment": "*",
@@ -30,8 +31,11 @@
     "mixins": [],
     "depends": {
         "fabricloader": ">=0.11.0",
-        "fabric": ">=0.29.0",
-        "chord": ">=1.4.3",
+        "fabric": ">=0.30.0",
+        "chord": ">=1.4.5",
         "minecraft": ">=1.16.2"
+    },
+    "recommends": {
+        "canvas": ">=1.0"
     }
 }

@@ -19,7 +19,7 @@ import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -116,10 +116,6 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         return this.getSize() <= 1;
     }
 
-    protected ParticleEffect getParticles() {
-        return RYSParticles.ITEM_PEAT;
-    }
-
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (!this.isTouchingWater()) {
@@ -157,14 +153,15 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         this.lastStretch = this.stretch;
         super.tick();
         if (this.onGround && !this.onGroundLastTick) {
-            int i = this.getSize();
+            int size = this.getSize();
 
-            for(int j = 0; j < i * 8; ++j) {
-                float f = this.random.nextFloat() * 6.2831855F;
-                float g = this.random.nextFloat() * 0.5F + 0.5F;
-                float h = MathHelper.sin(f) * (float)i * 0.5F * g;
-                float k = MathHelper.cos(f) * (float)i * 0.5F * g;
-                this.world.addParticle(this.getParticles(), this.getX() + (double)h, this.getY(), this.getZ() + (double)k, 0.0D, 0.0D, 0.0D);
+            for(int i = 0; i < size * 8; ++i) {
+                float rand1 = this.random.nextFloat() * 6.2831855F;
+                float rand2 = this.random.nextFloat() * 0.5F + 0.5F;
+                float x = MathHelper.sin(rand1) * (float)size * 0.5F * rand2;
+                float z = MathHelper.cos(rand1) * (float)size * 0.5F * rand2;
+                this.world.addParticle(RYSParticles.ITEM_PEAT, this.getX() + (double)x, this.getY(), this.getZ() + (double)z, 0.0D, 0.0D, 0.0D);
+                if (random.nextFloat() <= 0.1F) this.world.addParticle(ParticleTypes.FLAME, this.getX() + (double)x, this.getY(), this.getZ() + (double)z, 0.0D, 0.0D, 0.0D);
             }
 
             this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);

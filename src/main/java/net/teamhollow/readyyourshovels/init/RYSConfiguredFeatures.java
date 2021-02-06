@@ -35,7 +35,6 @@ public class RYSConfiguredFeatures {
             .repeat(16)
     );
 
-    // tough dirt replacements
     public static final ConfiguredFeature<?, ?> TOUGH_DIRT_PATCH_COBBLESTONE = register(
         "tough_dirt_patch_cobblestone",
         Feature.ORE.configure(
@@ -63,7 +62,6 @@ public class RYSConfiguredFeatures {
         .repeat(32)
     );
 
-    // above ground
     public static final ConfiguredFeature<?, ?> PATCH_TOUGHROOT_STEM = register(
         "patch_toughroot_stem",
         Feature.SIMPLE_RANDOM_SELECTOR.configure(
@@ -72,6 +70,25 @@ public class RYSConfiguredFeatures {
                     () -> Feature.NO_BONEMEAL_FLOWER.configure(
                         new RandomPatchFeatureConfig.Builder(
                             new SimpleBlockStateProvider(States.TOUGHROOT_STEM),
+                            SimpleBlockPlacer.INSTANCE
+                        ).tries(64).build()
+                    )
+                )
+            )
+        )
+        .repeat(UniformIntDistribution.of(-1, 4))
+        .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
+        .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
+        .repeat(5)
+    );
+    public static final ConfiguredFeature<?, ?> PATCH_CAVE_CARROT = register(
+        "patch_cave_carrot",
+        Feature.SIMPLE_RANDOM_SELECTOR.configure(
+            new SimpleRandomFeatureConfig(
+                ImmutableList.of(
+                    () -> Feature.NO_BONEMEAL_FLOWER.configure(
+                        new RandomPatchFeatureConfig.Builder(
+                            new SimpleBlockStateProvider(States.CAVE_CARROT),
                             SimpleBlockPlacer.INSTANCE
                         ).tries(64).build()
                     )
@@ -95,10 +112,11 @@ public class RYSConfiguredFeatures {
         return Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new Identifier(ReadyYourShovels.MOD_ID, id), configuredFeature);
     }
 
-    private static class States {
+    private static final class States {
         private static final BlockState COBBLESTONE = Blocks.COBBLESTONE.getDefaultState();
         private static final BlockState CLAY_DEPOSIT = RYSBlocks.CLAY_DEPOSIT.getDefaultState();
         private static final BlockState TOUGHROOT_STEM = RYSBlocks.TOUGHROOT_STEM.getDefaultState();
+        private static final BlockState CAVE_CARROT = RYSBlocks.CAVE_CARROT.getDefaultState();
     }
     private static final class Rules {
         public static final RuleTest TOUGH_DIRT = new BlockMatchRuleTest(RYSBlocks.TOUGH_DIRT);

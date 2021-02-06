@@ -1,9 +1,6 @@
 package net.teamhollow.readyyourshovels.init;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
-import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.sound.BiomeMoodSound;
@@ -22,8 +19,10 @@ import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
+import java.util.function.Predicate;
+
 public class RYSBiomes {
-    public static final RegistryKey<Biome> FOREST_MOUND = register("forest_mound", createForestMound());
+    public static final RegistryKey<Biome> FOREST_MOUND = register("forest_mound", RYSBiomes.createForestMound());
 
     private static Biome createForestMound() {
         // spawn settingss
@@ -61,6 +60,7 @@ public class RYSBiomes {
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_DAYROOT);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_TOUGHROOT);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_TOUGHROOT_STEM);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_CAVE_CARROT);
         generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_PATCH_COBBLESTONE);
         generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_CLAY);
 
@@ -87,7 +87,11 @@ public class RYSBiomes {
         OverworldBiomes.addContinentalBiome(FOREST_MOUND, OverworldClimate.TEMPERATE, 1.0D);
 
         // modify biomes
-        BiomeModifications.addStructure(BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS, Biome.Category.RIVER, Biome.Category.MESA).negate()), RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));
+        Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS, Biome.Category.RIVER, Biome.Category.MESA).negate());
+        BiomeModifications.addStructure(biomeSelector, RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));
+        /*for (ConfiguredFeature<?, ?> configuredFeature : new ConfiguredFeature[]{ RYSConfiguredFeatures.PATCH_CAVE_CARROT, RYSConfiguredFeatures.PATCH_TOUGHROOT_STEM }) {
+            BiomeModifications.addFeature(biomeSelector, GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(configuredFeature)));
+        }*/
     }
 
     private static RegistryKey<Biome> register(String id, Biome biome) {

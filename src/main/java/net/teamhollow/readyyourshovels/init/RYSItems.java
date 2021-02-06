@@ -2,11 +2,14 @@ package net.teamhollow.readyyourshovels.init;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.block.CaveCarrotBlock;
 import net.teamhollow.readyyourshovels.item.vanilla.PublicMusicDiscItem;
 
 @SuppressWarnings("unused")
@@ -21,6 +24,14 @@ public class RYSItems {
                 .rarity(Rarity.RARE)
                 .group(ReadyYourShovels.ITEM_GROUP)
             )
+    );
+
+    public static final Item CAVE_CARROT = register(CaveCarrotBlock.id, new BlockItem(
+        RYSBlocks.CAVE_CARROT,
+        new FabricItemSettings()
+            .food(FoodComponents.CARROT)
+            .group(ReadyYourShovels.ITEM_GROUP)
+        )
     );
 
     public RYSItems() {

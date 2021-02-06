@@ -165,17 +165,24 @@ public class RYSBlocks {
     );
 
     //
-    // TOUGHROOT
+    // FOLIAGE
     //
 
-    public static final Block TOUGHROOT = register("toughroot", new ToughrootBlock(
+    public static final Block TOUGHROOT = register(ToughrootBlock.id, new ToughrootBlock(
         FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD)
             .noCollision().breakInstantly()
             .sounds(BlockSoundGroup.GRASS)
             .luminance(1)
         )
     );
-    public static final Block TOUGHROOT_STEM = register("toughroot_stem", new PublicFernBlock(FabricBlockSettings.copy(TOUGHROOT)));
+    public static final Block TOUGHROOT_STEM = register(ToughrootBlock.id + "_stem", new PublicFernBlock(FabricBlockSettings.copy(TOUGHROOT)));
+
+    public static final Block CAVE_CARROT = register(CaveCarrotBlock.id, new CaveCarrotBlock(
+        FabricBlockSettings.of(Material.PLANT, MaterialColor.GREEN)
+            .noCollision().breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+        ), false
+    );
 
     public RYSBlocks() {}
 

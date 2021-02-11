@@ -18,6 +18,7 @@ public class RYSCrackParticle extends CrackParticle {
 
     @Environment(EnvType.CLIENT)
     public static class PeatFactory implements ParticleFactory<DefaultParticleType> {
+        @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double g, double h, double i) {
             return new RYSCrackParticle(clientWorld, x, y, z, new ItemStack(RYSItems.PEAT));
         }

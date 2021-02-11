@@ -10,7 +10,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.*;
-import net.teamhollow.readyyourshovels.block.vanilla.*;
+import net.teamhollow.readyyourshovels.block.vanilla.PublicFernBlock;
+import net.teamhollow.readyyourshovels.block.vanilla.PublicStairsBlock;
+import net.teamhollow.readyyourshovels.sound.RYSBlockSoundGroup;
 
 @SuppressWarnings("unused")
 public class RYSBlocks {
@@ -21,7 +23,7 @@ public class RYSBlocks {
     public static final Block TOUGH_DIRT = register("tough_dirt", new Block(
             FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS).requiresTool()
-            .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(1.0F, 1.5F).sounds(RYSBlockSoundGroup.TOUGH_DIRT)
         )
     );
     public static final Block TOUGH_DIRT_SLAB = register("tough_dirt_slab", new SlabBlock(FabricBlockSettings.copy(TOUGH_DIRT)));
@@ -35,32 +37,32 @@ public class RYSBlocks {
     public static final Block CLAY_DEPOSIT = register("clay_deposit", new Block(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS).requiresTool()
-            .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(1.0F, 1.5F).sounds(RYSBlockSoundGroup.TOUGH_DIRT)
         )
     );
     public static final Block GOLD_DEPOSIT = register("gold_deposit", new Block(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
-            .strength(2.0F, 2.5F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(2.0F, 2.5F).sounds(RYSBlockSoundGroup.TOUGH_DIRT)
         )
     );
     public static final Block IRON_DEPOSIT = register("iron_deposit", new Block(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS, 1).requiresTool()
-            .strength(1.5F, 2.0F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(1.5F, 2.0F).sounds(RYSBlockSoundGroup.TOUGH_DIRT)
         )
     );
     public static final Block PEAT_DEPOSIT = register("peat_deposit", new Block(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS).requiresTool()
-            .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(1.0F, 1.5F).sounds(RYSBlockSoundGroup.TOUGH_DIRT)
         )
     );
 
     public static final Block REGOLITH = register("regolith", new Block(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS, 2).requiresTool()
-            .strength(2.0F, 2.5F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(2.0F, 2.5F).sounds(RYSBlockSoundGroup.REGOLITH)
         )
     );
 
@@ -71,7 +73,7 @@ public class RYSBlocks {
     public static final Block DIRT_BRICKS = register("dirt_bricks", new Block(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS).requiresTool()
-            .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(1.0F, 1.5F).sounds(RYSBlockSoundGroup.TOUGH_DIRT)
         )
     );
     public static final Block DIRT_BRICK_SLAB = register("dirt_brick_slab", new SlabBlock(FabricBlockSettings.copy(DIRT_BRICKS)));
@@ -85,7 +87,7 @@ public class RYSBlocks {
     public static final Block SMOOTH_DIRT = register("smooth_dirt", new Block(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS).requiresTool()
-            .strength(1.0F, 1.5F).sounds(BlockSoundGroup.GRAVEL)
+            .strength(1.0F, 1.5F).sounds(RYSBlockSoundGroup.TOUGH_DIRT)
         )
     );
     public static final Block SMOOTH_DIRT_SLAB = register("smooth_dirt_slab", new SlabBlock(FabricBlockSettings.copy(SMOOTH_DIRT)));

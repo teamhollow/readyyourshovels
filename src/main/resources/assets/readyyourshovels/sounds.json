@@ -3,9 +3,22 @@
         "sounds": [
             "readyyourshovels:entity/ant/ambient1",
             "readyyourshovels:entity/ant/ambient2",
-            "readyyourshovels:entity/ant/ambient3"
+            "readyyourshovels:entity/ant/ambient3",
+            "readyyourshovels:entity/ant/ambient4"
         ],
         "subtitle": "subtitles.readyyourshovels.entity.ant.ambient"
+    },
+    "entity.ant.hurt": {
+        "sounds": [
+            "readyyourshovels:entity/ant/hurt1"
+        ],
+        "subtitle": "subtitles.readyyourshovels.entity.ant.hurt"
+    },
+    "entity.ant.death": {
+        "sounds": [
+            "readyyourshovels:entity/ant/death1"
+        ],
+        "subtitle": "subtitles.readyyourshovels.entity.ant.death"
     },
 
     "music_disc.colly": {
@@ -17,23 +30,103 @@
         ]
     },
 
+    "block.tough_dirt.break": {
+        "sounds": [
+            "readyyourshovels:block/tough_dirt/soft1",
+            "readyyourshovels:block/tough_dirt/soft2",
+            "readyyourshovels:block/tough_dirt/soft3"
+        ],
+        "subtitle": "subtitles.block.generic.break"
+    },
+    "block.tough_dirt.fall": {
+        "sounds": [
+            "readyyourshovels:block/tough_dirt/hard1",
+            "readyyourshovels:block/tough_dirt/hard2",
+            "readyyourshovels:block/tough_dirt/hard3"
+        ]
+    },
+    "block.tough_dirt.hit": {
+        "sounds": [
+            "readyyourshovels:block/tough_dirt/hard1",
+            "readyyourshovels:block/tough_dirt/hard2",
+            "readyyourshovels:block/tough_dirt/hard3"
+        ],
+        "subtitle": "subtitles.block.generic.hit"
+    },
+    "block.tough_dirt.place": {
+        "sounds": [
+            "readyyourshovels:block/tough_dirt/soft1",
+            "readyyourshovels:block/tough_dirt/soft2",
+            "readyyourshovels:block/tough_dirt/soft3"
+        ],
+        "subtitle": "subtitles.block.generic.place"
+    },
+    "block.tough_dirt.step": {
+        "sounds": [
+            "readyyourshovels:block/tough_dirt/hard1",
+            "readyyourshovels:block/tough_dirt/hard2",
+            "readyyourshovels:block/tough_dirt/hard3"
+        ],
+        "subtitle": "subtitles.block.generic.footsteps"
+    },
+
+    "block.regolith.break": {
+        "sounds": [
+            "readyyourshovels:block/regolith/soft1",
+            "readyyourshovels:block/regolith/soft2",
+            "readyyourshovels:block/regolith/soft3"
+        ],
+        "subtitle": "subtitles.block.generic.break"
+    },
+    "block.regolith.fall": {
+        "sounds": [
+            "readyyourshovels:block/regolith/hard1",
+            "readyyourshovels:block/regolith/hard2",
+            "readyyourshovels:block/regolith/hard3"
+        ]
+    },
+    "block.regolith.hit": {
+        "sounds": [
+            "readyyourshovels:block/regolith/hard1",
+            "readyyourshovels:block/regolith/hard2",
+            "readyyourshovels:block/regolith/hard3"
+        ],
+        "subtitle": "subtitles.block.generic.hit"
+    },
+    "block.regolith.place": {
+        "sounds": [
+            "readyyourshovels:block/regolith/soft1",
+            "readyyourshovels:block/regolith/soft2",
+            "readyyourshovels:block/regolith/soft3"
+        ],
+        "subtitle": "subtitles.block.generic.place"
+    },
+    "block.regolith.step": {
+        "sounds": [
+            "readyyourshovels:block/regolith/hard1",
+            "readyyourshovels:block/regolith/hard2",
+            "readyyourshovels:block/regolith/hard3"
+        ],
+        "subtitle": "subtitles.block.generic.footsteps"
+    },
+
     "block.dayroot.ambient": {
         "sounds": [
             {
                 "name": "readyyourshovels:block/dayroot/ambient",
                 "pitch": 0.3,
-                "volume": 0.2
+                "volume": 0.5
             },
             {
                 "name": "readyyourshovels:block/dayroot/ambient",
                 "pitch": 1.0,
-                "volume": 0.2,
+                "volume": 0.5,
                 "weight": 2
             },
             {
                 "name": "readyyourshovels:block/dayroot/ambient",
                 "pitch": 1.7,
-                "volume": 0.2
+                "volume": 0.5
             }
         ],
         "subtitle": "subtitles.readyyourshovels.block.dayroot.ambient"

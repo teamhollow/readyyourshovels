@@ -249,17 +249,17 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return null;
+        return RYSSoundEvents.ENTITY_ANT_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return null;
+        return RYSSoundEvents.ENTITY_ANT_DEATH;
     }
 
     @Override
     protected float getSoundVolume() {
-        return 0.4F;
+        return 0.75F;
     }
 
     @Override

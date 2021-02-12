@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "readyyourshovels:peat_bricks"
+  },
+  "result": "readyyourshovels:peat_brick_wall",
+  "count": 1
+}

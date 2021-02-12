@@ -27,8 +27,8 @@ public class RYSBiomes {
     private static Biome createForestMound() {
         // spawn settingss
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.BAT, 10, 8, 8));
-        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(RYSEntities.PEATY_SLIME, 10, 4, 6));
+        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.BAT, 10, 8, 8))
+                     .spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(RYSEntities.PEATY_SLIME, 10, 4, 6));
 
         // generation settings
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder().surfaceBuilder(RYSConfiguredSurfaceBuilders.TOUGH_DIRT);
@@ -36,9 +36,9 @@ public class RYSBiomes {
         DefaultBiomeFeatures.addForestTrees(generationSettings);
 
         DefaultBiomeFeatures.addDefaultUndergroundStructures(generationSettings);
-        generationSettings.structureFeature(ConfiguredStructureFeatures.RUINED_PORTAL);
-        generationSettings.carver(GenerationStep.Carver.AIR, RYSConfiguredCarvers.DIRT_CAVE);
-        generationSettings.carver(GenerationStep.Carver.AIR, RYSConfiguredCarvers.DIRT_CANYON);
+        generationSettings.structureFeature(ConfiguredStructureFeatures.RUINED_PORTAL)
+                          .carver(GenerationStep.Carver.AIR, RYSConfiguredCarvers.DIRT_CAVE)
+                          .carver(GenerationStep.Carver.AIR, RYSConfiguredCarvers.DIRT_CANYON);
         DefaultBiomeFeatures.addDefaultLakes(generationSettings);
         DefaultBiomeFeatures.addDungeons(generationSettings);
 
@@ -47,8 +47,10 @@ public class RYSBiomes {
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
         DefaultBiomeFeatures.addForestGrass(generationSettings);
         DefaultBiomeFeatures.addDefaultFlowers(generationSettings);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.FOREST_FLOWER_VEGETATION_COMMON);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_SUGAR_CANE);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.FOREST_FLOWER_VEGETATION_COMMON)
+                          .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_SUGAR_CANE)
+                          .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_BROWN_MUSHROOM)
+                          .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_RED_MUSHROOM);
 
         DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_PUMPKIN);
@@ -56,13 +58,16 @@ public class RYSBiomes {
         DefaultBiomeFeatures.addSprings(generationSettings);
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
 
-        // generationSettings.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, RYSConfiguredFeatures.DIRT_CAVE);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_DAYROOT);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_TOUGHROOT);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_TOUGHROOT_STEM);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_CAVE_CARROT);
-        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_PATCH_COBBLESTONE);
-        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_CLAY);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_DAYROOT)
+                          .feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.DIRT_CAVE_TOUGHROOT)
+                          .feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_TOUGHROOT_STEM)
+                          .feature(GenerationStep.Feature.VEGETAL_DECORATION, RYSConfiguredFeatures.PATCH_CAVE_CARROT)
+                          .feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_PATCH_COBBLESTONE)
+                          .feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_CLAY)
+
+                          .feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_GOLD)
+                          .feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_IRON)
+                          .feature(GenerationStep.Feature.UNDERGROUND_ORES, RYSConfiguredFeatures.TOUGH_DIRT_DEPOSIT_PEAT);
 
         return new Biome.Builder()
             .precipitation(Biome.Precipitation.RAIN)
@@ -72,7 +77,7 @@ public class RYSBiomes {
                 new BiomeEffects.Builder()
                     .waterColor(0x127ee3).waterFogColor(0x10107d)
                     .fogColor(0xa6c8ff)
-                    .skyColor(getSkyColor(0.8F))
+                    .skyColor(RYSBiomes.getSkyColor(0.8F))
                     .moodSound(BiomeMoodSound.CAVE)
                     .build()
             )
@@ -89,9 +94,6 @@ public class RYSBiomes {
         // modify biomes
         Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS, Biome.Category.RIVER, Biome.Category.MESA).negate());
         BiomeModifications.addStructure(biomeSelector, RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));
-        /*for (ConfiguredFeature<?, ?> configuredFeature : new ConfiguredFeature[]{ RYSConfiguredFeatures.PATCH_CAVE_CARROT, RYSConfiguredFeatures.PATCH_TOUGHROOT_STEM }) {
-            BiomeModifications.addFeature(biomeSelector, GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_FEATURE.getId(configuredFeature)));
-        }*/
     }
 
     private static RegistryKey<Biome> register(String id, Biome biome) {

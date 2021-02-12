@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "readyyourshovels:peat_brick_wall_from_peat_brick_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_peat_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "readyyourshovels:peat_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "readyyourshovels:peat_brick_wall_from_peat_brick_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_peat_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

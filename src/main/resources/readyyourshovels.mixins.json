@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "net.teamhollow.readyyourshovels.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [],
+  "client": [
+    "client.EntityModelLayersInvoker",
+    "client.EntityModelLayersMixin",
+    "client.EntityModelsMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

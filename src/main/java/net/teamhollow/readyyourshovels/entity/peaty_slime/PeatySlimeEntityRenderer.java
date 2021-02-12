@@ -3,18 +3,18 @@ package net.teamhollow.readyyourshovels.entity.peaty_slime;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.teamhollow.readyyourshovels.client.init.RYSEntityModelLayers;
 import net.teamhollow.readyyourshovels.init.RYSEntities;
 
 @Environment(EnvType.CLIENT)
 public class PeatySlimeEntityRenderer extends MobEntityRenderer<PeatySlimeEntity, PeatySlimeEntityModel<PeatySlimeEntity>> {
-    public PeatySlimeEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new PeatySlimeEntityModel<>(), 0.25F);
+    public PeatySlimeEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new PeatySlimeEntityModel<>(context.getPart(RYSEntityModelLayers.PEATY_SLIME)), 0.25F);
         this.addFeature(new PeatySlimeEyesFeatureRenderer<>(this));
     }
 

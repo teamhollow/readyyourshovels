@@ -97,8 +97,6 @@ public class GardenAntEntity extends AbstractAntEntity implements ResourceGather
             }
         }
 
-        if (!this.world.isClient && this.isAlive() && this.age >= 2400 && this.getMainHandStack().isEmpty()) this.remove();
-
         if (this.ticksUntilCanResourcePickup > 0) {
             --this.ticksUntilCanResourcePickup;
         }
@@ -148,14 +146,8 @@ public class GardenAntEntity extends AbstractAntEntity implements ResourceGather
     }
 
     @Override
-    protected boolean canEnterNest() {
-        if (this.hasResource()) {
-            return true;
-        } else if (this.cannotEnterNestTicks <= 0 && this.getTarget() == null) {
-            return (this.failedResourcePickupTooLong() || this.world.isRaining() || this.world.isNight()) && this.isNestNotNearFire();
-        } else {
-            return false;
-        }
+    protected boolean canEnterNestExt() {
+        return this.hasResource() || this.failedResourcePickupTooLong();
     }
 
     @Override

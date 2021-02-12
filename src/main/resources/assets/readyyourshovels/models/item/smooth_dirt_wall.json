@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "readyyourshovels:block/smooth_dirt"
-  }
+  "parent": "readyyourshovels:block/smooth_dirt_wall_inventory"
 }

@@ -21,7 +21,7 @@ public class RYSConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_DAYROOT = register(
         "dirt_cave_dayroot",
         RYSFeatures.DIRT_CAVE_DAYROOT.configure(FeatureConfig.DEFAULT)
-            .rangeOf(128)
+            .rangeOf(-64, 128)
             .spreadHorizontally()
             .repeat(8)
             .repeat(8)
@@ -29,7 +29,7 @@ public class RYSConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_TOUGHROOT = register(
         "dirt_cave_toughroot",
         RYSFeatures.DIRT_CAVE_TOUGHROOT.configure(FeatureConfig.DEFAULT)
-            .rangeOf(128)
+            .rangeOf(-64, 128)
             .spreadHorizontally()
             .repeat(16)
             .repeat(16)
@@ -44,6 +44,7 @@ public class RYSConfiguredFeatures {
                 33
             )
         )
+        .rangeOf(-64, 384)
         .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 80)))
         .spreadHorizontally()
         .repeat(5)
@@ -57,9 +58,48 @@ public class RYSConfiguredFeatures {
                 9
             )
         )
+        .rangeOf(-64, 384)
         .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 128)))
         .spreadHorizontally()
         .repeat(32)
+    );
+    public static final ConfiguredFeature<?, ?> TOUGH_DIRT_DEPOSIT_GOLD = register(
+        "tough_dirt_deposit_gold",
+        Feature.ORE.configure(
+            new OreFeatureConfig(
+                Rules.TOUGH_DIRT,
+                States.GOLD_DEPOSIT,
+                9
+            )
+        )
+        .rangeOf(-64, 32)
+        .spreadHorizontally()
+        .repeat(4)
+    );
+    public static final ConfiguredFeature<?, ?> TOUGH_DIRT_DEPOSIT_IRON = register(
+        "tough_dirt_deposit_iron",
+        Feature.ORE.configure(
+            new OreFeatureConfig(
+                Rules.TOUGH_DIRT,
+                States.IRON_DEPOSIT,
+                9)
+        )
+        .rangeOf(-64, 64)
+        .spreadHorizontally()
+        .repeat(40)
+    );
+    public static final ConfiguredFeature<?, ?> TOUGH_DIRT_DEPOSIT_PEAT = register(
+        "tough_dirt_deposit_peat",
+        Feature.ORE.configure(
+            new OreFeatureConfig(
+                Rules.TOUGH_DIRT,
+                States.PEAT_DEPOSIT,
+                17
+            )
+        )
+        .rangeOf(-64, 128)
+        .spreadHorizontally()
+        .repeat(30)
     );
 
     public static final ConfiguredFeature<?, ?> PATCH_TOUGHROOT_STEM = register(
@@ -95,6 +135,7 @@ public class RYSConfiguredFeatures {
                 )
             )
         )
+        .rangeOf(-64, 48)
         .repeat(UniformIntDistribution.of(-1, 4))
         .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
         .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
@@ -115,6 +156,9 @@ public class RYSConfiguredFeatures {
     private static final class States {
         private static final BlockState COBBLESTONE = Blocks.COBBLESTONE.getDefaultState();
         private static final BlockState CLAY_DEPOSIT = RYSBlocks.CLAY_DEPOSIT.getDefaultState();
+        private static final BlockState GOLD_DEPOSIT = RYSBlocks.GOLD_DEPOSIT.getDefaultState();
+        private static final BlockState IRON_DEPOSIT = RYSBlocks.IRON_DEPOSIT.getDefaultState();
+        private static final BlockState PEAT_DEPOSIT = RYSBlocks.PEAT_DEPOSIT.getDefaultState();
         private static final BlockState TOUGHROOT_STEM = RYSBlocks.TOUGHROOT_STEM.getDefaultState();
         private static final BlockState CAVE_CARROT = RYSBlocks.CAVE_CARROT.getDefaultState();
     }

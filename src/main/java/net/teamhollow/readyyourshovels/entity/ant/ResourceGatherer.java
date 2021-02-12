@@ -1,5 +1,6 @@
 package net.teamhollow.readyyourshovels.entity.ant;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.sound.SoundEvents;
@@ -23,10 +24,8 @@ public interface ResourceGatherer {
     void setTicksUntilCanResourcePickup(int ticksUntilCanResourcePickup);
     int getTicksUntilCanResourcePickup();
 
-    class Utils {
-        public static boolean isResource(World world, BlockPos pos) {
-            return world.canSetBlock(pos) && world.getBlockState(pos).getBlock().isIn(RYSBlockTags.ANT_RESOURCES);
-        }
+    static boolean isResource(World world, BlockPos pos) {
+        return world.canSetBlock(pos) && RYSBlockTags.ANT_RESOURCES.contains(world.getBlockState(pos).getBlock());
     }
 
     class ResourcePickupGoal extends Goal {
@@ -77,7 +76,7 @@ public interface ResourceGatherer {
                 return false;
             } else if (this.completedPickup()) {
                 return ant.getRandom().nextFloat() < 0.2F;
-            } else if (ant.age % 20 == 0 && !ResourceGatherer.Utils.isResource(ant.world, gatherer.getResourcePos())) {
+            } else if (ant.age % 20 == 0 && !ResourceGatherer.isResource(ant.world, gatherer.getResourcePos())) {
                 gatherer.setResourcePos(null);
                 return false;
             } else {
@@ -98,9 +97,7 @@ public interface ResourceGatherer {
 
             World world = this.ant.world;
             BlockPos pos = this.gatherer.getResourcePos();
-            BlockState state = world.getBlockState(pos);
-            world.breakBlock(pos, false);
-            world.setBlockState(pos, state, 0);
+            world.syncWorldEvent(2001, pos, Block.getRawIdFromState(world.getBlockState(pos)));
 
             gatherer.resetResourcePickupTicks();
         }
@@ -128,16 +125,14 @@ public interface ResourceGatherer {
                         if (!ant.isNavigating()) ant.startMovingTo(gatherer.getResourcePos());
 
                         if (this.ticks > 600) {
-                            world.breakBlock(pos, false);
-                            world.setBlockState(pos, state, 0);
+                            world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
 
                             gatherer.setResourcePos(null);
                         } else {
                             this.resourcePickupTicks++;
                             if (ant.getRandom().nextFloat() < 0.05F && this.resourcePickupTicks > this.lastResourcePickupTick + 60) {
                                 this.lastResourcePickupTick = this.resourcePickupTicks;
-                                world.breakBlock(pos, false);
-                                world.setBlockState(pos, state, 0);
+                                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
                                 ant.playSound(SoundEvents.ENTITY_BEE_POLLINATE, 1.0F, 1.0F);
                             }
                         }

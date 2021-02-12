@@ -1,7 +1,5 @@
 package net.teamhollow.readyyourshovels.client.particle;
 
-import java.util.Random;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.AscendingParticle;
@@ -11,10 +9,12 @@ import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
+import java.util.Random;
+
 @Environment(EnvType.CLIENT)
 public class DayrootParticle extends AscendingParticle {
     protected DayrootParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, float scaleMultiplier, SpriteProvider spriteProvider) {
-        super(world, x, y, z, 0.1F, -0.1F, 0.1F, velocityX, velocityY, velocityZ, scaleMultiplier, spriteProvider, 0.0F, 60, -5.0E-4D, false);
+        super(world, x, y, z, 0.1F, -0.1F, 0.1F, velocityX, velocityY, velocityZ, scaleMultiplier, spriteProvider, 0.0F, 60, (float) -5.0E-4D, false);
         this.colorAlpha = 1.0F;
         this.colorRed = 1.0F;
         this.colorGreen = 1.0F;

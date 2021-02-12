@@ -2,16 +2,17 @@ package net.teamhollow.readyyourshovels.entity.ant.garden_ant;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.teamhollow.readyyourshovels.client.init.RYSEntityModelLayers;
 import net.teamhollow.readyyourshovels.init.RYSEntities;
 
 @Environment(EnvType.CLIENT)
 public class GardenAntEntityRenderer extends MobEntityRenderer<GardenAntEntity, GardenAntEntityModel<GardenAntEntity>> {
-    public GardenAntEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new GardenAntEntityModel<>(), 0.25F);
+    public GardenAntEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new GardenAntEntityModel<>(context.getPart(RYSEntityModelLayers.GARDEN_ANT)), 0.25F);
     }
 
     @Override

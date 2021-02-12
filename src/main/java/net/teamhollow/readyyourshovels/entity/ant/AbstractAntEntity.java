@@ -3,11 +3,11 @@ package net.teamhollow.readyyourshovels.entity.ant;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.class_5532;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -114,25 +114,10 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     protected void startMovingTo(BlockPos pos) {
-        Vec3d vec3d = this.getPos();
-        int i = 0;
-        BlockPos blockPos = this.getBlockPos();
-        int j = (int) vec3d.y - blockPos.getY();
-        if (j > 2) {
-            i = 4;
-        } else if (j < -2) {
-            i = -4;
-        }
+        Vec3d vec3d = Vec3d.ofBottomCenter(pos);
 
-        int k = 6;
-        int l = 8;
-        int m = blockPos.getManhattanDistance(pos);
-        if (m < 15) {
-            k = m / 2;
-            l = m / 2;
-        }
-
-        Vec3d vec3d2 = TargetFinder.findGroundTargetTowards(this, k, l, i, vec3d, 0.3141592741012573D);
+        int range = 10;
+        Vec3d vec3d2 = class_5532.method_31512(this, range, range, vec3d, 0.3141592741012573D);
         if (vec3d2 != null) {
             this.navigation.setRangeMultiplier(0.5F);
             this.navigation.startMovingTo(vec3d2.x, vec3d2.y, vec3d2.z, 1.0D);
@@ -140,11 +125,14 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     protected boolean canEnterNest() {
-        if (this.cannotEnterNestTicks <= 0 && this.getTarget() == null) {
-            return (this.world.isRaining() || this.world.isNight()) && this.isNestNotNearFire();
+        if ((this.cannotEnterNestTicks <= 0 && this.getPositionTarget() == null) || this.world.isRaining() || this.world.isNight() || this.canEnterNestExt()) {
+            return this.isNestNotNearFire();
         } else {
             return false;
         }
+    }
+    protected boolean canEnterNestExt() {
+        return true;
     }
 
     public void setCannotEnterNestTicks(int ticks) {
@@ -236,7 +224,7 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.getItem().isIn(RYSItemTags.ANT_TEMPTERS);
+        return RYSItemTags.ANT_TEMPTERS.contains(stack.getItem());
     }
 
     @Override
@@ -272,6 +260,16 @@ public abstract class AbstractAntEntity extends AnimalEntity {
         return EntityGroup.ARTHROPOD;
     }
 
+    @Override
+    public boolean cannotDespawn() {
+        return super.cannotDespawn() && this.hasNestPos();
+    }
+
+    @Override
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return super.canImmediatelyDespawn(distanceSquared) || !this.hasNestPos();
+    }
+
     protected boolean isWithinDistance(BlockPos pos, int distance) {
         return pos.isWithinDistance(this.getBlockPos(), distance);
     }
@@ -283,15 +281,16 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
         @Override
         public boolean canStart() {
-            if (AbstractAntEntity.this.hasNestPos() && AbstractAntEntity.this.canEnterNest() && AbstractAntEntity.this.getNestPos().isWithinDistance(AbstractAntEntity.this.getPos(), 2.0D)) {
-                BlockEntity blockEntity = AbstractAntEntity.this.world.getBlockEntity(AbstractAntEntity.this.getNestPos());
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            if ($this.hasNestPos() && $this.canEnterNest() && $this.getNestPos().isWithinDistance($this.getPos(), 2.0D)) {
+                BlockEntity blockEntity = $this.world.getBlockEntity($this.getNestPos());
                 if (blockEntity instanceof AntNestBlockEntity) {
                     AntNestBlockEntity AntNestBlockEntity = (AntNestBlockEntity) blockEntity;
                     if (AntNestBlockEntity.isNotFullOfAnts()) {
                         return true;
                     }
 
-                    AbstractAntEntity.this.setNestPos(null);
+                    $this.setNestPos(null);
                 }
             }
 
@@ -305,10 +304,11 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
         @Override
         public void start() {
-            BlockEntity blockEntity = AbstractAntEntity.this.world.getBlockEntity(AbstractAntEntity.this.getNestPos());
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            BlockEntity blockEntity = $this.world.getBlockEntity($this.getNestPos());
             if (blockEntity instanceof AntNestBlockEntity) {
                 AntNestBlockEntity AntNestBlockEntity = (AntNestBlockEntity) blockEntity;
-                AntNestBlockEntity.tryEnterNest(AbstractAntEntity.this);
+                AntNestBlockEntity.tryEnterNest($this);
             }
         }
     }
@@ -320,7 +320,8 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
         @Override
         public boolean canStart() {
-            return AbstractAntEntity.this.ticksLeftToFindNest == 0 && !AbstractAntEntity.this.hasNestPos() && AbstractAntEntity.this.canEnterNest();
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            return $this.ticksLeftToFindNest == 0 && !$this.hasNestPos() && $this.canEnterNest();
         }
 
         @Override
@@ -330,7 +331,8 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
         @Override
         public void start() {
-            AbstractAntEntity.this.ticksLeftToFindNest = 200;
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            $this.ticksLeftToFindNest = 200;
             List<BlockPos> list = this.getNearbyFreeNests();
             if (!list.isEmpty()) {
                 Iterator<BlockPos> iBlockPos = list.iterator();
@@ -338,24 +340,24 @@ public abstract class AbstractAntEntity extends AnimalEntity {
                 BlockPos blockPos;
                 do {
                     if (!iBlockPos.hasNext()) {
-                        AbstractAntEntity.this.moveToNestGoal.clearPossibleNests();
-                        AbstractAntEntity.this.setNestPos(list.get(0));
+                        $this.moveToNestGoal.clearPossibleNests();
+                        $this.setNestPos(list.get(0));
                         return;
                     }
 
                     blockPos = iBlockPos.next();
-                } while (AbstractAntEntity.this.moveToNestGoal.isPossibleNest(blockPos));
+                } while ($this.moveToNestGoal.isPossibleNest(blockPos));
 
-                AbstractAntEntity.this.setNestPos(blockPos);
+                $this.setNestPos(blockPos);
             }
         }
 
         private List<BlockPos> getNearbyFreeNests() {
-            BlockPos blockPos = AbstractAntEntity.this.getBlockPos();
-            PointOfInterestStorage pointOfInterestStorage = ((ServerWorld) AbstractAntEntity.this.world)
-                .getPointOfInterestStorage();
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            BlockPos blockPos = $this.getBlockPos();
+            PointOfInterestStorage pointOfInterestStorage = ((ServerWorld) $this.world).getPointOfInterestStorage();
             Stream<PointOfInterest> stream = pointOfInterestStorage.getInCircle((pointOfInterestType) -> pointOfInterestType == RYSPointOfInterests.ANT_NEST, blockPos, 20, PointOfInterestStorage.OccupationStatus.ANY);
-            return stream.map(PointOfInterest::getPos).filter(AbstractAntEntity.this::doesNestHaveSpace).sorted(Comparator.comparingDouble((blockPos2) -> blockPos2.getSquaredDistance(blockPos))).collect(Collectors.toList());
+            return stream.map(PointOfInterest::getPos).filter($this::doesNestHaveSpace).sorted(Comparator.comparingDouble((blockPos2) -> blockPos2.getSquaredDistance(blockPos))).collect(Collectors.toList());
         }
     }
 
@@ -375,7 +377,8 @@ public abstract class AbstractAntEntity extends AnimalEntity {
 
         @Override
         public boolean canStart() {
-            return AbstractAntEntity.this.hasNestPos() && AbstractAntEntity.this.canEnterNest() && !this.isCloseEnough(AbstractAntEntity.this.getNestPos()) && AbstractAntEntity.this.world.getBlockState(AbstractAntEntity.this.getNestPos()).isOf(RYSBlocks.ANT_NEST);
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            return $this.hasNestPos() && $this.canEnterNest() && !this.isCloseEnough($this.getNestPos()) && $this.world.getBlockState($this.getNestPos()).isOf(RYSBlocks.ANT_NEST);
         }
 
         @Override
@@ -389,36 +392,38 @@ public abstract class AbstractAntEntity extends AnimalEntity {
         public void stop() {
             this.ticks = 0;
             this.ticksUntilLost = 0;
-            AbstractAntEntity.this.navigation.stop();
-            AbstractAntEntity.this.navigation.resetRangeMultiplier();
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            $this.navigation.stop();
+            $this.navigation.resetRangeMultiplier();
         }
 
         @Override
         public void tick() {
-            if (AbstractAntEntity.this.hasNestPos()) {
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            if ($this.hasNestPos()) {
                 this.ticks++;
                 if (this.ticks > 600) {
                     this.makeChosenNestPossibleNest();
-                } else if (!AbstractAntEntity.this.navigation.isFollowingPath()) {
-                    if (!AbstractAntEntity.this.isWithinDistance(AbstractAntEntity.this.getNestPos(), 16)) {
-                        if (AbstractAntEntity.this.isTooFar(AbstractAntEntity.this.getNestPos())) {
+                } else if (!$this.navigation.isFollowingPath()) {
+                    if (!$this.isWithinDistance($this.getNestPos(), 16)) {
+                        if ($this.isTooFar($this.getNestPos())) {
                             this.setLost();
                         } else {
-                            AbstractAntEntity.this.startMovingTo(AbstractAntEntity.this.getNestPos());
+                            $this.startMovingTo($this.getNestPos());
                         }
                     } else {
-                        boolean bl = this.startMovingToFar(AbstractAntEntity.this.getNestPos());
+                        boolean bl = this.startMovingToFar($this.getNestPos());
                         if (!bl) {
                             this.makeChosenNestPossibleNest();
                         } else if (this.path != null
-                            && Objects.requireNonNull(AbstractAntEntity.this.navigation.getCurrentPath()).equalsPath(this.path)) {
+                            && Objects.requireNonNull($this.navigation.getCurrentPath()).equalsPath(this.path)) {
                             ++this.ticksUntilLost;
                             if (this.ticksUntilLost > 60) {
                                 this.setLost();
                                 this.ticksUntilLost = 0;
                             }
                         } else {
-                            this.path = AbstractAntEntity.this.navigation.getCurrentPath();
+                            this.path = $this.navigation.getCurrentPath();
                         }
 
                     }
@@ -427,9 +432,10 @@ public abstract class AbstractAntEntity extends AnimalEntity {
         }
 
         private boolean startMovingToFar(BlockPos pos) {
-            AbstractAntEntity.this.navigation.setRangeMultiplier(10.0F);
-            AbstractAntEntity.this.navigation.startMovingTo(pos.getX(), pos.getY(), pos.getZ(), 1.0D);
-            return AbstractAntEntity.this.navigation.getCurrentPath() != null && AbstractAntEntity.this.navigation.getCurrentPath().reachesTarget();
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            $this.navigation.setRangeMultiplier(10.0F);
+            $this.navigation.startMovingTo(pos.getX(), pos.getY(), pos.getZ(), 1.0D);
+            return $this.navigation.getCurrentPath() != null && $this.navigation.getCurrentPath().reachesTarget();
         }
 
         private boolean isPossibleNest(BlockPos pos) {
@@ -450,23 +456,26 @@ public abstract class AbstractAntEntity extends AnimalEntity {
         }
 
         private void makeChosenNestPossibleNest() {
-            if (AbstractAntEntity.this.hasNestPos()) {
-                this.addPossibleNest(AbstractAntEntity.this.getNestPos());
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            if ($this.hasNestPos()) {
+                this.addPossibleNest($this.getNestPos());
             }
 
             this.setLost();
         }
 
         private void setLost() {
-            AbstractAntEntity.this.setNestPos(null);
-            AbstractAntEntity.this.ticksLeftToFindNest = 200;
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            $this.setNestPos(null);
+            $this.ticksLeftToFindNest = 200;
         }
 
         private boolean isCloseEnough(BlockPos pos) {
-            if (AbstractAntEntity.this.isWithinDistance(pos, 2)) {
+            AbstractAntEntity $this = AbstractAntEntity.this;
+            if ($this.isWithinDistance(pos, 2)) {
                 return true;
             } else {
-                Path path = AbstractAntEntity.this.navigation.getCurrentPath();
+                Path path = $this.navigation.getCurrentPath();
                 return path != null && path.getTarget().equals(pos) && path.reachesTarget() && path.isFinished();
             }
         }

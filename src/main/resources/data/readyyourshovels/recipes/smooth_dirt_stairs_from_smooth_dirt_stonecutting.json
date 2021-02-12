@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "readyyourshovels:smooth_dirt"
+  },
+  "result": "readyyourshovels:smooth_dirt_stairs",
+  "count": 1
+}

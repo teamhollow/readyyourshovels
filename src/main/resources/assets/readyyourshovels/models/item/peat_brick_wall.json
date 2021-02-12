@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "readyyourshovels:block/peat_bricks"
-  }
+  "parent": "readyyourshovels:block/peat_brick_wall_inventory"
 }

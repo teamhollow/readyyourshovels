@@ -1,7 +1,7 @@
 package net.teamhollow.readyyourshovels.init;
 
 import com.mojang.datafixers.types.Type;
-
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.datafixer.TypeReferences;
@@ -12,11 +12,11 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
 
 public class RYSBlockEntities {
-    public static final BlockEntityType<AntNestBlockEntity> ANT_NEST = register(AntNestBlockEntity.id, BlockEntityType.Builder.create(AntNestBlockEntity::new, RYSBlocks.ANT_NEST));
+    public static final BlockEntityType<AntNestBlockEntity> ANT_NEST = register(AntNestBlockEntity.id, FabricBlockEntityTypeBuilder.create(AntNestBlockEntity::new, RYSBlocks.ANT_NEST));
 
     public RYSBlockEntities() {}
 
-    private static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.Builder<T> builder) {
+    private static <T extends BlockEntity> BlockEntityType<T> register(String id, FabricBlockEntityTypeBuilder<T> builder) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);
 
         Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, identifier.toString());

@@ -1,7 +1,6 @@
 package net.teamhollow.readyyourshovels.world.gen.surfacebuilder;
 
 import com.mojang.serialization.Codec;
-import java.util.Random;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +10,8 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
+
+import java.util.Random;
 
 public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
     private static final BlockState GRASS_BLOCK = Blocks.GRASS_BLOCK.getDefaultState();
@@ -30,18 +31,19 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
         BlockState topMaterial = surfaceConfig.getTopMaterial();
         BlockState setState = underMaterial;
         int noiseRandInt = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
-        boolean noiseRandBool = Math.cos(noise / 3.0D * 3.141592653589793D) > 0.0D;
+        boolean noiseRandBool = Math.cos(noise / 3.0D * Math.PI) > 0.0D;
         int setY = -1;
         int loop = 0;
         BlockPos.Mutable pos = new BlockPos.Mutable();
 
-        for(int y = height; y >= 0; --y) {
+        int bottomY = chunk.getBottomY();
+        for (int y = height; y >= bottomY; --y) {
             BlockState iDefaultBlock = defaultBlock;
             pos.set(x, y, z);
 
-            BlockState newDefaultBlock = y <= 12 && random.nextDouble() <= 0.76
+            BlockState newDefaultBlock = y <= (bottomY + 12) && random.nextDouble() <= 0.76
                 ? RYSBlocks.REGOLITH.getDefaultState()
-                : y <= 16 && random.nextDouble() <= 0.4
+                : y <= (bottomY + 16) && random.nextDouble() <= 0.4
                     ? RYSBlocks.REGOLITH.getDefaultState()
                     : RYSBlocks.TOUGH_DIRT.getDefaultState();
             if (chunk.getBlockState(pos).isOf(iDefaultBlock.getBlock())) chunk.setBlockState(pos, newDefaultBlock, false);

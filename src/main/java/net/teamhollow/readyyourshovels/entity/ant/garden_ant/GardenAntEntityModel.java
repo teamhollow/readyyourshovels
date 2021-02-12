@@ -1,14 +1,15 @@
 package net.teamhollow.readyyourshovels.entity.ant.garden_ant;
 
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.CompositeEntityModel;
+import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.util.math.MathHelper;
 
+@SuppressWarnings("all")
 @Environment(EnvType.CLIENT)
-public class GardenAntEntityModel<T extends GardenAntEntity> extends CompositeEntityModel<T> {
+public class GardenAntEntityModel<T extends GardenAntEntity> extends SinglePartEntityModel<T> {
+    private final ModelPart root;
     private final ModelPart thorax;
     private final ModelPart head;
     private final ModelPart pinchers;
@@ -22,69 +23,126 @@ public class GardenAntEntityModel<T extends GardenAntEntity> extends CompositeEn
     private final ModelPart leftBackLeg;
     private final ModelPart rightBackLeg;
 
-    public GardenAntEntityModel() {
-        textureWidth = 32;
-        textureHeight = 16;
-        thorax = new ModelPart(this);
-        thorax.setPivot(0.0F, 20.75F, 0.0F);
-        thorax.setTextureOffset(7, 9).addCuboid(-1.5F, -1.25F, -1.5F, 3.0F, 2.0F, 3.0F, 0.0F, false);
+    public GardenAntEntityModel(ModelPart root) {
+        this.root = root;
+        this.thorax = root.getChild("thorax");
+        this.head = root.getChild("head");
+        this.pinchers = this.head.getChild("pinchers");
+        this.antennaLeft = this.head.getChild("antenna_left");
+        this.antennaRight = this.head.getChild("antenna_right");
+        this.abdomen = root.getChild("abdomen");
+        this.leftFrontLeg = root.getChild("left_front_leg");
+        this.rightFrontLeg = root.getChild("right_front_leg");
+        this.leftMidLeg = root.getChild("left_mid_leg");
+        this.rightMidLeg = root.getChild("right_mid_leg");
+        this.leftBackLeg = root.getChild("left_back_leg");
+        this.rightBackLeg = root.getChild("right_back_leg");
+    }
 
-        head = new ModelPart(this);
-        head.setPivot(0.0F, 20.5F, -0.75F);
-        head.setTextureOffset(16, 4).addCuboid(-2.0F, -3.5F, -3.75F, 4.0F, 4.0F, 4.0F, 0.0F, false);
+    public static TexturedModelData getTexturedModelData() {
+        ModelData modelData = new ModelData();
+        ModelPartData modelPartData = modelData.getRoot();
 
-        pinchers = new ModelPart(this);
-        pinchers.setPivot(0.0F, 0.0F, -3.25F);
-        head.addChild(pinchers);
-        setRotationAngle(pinchers, 0.4363F, 0.0F, 0.0F);
-        pinchers.setTextureOffset(19, 12).addCuboid(-1.5F, -0.25F, -1.25F, 3.0F, 0.0F, 1.0F, 0.0F, false);
+        modelPartData.addChild(
+            "thorax",
+            ModelPartBuilder.create()
+                .uv(7, 9)
+                .cuboid(-1.5F, -1.25F, -1.5F, 3.0F, 2.0F, 3.0F),
+            ModelTransform.pivot(0.0F, 20.75F, 0.0F)
+        );
 
-        antennaLeft = new ModelPart(this);
-        antennaLeft.setPivot(-1.5F, -3.5F, -3.25F);
-        head.addChild(antennaLeft);
-        setRotationAngle(antennaLeft, -0.2618F, 0.4363F, 0.0F);
-        antennaLeft.setTextureOffset(0, 4).addCuboid(0.25F, -1.5F, -4.25F, 0.0F, 2.0F, 4.0F, 0.0F, false);
+        ModelPartData headData = modelPartData.addChild(
+            "head",
+            ModelPartBuilder.create()
+                .uv(16, 4)
+                .cuboid(-2.0F, -3.5F, -3.75F, 4.0F, 4.0F, 4.0F),
+            ModelTransform.of(0.0F, 20.5F, -0.75F, 0.0F, 0.0F, (float)Math.toRadians(-3.25F))
+        );
 
-        antennaRight = new ModelPart(this);
-        antennaRight.setPivot(1.5F, -3.5F, -3.25F);
-        head.addChild(antennaRight);
-        setRotationAngle(antennaRight, -0.2618F, -0.4363F, 0.0F);
-        antennaRight.setTextureOffset(0, 4).addCuboid(-0.25F, -1.5F, -4.25F, 0.0F, 2.0F, 4.0F, 0.0F, false);
+        headData.addChild(
+        "pinchers",
+            ModelPartBuilder.create()
+                .uv(19, 12)
+                .cuboid(-1.5F, -0.25F, -1.25F, 3.0F, 0.0F, 1.0F),
+            ModelTransform.of(0.0F, 0.0F, -3.25F, 0.4363F, 0.0F, 0.0F)
+        );
 
-        abdomen = new ModelPart(this);
-        abdomen.setPivot(0.0F, 19.5F, 1.0F);
-        setRotationAngle(abdomen, -0.4363F, 0.0F, 0.0F);
-        abdomen.setTextureOffset(0, 0).addCuboid(-2.5F, -1.75F, 0.0F, 5.0F, 3.0F, 5.0F, 0.0F, false);
+        headData.addChild(
+        "antenna_left",
+            ModelPartBuilder.create()
+                .uv(0, 4)
+                .cuboid(0.25F, -1.5F, -4.25F, 0.0F, 2.0F, 4.0F),
+            ModelTransform.of(-1.5F, -3.5F, -3.25F, -0.2618F, 0.4363F, 0.0F)
+        );
 
-        leftFrontLeg = new ModelPart(this);
-        leftFrontLeg.setPivot(-1.05F, 21.5F, -0.75F);
-        setRotationAngle(leftFrontLeg, 0.0F, -0.4363F, -0.7854F);
-        leftFrontLeg.setTextureOffset(0, 10).addCuboid(-3.9341F, -0.3232F, -0.3481F, 4.0F, 0.0F, 1.0F, 0.0F, true);
+        headData.addChild(
+        "antenna_right",
+            ModelPartBuilder.create()
+                .uv(0, 4)
+                .cuboid(-0.25F, -1.5F, -4.25F, 0.0F, 2.0F, 4.0F),
+            ModelTransform.of(1.5F, -3.5F, -3.25F, -0.2618F, -0.4363F, 0.0F)
+        );
 
-        rightFrontLeg = new ModelPart(this);
-        rightFrontLeg.setPivot(1.55F, 21.5F, -0.75F);
-        setRotationAngle(rightFrontLeg, 0.0F, 0.4363F, 0.829F);
-        rightFrontLeg.setTextureOffset(0, 10).addCuboid(-0.3649F, 0.053F, -0.4876F, 4.0F, 0.0F, 1.0F, 0.0F, false);
+        modelPartData.addChild(
+        "abdomen",
+            ModelPartBuilder.create()
+                .uv(0, 0)
+                .cuboid(-2.5F, -1.75F, 0.0F, 5.0F, 3.0F, 5.0F),
+            ModelTransform.of(0.0F, 19.5F, 1.0F, -0.4363F, 0.0F, 0.0F)
+        );
 
-        leftMidLeg = new ModelPart(this);
-        leftMidLeg.setPivot(-1.0F, 21.5F, 0.5F);
-        setRotationAngle(leftMidLeg, 0.0F, 0.0F, -0.7854F);
-        leftMidLeg.setTextureOffset(0, 10).addCuboid(-4.0F, -0.5F, -1.0F, 4.0F, 0.0F, 1.0F, 0.0F, true);
+        modelPartData.addChild(
+        "left_front_leg",
+            ModelPartBuilder.create()
+                .uv(0, 10)
+                .cuboid(-3.9341F, -0.3232F, -0.3481F, 4.0F, 0.0F, 1.0F)
+                .mirrored(),
+            ModelTransform.of(-1.05F, 21.5F, -0.75F, 0.0F, -0.4363F, -0.7854F)
+        );
 
-        rightMidLeg = new ModelPart(this);
-        rightMidLeg.setPivot(1.0F, 21.5F, -0.25F);
-        setRotationAngle(rightMidLeg, 0.0F, 0.0F, 0.7854F);
-        rightMidLeg.setTextureOffset(0, 10).addCuboid(0.0F, -0.5F, -0.25F, 4.0F, 0.0F, 1.0F, 0.0F, false);
+        modelPartData.addChild(
+        "right_front_leg",
+            ModelPartBuilder.create()
+                .uv(0, 10)
+                .cuboid(-0.3649F, 0.053F, -0.4876F, 4.0F, 0.0F, 1.0F),
+            ModelTransform.of(1.55F, 21.5F, -0.75F, 0.0F, 0.4363F, 0.829F)
+        );
 
-        leftBackLeg = new ModelPart(this);
-        leftBackLeg.setPivot(-1.55F, 21.5F, 0.5F);
-        setRotationAngle(leftBackLeg, 0.0F, 0.3491F, -0.7854F);
-        leftBackLeg.setTextureOffset(0, 10).addCuboid(-3.5437F, 0.0303F, -0.3789F, 4.0F, 0.0F, 1.0F, 0.0F, true);
+        modelPartData.addChild(
+        "left_mid_leg",
+            ModelPartBuilder.create()
+                .uv(0, 10)
+                .cuboid(-4.0F, -0.5F, -1.0F, 4.0F, 0.0F, 1.0F)
+                .mirrored(),
+            ModelTransform.of(-1.0F, 21.5F, 0.5F, 0.0F, 0.0F, -0.7854F)
+        );
 
-        rightBackLeg = new ModelPart(this);
-        rightBackLeg.setPivot(1.55F, 21.5F, 0.75F);
-        setRotationAngle(rightBackLeg, 0.0F, -0.3491F, 0.7854F);
-        rightBackLeg.setTextureOffset(0, 10).addCuboid(-0.5418F, 0.0303F, -0.6138F, 4.0F, 0.0F, 1.0F, 0.0F, false);
+        modelPartData.addChild(
+        "right_mid_leg",
+            ModelPartBuilder.create()
+                .uv(0, 10)
+                .cuboid(0.0F, -0.5F, -0.25F, 4.0F, 0.0F, 1.0F),
+            ModelTransform.of(1.0F, 21.5F, -0.25F, 0.0F, 0.0F, 0.7854F)
+        );
+
+        modelPartData.addChild(
+        "left_back_leg",
+            ModelPartBuilder.create()
+                .uv(0, 10)
+                .cuboid(-3.5437F, 0.0303F, -0.3789F, 4.0F, 0.0F, 1.0F)
+                .mirrored(),
+            ModelTransform.of(-1.55F, 21.5F, 0.5F, 0.0F, 0.3491F, -0.7854F)
+        );
+
+        modelPartData.addChild(
+        "right_back_leg",
+            ModelPartBuilder.create()
+                .uv(0, 10)
+                .cuboid(-0.5418F, 0.0303F, -0.6138F, 4.0F, 0.0F, 1.0F),
+            ModelTransform.of(1.55F, 21.5F, 0.75F, 0.0F, -0.3491F, 0.7854F)
+        );
+
+        return TexturedModelData.of(modelData, 32, 16);
     }
 
     @Override
@@ -108,8 +166,8 @@ public class GardenAntEntityModel<T extends GardenAntEntity> extends CompositeEn
     }
 
     @Override
-    public Iterable<ModelPart> getParts() {
-        return ImmutableList.of(thorax, head, abdomen, leftFrontLeg, rightFrontLeg, leftMidLeg, rightMidLeg, leftBackLeg, rightBackLeg);
+    public ModelPart getPart() {
+        return this.root;
     }
 
     public void setRotationAngle(ModelPart part, float pitch, float yaw, float roll) {

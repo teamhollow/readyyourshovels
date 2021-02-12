@@ -1,9 +1,9 @@
 package net.teamhollow.readyyourshovels.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -20,7 +20,6 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -32,12 +31,12 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
 import net.teamhollow.readyyourshovels.entity.ant.AbstractAntEntity;
+import net.teamhollow.readyyourshovels.init.RYSBlockEntities;
 import net.teamhollow.readyyourshovels.state.property.RYSProperties;
 
 import java.util.List;
@@ -48,9 +47,14 @@ public class AntNestBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final IntProperty ACID_LEVEL = RYSProperties.ACID_LEVEL;
 
-    public AntNestBlock() {
-        super(FabricBlockSettings.of(Material.SOIL).breakByTool(FabricToolTags.SHOVELS).requiresTool().hardness(1.0F).resistance(1.5F).sounds(BlockSoundGroup.GRAVEL));
+    public AntNestBlock(AbstractBlock.Settings settings) {
+        super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(ACID_LEVEL, 0));
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? null : checkType(type, RYSBlockEntities.ANT_NEST, AntNestBlockEntity::serverTick);
     }
 
     @Override
@@ -97,8 +101,8 @@ public class AntNestBlock extends BlockWithEntity {
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new AntNestBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new AntNestBlockEntity(pos, state);
     }
 
     @Override
@@ -177,8 +181,7 @@ public class AntNestBlock extends BlockWithEntity {
         this.takeAcid(world, state, pos);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof AntNestBlockEntity) {
-            AntNestBlockEntity beehiveBlockEntity = (AntNestBlockEntity) blockEntity;
-            beehiveBlockEntity.angerAnts(player, state, antState);
+            ((AntNestBlockEntity) blockEntity).angerAnts(player, state, antState);
         }
     }
     public void takeAcid(World world, BlockState state, BlockPos pos) {
@@ -197,7 +200,7 @@ public class AntNestBlock extends BlockWithEntity {
                 world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 if (itemStack.isEmpty()) {
                     player.setStackInHand(hand, new ItemStack(Items.HONEY_BOTTLE));
-                } else if (!player.inventory.insertStack(new ItemStack(Items.HONEY_BOTTLE))) {
+                } else if (!player.getInventory().insertStack(new ItemStack(Items.HONEY_BOTTLE))) {
                     player.dropItem(new ItemStack(Items.HONEY_BOTTLE), false);
                 }
 

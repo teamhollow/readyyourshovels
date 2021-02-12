@@ -23,7 +23,7 @@ public class CaveCarrotBlock extends PlantBlock {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Vec3d vec3d = state.getModelOffset(world, pos);
-        return Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 15.0D, 13.0D).offset(vec3d.x, vec3d.y, vec3d.z);
+        return Block.createCuboidShape(3.0D, -1.0D, 3.0D, 13.0D, 15.0D, 13.0D).offset(vec3d.x, vec3d.y, vec3d.z);
     }
 
     @Override

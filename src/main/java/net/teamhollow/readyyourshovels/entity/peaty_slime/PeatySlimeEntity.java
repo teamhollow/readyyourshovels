@@ -121,7 +121,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         if (!this.isTouchingWater()) {
             ItemStack itemStack = player.getStackInHand(hand);
             Item item = itemStack.getItem();
-            if (item.isIn(RYSItemTags.PEATY_SLIME_IGNITERS)) {
+            if (RYSItemTags.PEATY_SLIME_IGNITERS.contains(item)) {
                 if (item instanceof FlintAndSteelItem) {
                     player.playSound(SoundEvents.ITEM_FLINTANDSTEEL_USE, 1.0F, 1.0F);
                 } else {
@@ -189,11 +189,11 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
     @Override
     public void calculateDimensions() {
-        double d = this.getX();
-        double e = this.getY();
-        double f = this.getZ();
+        double x = this.getX();
+        double y = this.getY();
+        double z = this.getZ();
         super.calculateDimensions();
-        this.updatePosition(d, e, f);
+        this.setPosition(x, y, z);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     @Override
-    public void remove() {
+    public void remove(Entity.RemovalReason reason) {
         int i = this.getSize();
         if (!this.world.isClient && i > 1 && this.isDead()) {
             Text text = this.getCustomName();
@@ -239,7 +239,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             }
         }
 
-        super.remove();
+        super.remove(reason);
     }
 
     @Override
@@ -297,7 +297,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
     @Override
     protected float getSoundVolume() {
-        return 0.4F * (float)this.getSize();
+        return 0.3F;
     }
 
     @Override
@@ -428,7 +428,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
             } else if (!livingEntity.isAlive()) {
                 return false;
             } else {
-                return (!(livingEntity instanceof PlayerEntity) || !((PlayerEntity) livingEntity).abilities.invulnerable) && this.slime.getMoveControl() instanceof SlimeMoveControl;
+                return (!(livingEntity instanceof PlayerEntity) || !((PlayerEntity) livingEntity).getAbilities().invulnerable) && this.slime.getMoveControl() instanceof SlimeMoveControl;
             }
         }
 
@@ -445,7 +445,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
                 return false;
             } else if (!livingEntity.isAlive()) {
                 return false;
-            } else if (livingEntity instanceof PlayerEntity && ((PlayerEntity)livingEntity).abilities.invulnerable) {
+            } else if (livingEntity instanceof PlayerEntity && ((PlayerEntity)livingEntity).getAbilities().invulnerable) {
                 return false;
             } else {
                 return --this.ticksLeft > 0;

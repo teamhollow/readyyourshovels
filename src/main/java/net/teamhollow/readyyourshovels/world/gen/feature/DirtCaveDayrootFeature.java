@@ -1,7 +1,5 @@
 package net.teamhollow.readyyourshovels.world.gen.feature;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
 import net.minecraft.block.AbstractPlantStemBlock;
 import net.minecraft.block.BlockState;
@@ -10,12 +8,14 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 import net.teamhollow.readyyourshovels.block.DayrootPlantBlock;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
+
+import java.util.Random;
 
 public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
@@ -25,16 +25,20 @@ public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
     }
 
     @Override
-    public boolean generate(StructureWorldAccess structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig defaultFeatureConfig) {
-        if (!structureWorldAccess.isAir(blockPos)) {
+    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+        return this.generate(context.getWorld(), context.getRandom(), context.getPos());
+    }
+
+    public boolean generate(StructureWorldAccess world, Random random, BlockPos pos) {
+        if (!world.isAir(pos)) {
             return false;
         } else {
-            BlockState blockState = structureWorldAccess.getBlockState(blockPos.up());
-            if (!blockState.isOf(RYSBlocks.TOUGH_DIRT) && !blockState.isOf(RYSBlocks.DAYROOT_CROWN)) {
+            BlockState state = world.getBlockState(pos.up());
+            if (!state.isOf(RYSBlocks.TOUGH_DIRT) && !state.isOf(RYSBlocks.DAYROOT_CROWN)) {
                 return false;
             } else {
-                this.generateDayrootCrownsInArea(structureWorldAccess, random, blockPos);
-                this.generateDayrootsInArea(structureWorldAccess, random, blockPos);
+                this.generateDayrootCrownsInArea(world, random, pos);
+                this.generateDayrootsInArea(world, random, pos);
                 return true;
             }
         }

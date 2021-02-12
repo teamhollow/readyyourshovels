@@ -99,13 +99,13 @@ public class RYSBlocks {
     //
 
     public static final Block PEAT_BLOCK = register("peat_block", new Block(
-        FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+        FabricBlockSettings.of(Material.STONE, MapColor.BROWN)
             .breakByTool(FabricToolTags.PICKAXES).requiresTool()
             .strength(1.5F, 6.0F)
         )
     );
     public static final Block PEAT_BRICKS = register("peat_bricks", new Block(
-        FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+        FabricBlockSettings.of(Material.STONE, MapColor.BROWN)
             .breakByTool(FabricToolTags.PICKAXES).requiresTool()
             .strength(2.0F, 6.0F)
         )
@@ -114,13 +114,13 @@ public class RYSBlocks {
     public static final Block PEAT_BRICK_STAIRS = register("peat_brick_stairs", new PublicStairsBlock(PEAT_BRICKS.getDefaultState(), FabricBlockSettings.copy(PEAT_BRICKS)));
     public static final Block PEAT_BRICK_WALL = register("peat_brick_wall", new WallBlock(FabricBlockSettings.copy(PEAT_BRICKS)));
     public static final Block CRACKED_PEAT_BRICKS = register("cracked_peat_bricks", new Block(
-        FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+        FabricBlockSettings.of(Material.STONE, MapColor.BROWN)
             .breakByTool(FabricToolTags.PICKAXES).requiresTool()
             .strength(1.5F, 6.0F)
         )
     );
     public static final Block CHISELED_PEAT_BRICKS = register("chiseled_peat_bricks", new Block(
-        FabricBlockSettings.of(Material.STONE, MaterialColor.BROWN)
+        FabricBlockSettings.of(Material.STONE, MapColor.BROWN)
             .breakByTool(FabricToolTags.PICKAXES).requiresTool()
             .strength(1.5F, 6.0F)
         )
@@ -130,7 +130,15 @@ public class RYSBlocks {
     // ANTS
     //
 
-    public static final Block ANT_NEST = register(AntNestBlock.id, new AntNestBlock());
+    public static final Block ANT_NEST = register(AntNestBlock.id, new AntNestBlock(
+        FabricBlockSettings.of(Material.SOIL)
+            .breakByTool(FabricToolTags.SHOVELS)
+            .requiresTool()
+            .hardness(1.0F)
+            .resistance(1.5F)
+            .sounds(RYSBlockSoundGroup.TOUGH_DIRT)
+        )
+    );
 
     //
     // PLANTER BOXES
@@ -151,7 +159,7 @@ public class RYSBlocks {
     //
 
     public static final Block DAYROOT = register(DayrootBlock.id, new DayrootBlock(
-        FabricBlockSettings.of(Material.PLANT, MaterialColor.GREEN)
+        FabricBlockSettings.of(Material.PLANT, MapColor.GREEN)
             .ticksRandomly().noCollision()
             .breakInstantly().luminance(13)
             .sounds(BlockSoundGroup.WEEPING_VINES)
@@ -159,7 +167,7 @@ public class RYSBlocks {
     );
     public static final Block DAYROOT_PLANT = register(DayrootPlantBlock.id, new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance((state) -> 1)), false);
     public static final Block DAYROOT_CROWN = register(DayrootBlock.id + "_crown", new Block(
-        FabricBlockSettings.of(Material.SOLID_ORGANIC, MaterialColor.BROWN)
+        FabricBlockSettings.of(Material.SOLID_ORGANIC, MapColor.BROWN)
             .strength(1.0F).luminance(1)
             .breakByTool(FabricToolTags.SHOVELS)
             .sounds(BlockSoundGroup.WART_BLOCK)
@@ -171,7 +179,7 @@ public class RYSBlocks {
     //
 
     public static final Block TOUGHROOT = register(ToughrootBlock.id, new ToughrootBlock(
-        FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD)
+        FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MapColor.OAK_TAN)
             .noCollision().breakInstantly()
             .sounds(BlockSoundGroup.GRASS)
             .luminance(1)
@@ -180,7 +188,7 @@ public class RYSBlocks {
     public static final Block TOUGHROOT_STEM = register(ToughrootBlock.id + "_stem", new PublicFernBlock(FabricBlockSettings.copy(TOUGHROOT)));
 
     public static final Block CAVE_CARROT = register(CaveCarrotBlock.id, new CaveCarrotBlock(
-        FabricBlockSettings.of(Material.PLANT, MaterialColor.GREEN)
+        FabricBlockSettings.of(Material.PLANT, MapColor.GREEN)
             .noCollision().breakInstantly()
             .sounds(BlockSoundGroup.GRASS)
         ), false

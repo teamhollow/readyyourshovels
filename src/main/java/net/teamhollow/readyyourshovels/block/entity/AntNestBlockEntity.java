@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.FireBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.Angerable;
@@ -15,9 +14,9 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import net.teamhollow.readyyourshovels.block.AntNestBlock;
 import net.teamhollow.readyyourshovels.entity.ant.AbstractAntEntity;
 import net.teamhollow.readyyourshovels.entity.ant.ResourceGatherer;
@@ -28,15 +27,14 @@ import net.teamhollow.readyyourshovels.tag.RYSEntityTypeTags;
 import java.util.Iterator;
 import java.util.List;
 
-public class AntNestBlockEntity extends BlockEntity implements Tickable {
+public class AntNestBlockEntity extends BlockEntity {
     public static final String id = AntNestBlock.id;
-    public static final BlockEntityType.Builder<AntNestBlockEntity> builder = BlockEntityType.Builder.create(AntNestBlockEntity::new, RYSBlocks.ANT_NEST);
 
     private final List<AntNestBlockEntity.Ant> ants = Lists.newArrayList();
     private BlockPos resourcePos = null;
 
-    public AntNestBlockEntity() {
-        super(RYSBlockEntities.ANT_NEST);
+    public AntNestBlockEntity(BlockPos pos, BlockState state) {
+        super(RYSBlockEntities.ANT_NEST, pos, state);
     }
 
     @Override
@@ -129,7 +127,7 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
                 this.world.playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
 
-            entity.remove();
+            entity.discard();
         }
     }
 
@@ -145,8 +143,8 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
             compoundTag.remove("UUID");
             Direction direction = state.get(AntNestBlock.FACING);
             BlockPos blockPos2 = blockPos.offset(direction);
-            boolean bl = !this.world.getBlockState(blockPos2).getCollisionShape(this.world, blockPos2).isEmpty();
-            if (bl && antState != AntNestBlockEntity.AntState.EMERGENCY) {
+            boolean wouldCollide = !this.world.getBlockState(blockPos2).getCollisionShape(this.world, blockPos2).isEmpty();
+            if (wouldCollide && antState != AntNestBlockEntity.AntState.EMERGENCY) {
                 return false;
             } else {
                 Entity entity = EntityType.loadEntityWithPassengers(compoundTag, this.world, (entityx) -> entityx);
@@ -158,10 +156,8 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
                             ResourceGatherer gathererEntity = (ResourceGatherer) entity;
                             AbstractAntEntity antEntity = (AbstractAntEntity) entity;
                             antEntity.setNestPos(this.getPos());
-                            if (this.hasResource() && !gathererEntity.hasResourcePos() && this.world.random.nextFloat() < 0.9F) {
-                                gathererEntity.setResourcePos(this.resourcePos);
-                                gathererEntity.setHasResource(false);
-                            }
+                            gathererEntity.setResourcePos(this.resourcePos);
+                            gathererEntity.setHasResource(false);
 
                             if (antState == AntNestBlockEntity.AntState.RESOURCE_DELIVERED) {
                                 if (state.isOf(RYSBlocks.ANT_NEST)) {
@@ -183,10 +179,10 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
                             }
 
                             float entityWidth = entity.getWidth();
-                            double d = bl ? 0.0D : 0.55D + (double) (entityWidth / 2.0F);
-                            double x = (double) blockPos.getX() + 0.5D + d * (double) direction.getOffsetX();
+                            double width = wouldCollide ? 0.0D : 0.55D + (double) (entityWidth / 2.0F);
+                            double x = (double) blockPos.getX() + 0.5D + width * (double) direction.getOffsetX();
                             double y = (double) blockPos.getY() + 0.5D - (double) (entity.getHeight() / 2.0F);
-                            double z = (double) blockPos.getZ() + 0.5D + d * (double) direction.getOffsetZ();
+                            double z = (double) blockPos.getZ() + 0.5D + width * (double) direction.getOffsetZ();
                             entity.refreshPositionAndAngles(x, y, z, entity.yaw, entity.pitch);
                             antEntity.setCannotEnterNestTicks(400);
                         }
@@ -230,27 +226,25 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
                 if (this.releaseAnt(blockState, ant, null, antState)) iterator.remove();
             }
         }
-
     }
 
-    @Override
-    public void tick() {
-        assert this.world != null;
-        if (!this.world.isClient) {
-            this.tickAnts();
-            BlockPos blockPos = this.getPos();
-            if (this.ants.size() > 0 && this.world.getRandom().nextDouble() < 0.005D) {
-                double x = (double) blockPos.getX() + 0.5D;
-                double y = blockPos.getY();
-                double z = (double) blockPos.getZ() + 0.5D;
-                this.world.playSound(null, x, y, z, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+    @SuppressWarnings("unused")
+    public static void serverTick(World world, BlockPos pos, BlockState blockState, AntNestBlockEntity $this) {
+        assert $this.world != null;
+        if (!world.isClient) {
+            $this.tickAnts();
+            if ($this.ants.size() > 0 && world.getRandom().nextDouble() < 0.005D) {
+                double x = (double) pos.getX() + 0.5D;
+                double y = pos.getY();
+                double z = (double) pos.getZ() + 0.5D;
+                world.playSound(null, x, y, z, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
         }
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
         this.ants.clear();
         ListTag listTag = tag.getList("Ants", 10);
 
@@ -277,12 +271,14 @@ public class AntNestBlockEntity extends BlockEntity implements Tickable {
         ListTag listTag = new ListTag();
 
         for (Ant ant : this.ants) {
-            ant.entityData.remove("UUID");
-            CompoundTag compoundTag = new CompoundTag();
-            compoundTag.put("EntityData", ant.entityData);
-            compoundTag.putInt("TicksInNest", ant.ticksInNest);
-            compoundTag.putInt("MinOccupationTicks", ant.minOccupationTicks);
-            listTag.add(compoundTag);
+            if (!ant.entityData.isEmpty()) {
+                ant.entityData.remove("UUID");
+                CompoundTag compoundTag = new CompoundTag();
+                compoundTag.put("EntityData", ant.entityData);
+                compoundTag.putInt("TicksInNest", ant.ticksInNest);
+                compoundTag.putInt("MinOccupationTicks", ant.minOccupationTicks);
+                listTag.add(compoundTag);
+            }
         }
 
         return listTag;

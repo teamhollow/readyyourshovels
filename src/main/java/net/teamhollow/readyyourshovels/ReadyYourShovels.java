@@ -29,6 +29,7 @@ public class ReadyYourShovels implements ModInitializer {
         new RYSParticles();
         new RYSSoundEvents();
         new RYSPointOfInterests();
+        new RYSStats();
 
         new RYSBlocks();
         new RYSBlockEntities();

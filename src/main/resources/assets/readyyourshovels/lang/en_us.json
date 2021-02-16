@@ -44,6 +44,7 @@
 
     "item.readyyourshovels.peat": "Peat",
     "item.readyyourshovels.combusting_peat": "Combusting Peat",
+    "item.readyyourshovels.washed_cave_carrot": "Washed Cave Carrot",
     "item.readyyourshovels.music_disc_colly": "Music Disc",
     "item.readyyourshovels.music_disc_colly.desc": "Axoladdy - Colly",
     "item.readyyourshovels.garden_ant_spawn_egg": "Garden Ant Spawn Egg",
@@ -57,5 +58,7 @@
     "subtitles.readyyourshovels.entity.ant.death": "Ant dies",
     "subtitles.readyyourshovels.block.dayroot.ambient": "Dayroot shimmers",
 
-    "biome.readyyourshovels.forest_mound": "Forest Mound"
+    "biome.readyyourshovels.forest_mound": "Forest Mound",
+
+    "stat.readyyourshovels.wash_cave_carrot": "Cave Carrots Washed"
 }

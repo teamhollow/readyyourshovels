@@ -36,8 +36,8 @@ public class RYSItems {
 
     public RYSItems() {
         FuelRegistry frInstance = FuelRegistry.INSTANCE;
-        frInstance.add(RYSItems.PEAT, 800);
-        frInstance.add(RYSItems.COMBUSTING_PEAT, 1400);
+        frInstance.add(RYSItems.PEAT, 1200);
+        frInstance.add(RYSItems.COMBUSTING_PEAT, 2000);
     }
 
     private static Item register(String id, Item item) {

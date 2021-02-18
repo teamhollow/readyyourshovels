@@ -1,0 +1,6 @@
+{
+  "parent": "readyyourshovels:block/template_planter_box",
+  "textures": {
+    "soil": "readyyourshovels:block/planter_box_sand_wet"
+  }
+}

@@ -1,7 +1,23 @@
 {
   "variants": {
-    "": {
-      "model": "readyyourshovels:block/crimson_planter_box"
+    "filled_block=empty,wet=false": {
+      "model": "readyyourshovels:block/crimson_planter_box_empty"
+    },
+    "filled_block=dirt,wet=false": {
+      "model": "readyyourshovels:block/crimson_planter_box_dirt"
+    },
+    "filled_block=sand,wet=false": {
+      "model": "readyyourshovels:block/crimson_planter_box_sand"
+    },
+
+    "filled_block=empty,wet=true": {
+      "model": "readyyourshovels:block/crimson_planter_box_empty"
+    },
+    "filled_block=dirt,wet=true": {
+      "model": "readyyourshovels:block/crimson_planter_box_dirt_wet"
+    },
+    "filled_block=sand,wet=true": {
+      "model": "readyyourshovels:block/crimson_planter_box_sand_wet"
     }
   }
 }

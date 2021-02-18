@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:recipes/root",
+  "parent": "readyyourshovels:recipes/root",
   "rewards": {
     "recipes": [
       "readyyourshovels:tough_dirt_stairs"

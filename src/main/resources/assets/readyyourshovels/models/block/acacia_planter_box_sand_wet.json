@@ -1,0 +1,8 @@
+{
+    "parent": "readyyourshovels:block/template_planter_box_sand_wet",
+    "textures": {
+        "bottom": "readyyourshovels:block/acacia_planter_box_bottom",
+        "top": "readyyourshovels:block/acacia_planter_box_top",
+        "side": "readyyourshovels:block/acacia_planter_box_side"
+    }
+}

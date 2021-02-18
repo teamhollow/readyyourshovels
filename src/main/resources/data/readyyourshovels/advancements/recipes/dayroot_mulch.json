@@ -1,0 +1,32 @@
+{
+    "parent": "readyyourshovels:recipes/root",
+    "rewards": {
+        "recipes": [
+            "readyyourshovels:dayroot_mulch"
+        ]
+    },
+    "criteria": {
+        "has_dayroot_crown": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "readyyourshovels:dayroot_crown"
+                    }
+                ]
+            }
+        },
+        "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "readyyourshovels:dayroot_mulch"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_dayroot_crown",
+            "has_the_recipe"
+        ]
+    ]
+}

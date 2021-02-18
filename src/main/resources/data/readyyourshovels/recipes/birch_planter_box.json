@@ -2,19 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "group": "readyyourshovels:planter_box",
   "pattern": [
-    "WBW",
-    "WDW",
-    "WWW"
+    "# #",
+    "#M#",
+    "###"
   ],
   "key": {
-    "W": {
+    "#": {
       "item": "minecraft:birch_slab"
     },
-    "B": {
-      "item": "minecraft:water_bucket"
-    },
-    "D": {
-      "item": "minecraft:dirt"
+    "M": {
+      "item": "readyyourshovels:dayroot_mulch"
     }
   },
   "result": {

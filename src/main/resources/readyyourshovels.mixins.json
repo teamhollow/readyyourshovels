@@ -2,7 +2,13 @@
   "required": true,
   "package": "net.teamhollow.readyyourshovels.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [],
+  "mixins": [
+    "AbstractBlockStateMixin",
+    "AttachedStemBlockMixin",
+    "CropBlockMixin",
+    "StemBlockMixin",
+    "SugarCaneBlockMixin"
+  ],
   "client": [
     "client.EntityModelLayersInvoker",
     "client.EntityModelLayersMixin",

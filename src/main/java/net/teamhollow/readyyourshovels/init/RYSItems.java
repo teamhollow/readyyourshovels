@@ -22,6 +22,8 @@ public class RYSItems {
     public static final Item PEAT = register("peat");
     public static final Item COMBUSTING_PEAT = register("combusting_peat");
 
+    public static final Item DAYROOT_MULCH = register("dayroot_mulch");
+
     public static final Item MUSIC_DISC_COLLY = register("music_disc_colly", new PublicMusicDiscItem(
             12, RYSSoundEvents.MUSIC_DISC_COLLY,
             new FabricItemSettings()

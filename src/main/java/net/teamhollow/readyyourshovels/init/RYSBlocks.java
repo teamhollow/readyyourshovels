@@ -145,14 +145,14 @@ public class RYSBlocks {
     //
 
     private static final AbstractBlock.Settings PLANTER_BOX_SETTINGS = FabricBlockSettings.of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD);
-    public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new Block(PLANTER_BOX_SETTINGS));
-    public static final Block BIRCH_PLANTER_BOX = register("birch_planter_box", new Block(PLANTER_BOX_SETTINGS));
-    public static final Block SPRUCE_PLANTER_BOX = register("spruce_planter_box", new Block(PLANTER_BOX_SETTINGS));
-    public static final Block DARK_OAK_PLANTER_BOX = register("dark_oak_planter_box", new Block(PLANTER_BOX_SETTINGS));
-    public static final Block ACACIA_PLANTER_BOX = register("acacia_planter_box", new Block(PLANTER_BOX_SETTINGS));
-    public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new Block(PLANTER_BOX_SETTINGS));
-    public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new Block(PLANTER_BOX_SETTINGS));
-    public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new Block(PLANTER_BOX_SETTINGS));
+    public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
+    public static final Block BIRCH_PLANTER_BOX = register("birch_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
+    public static final Block SPRUCE_PLANTER_BOX = register("spruce_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
+    public static final Block DARK_OAK_PLANTER_BOX = register("dark_oak_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
+    public static final Block ACACIA_PLANTER_BOX = register("acacia_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
+    public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
+    public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
+    public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
 
     //
     // DAYROOT
@@ -165,7 +165,7 @@ public class RYSBlocks {
             .sounds(BlockSoundGroup.WEEPING_VINES)
         )
     );
-    public static final Block DAYROOT_PLANT = register(DayrootPlantBlock.id, new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance((state) -> 1)), false);
+    public static final Block DAYROOT_PLANT = register(DayrootPlantBlock.id, new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance(state -> 1)), false);
     public static final Block DAYROOT_CROWN = register(DayrootBlock.id + "_crown", new Block(
         FabricBlockSettings.of(Material.SOLID_ORGANIC, MapColor.BROWN)
             .strength(1.0F).luminance(1)

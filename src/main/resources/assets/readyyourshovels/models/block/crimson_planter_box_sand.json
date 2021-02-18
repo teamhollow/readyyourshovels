@@ -1,0 +1,8 @@
+{
+    "parent": "readyyourshovels:block/template_planter_box_sand",
+    "textures": {
+        "bottom": "readyyourshovels:block/crimson_planter_box_bottom",
+        "top": "readyyourshovels:block/crimson_planter_box_top",
+        "side": "readyyourshovels:block/crimson_planter_box_side"
+    }
+}

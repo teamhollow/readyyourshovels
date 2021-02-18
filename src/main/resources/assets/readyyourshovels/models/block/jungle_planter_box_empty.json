@@ -1,0 +1,8 @@
+{
+    "parent": "readyyourshovels:block/template_planter_box_empty",
+    "textures": {
+        "bottom": "readyyourshovels:block/jungle_planter_box_bottom",
+        "top": "readyyourshovels:block/jungle_planter_box_top",
+        "side": "readyyourshovels:block/jungle_planter_box_side"
+    }
+}

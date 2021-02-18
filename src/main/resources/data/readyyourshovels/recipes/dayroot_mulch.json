@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "readyyourshovels:dayroot_crown"
+    }
+  ],
+  "result": {
+    "item": "readyyourshovels:dayroot_mulch",
+    "count": 3
+  }
+}

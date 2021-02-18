@@ -94,7 +94,7 @@ public class AntNestBlockEntity extends BlockEntity {
 
     private List<Entity> tryReleaseAnt(BlockState state, AntNestBlockEntity.AntState antState) {
         List<Entity> list = Lists.newArrayList();
-        this.ants.removeIf((ant) -> this.releaseAnt(state, ant, list, antState));
+        this.ants.removeIf(ant -> this.releaseAnt(state, ant, list, antState));
         return list;
     }
 
@@ -116,7 +116,7 @@ public class AntNestBlockEntity extends BlockEntity {
             entity.removeAllPassengers();
             CompoundTag compoundTag = new CompoundTag();
             entity.saveToTag(compoundTag);
-            this.ants.add(new AntNestBlockEntity.Ant(compoundTag, ticksInNest, (entity instanceof ResourceGatherer && ((ResourceGatherer) entity).hasResource()) ? 2400 : 600));
+            this.ants.add(new AntNestBlockEntity.Ant(compoundTag, ticksInNest, entity instanceof ResourceGatherer && ((ResourceGatherer) entity).hasResource() ? 2400 : 600));
             if (this.world != null) {
                 if (entity instanceof ResourceGatherer) {
                     ResourceGatherer antEntity = (ResourceGatherer) entity;
@@ -147,7 +147,7 @@ public class AntNestBlockEntity extends BlockEntity {
             if (wouldCollide && antState != AntNestBlockEntity.AntState.EMERGENCY) {
                 return false;
             } else {
-                Entity entity = EntityType.loadEntityWithPassengers(compoundTag, this.world, (entityx) -> entityx);
+                Entity entity = EntityType.loadEntityWithPassengers(compoundTag, this.world, entityx -> entityx);
                 if (entity != null) {
                     if (!entity.getType().isIn(RYSEntityTypeTags.ANT_NEST_INHABITORS)) {
                         return false;
@@ -243,8 +243,8 @@ public class AntNestBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
         this.ants.clear();
         ListTag listTag = tag.getList("Ants", 10);
 
@@ -259,8 +259,8 @@ public class AntNestBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
         tag.put("Ants", this.getAnts());
         if (this.hasResource()) tag.put("ResourcePos", NbtHelper.fromBlockPos(this.resourcePos));
 

@@ -9,8 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.UniformIntDistribution;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
+import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
@@ -21,7 +20,7 @@ public class RYSConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_DAYROOT = register(
         "dirt_cave_dayroot",
         RYSFeatures.DIRT_CAVE_DAYROOT.configure(FeatureConfig.DEFAULT)
-            .rangeOf(-64, 128)
+            .rangeOf(YOffset.fixed(-64), YOffset.fixed(128))
             .spreadHorizontally()
             .repeat(8)
             .repeat(8)
@@ -29,7 +28,7 @@ public class RYSConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_TOUGHROOT = register(
         "dirt_cave_toughroot",
         RYSFeatures.DIRT_CAVE_TOUGHROOT.configure(FeatureConfig.DEFAULT)
-            .rangeOf(-64, 128)
+            .rangeOf(YOffset.fixed(-64), YOffset.fixed(128))
             .spreadHorizontally()
             .repeat(16)
             .repeat(16)
@@ -44,10 +43,9 @@ public class RYSConfiguredFeatures {
                 33
             )
         )
-        .rangeOf(-64, 384)
-        .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 80)))
+        .rangeOf(YOffset.getBottom(), YOffset.fixed(79))
         .spreadHorizontally()
-        .repeat(5)
+        .repeat(4)
     );
     public static final ConfiguredFeature<?, ?> TOUGH_DIRT_DEPOSIT_CLAY = register(
         "tough_dirt_deposit_clay",
@@ -58,10 +56,9 @@ public class RYSConfiguredFeatures {
                 9
             )
         )
-        .rangeOf(-64, 384)
-        .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 128)))
+        .rangeOf(YOffset.fixed(0), YOffset.getTop())
         .spreadHorizontally()
-        .repeat(32)
+        .repeat(12)
     );
     public static final ConfiguredFeature<?, ?> TOUGH_DIRT_DEPOSIT_GOLD = register(
         "tough_dirt_deposit_gold",
@@ -72,7 +69,7 @@ public class RYSConfiguredFeatures {
                 9
             )
         )
-        .rangeOf(-64, 32)
+        .averageDepth(YOffset.fixed(-16), 48)
         .spreadHorizontally()
         .repeat(4)
     );
@@ -82,11 +79,12 @@ public class RYSConfiguredFeatures {
             new OreFeatureConfig(
                 Rules.TOUGH_DIRT,
                 States.IRON_DEPOSIT,
-                9)
+                9
+            )
         )
-        .rangeOf(-64, 64)
+        .averageDepth(YOffset.fixed(32), 48)
         .spreadHorizontally()
-        .repeat(40)
+        .repeat(20)
     );
     public static final ConfiguredFeature<?, ?> TOUGH_DIRT_DEPOSIT_PEAT = register(
         "tough_dirt_deposit_peat",
@@ -97,9 +95,9 @@ public class RYSConfiguredFeatures {
                 17
             )
         )
-        .rangeOf(-64, 128)
+        .averageDepth(YOffset.fixed(96), 96)
         .spreadHorizontally()
-        .repeat(30)
+        .repeat(20)
     );
 
     public static final ConfiguredFeature<?, ?> PATCH_TOUGHROOT_STEM = register(
@@ -135,8 +133,8 @@ public class RYSConfiguredFeatures {
                 )
             )
         )
-        .rangeOf(-64, 48)
-        .repeat(UniformIntDistribution.of(-1, 4))
+        .rangeOf(YOffset.getBottom(), YOffset.fixed(63))
+        .repeat(UniformIntDistribution.of(-3, 4))
         .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
         .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
         .repeat(5)

@@ -58,8 +58,8 @@ public class GardenAntEntity extends AbstractAntEntity implements ResourceGather
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
 
         tag.putInt("Age", this.age);
 
@@ -68,6 +68,8 @@ public class GardenAntEntity extends AbstractAntEntity implements ResourceGather
         tag.putBoolean("HasResource", this.hasResource());
         tag.putInt("TicksSinceResourcePickup", this.ticksSinceResourcePickup);
         tag.putBoolean("IsDoingResourcePickup", this.resourcePickupGoal.isRunning());
+
+        return tag;
     }
 
     public static DefaultAttributeContainer.Builder createAntAttributes() {
@@ -75,8 +77,8 @@ public class GardenAntEntity extends AbstractAntEntity implements ResourceGather
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
 
         this.age = tag.getInt("Age");
 

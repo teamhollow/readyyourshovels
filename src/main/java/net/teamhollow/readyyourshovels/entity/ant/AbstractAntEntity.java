@@ -87,16 +87,18 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
 
         if (this.hasNestPos()) tag.put("NestPos", NbtHelper.fromBlockPos(this.getNestPos()));
         tag.putInt("CannotEnterNestTicks", this.cannotEnterNestTicks);
+
+        return tag;
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
 
         this.setNestPos(null);
         if (tag.contains("NestPos")) this.setNestPos(NbtHelper.toBlockPos(tag.getCompound("NestPos")));
@@ -125,7 +127,7 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     protected boolean canEnterNest() {
-        if ((this.cannotEnterNestTicks <= 0 && this.getPositionTarget() == null) || this.world.isRaining() || this.world.isNight() || this.canEnterNestExt()) {
+        if (this.cannotEnterNestTicks <= 0 && this.getPositionTarget() == null || this.world.isRaining() || this.world.isNight() || this.canEnterNestExt()) {
             return this.isNestNotNearFire();
         } else {
             return false;
@@ -356,8 +358,8 @@ public abstract class AbstractAntEntity extends AnimalEntity {
             AbstractAntEntity $this = AbstractAntEntity.this;
             BlockPos blockPos = $this.getBlockPos();
             PointOfInterestStorage pointOfInterestStorage = ((ServerWorld) $this.world).getPointOfInterestStorage();
-            Stream<PointOfInterest> stream = pointOfInterestStorage.getInCircle((pointOfInterestType) -> pointOfInterestType == RYSPointOfInterests.ANT_NEST, blockPos, 20, PointOfInterestStorage.OccupationStatus.ANY);
-            return stream.map(PointOfInterest::getPos).filter($this::doesNestHaveSpace).sorted(Comparator.comparingDouble((blockPos2) -> blockPos2.getSquaredDistance(blockPos))).collect(Collectors.toList());
+            Stream<PointOfInterest> stream = pointOfInterestStorage.getInCircle(pointOfInterestType -> pointOfInterestType == RYSPointOfInterests.ANT_NEST, blockPos, 20, PointOfInterestStorage.OccupationStatus.ANY);
+            return stream.map(PointOfInterest::getPos).filter($this::doesNestHaveSpace).sorted(Comparator.comparingDouble(blockPos2 -> blockPos2.getSquaredDistance(blockPos))).collect(Collectors.toList());
         }
     }
 

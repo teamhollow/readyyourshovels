@@ -61,7 +61,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         this.goalSelector.add(2, new PeatySlimeEntity.FaceTowardTargetGoal(this));
         this.goalSelector.add(3, new PeatySlimeEntity.RandomLookGoal(this));
         this.goalSelector.add(5, new PeatySlimeEntity.MoveGoal(this));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, (livingEntity) -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
+        this.targetSelector.add(1, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, livingEntity -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
         this.targetSelector.add(3, new FollowTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
@@ -94,21 +94,22 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
         tag.putInt("Size", this.getSize() - 1);
         tag.putBoolean("wasOnGround", this.onGroundLastTick);
+
+        return tag;
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        int i = tag.getInt("Size");
-        if (i < 0) {
-            i = 0;
-        }
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
 
-        this.setSize(i + 1, false);
-        super.readCustomDataFromTag(tag);
+        int size = tag.getInt("Size");
+        if (size < 0) size = 0;
+
+        this.setSize(size + 1, false);
         this.onGroundLastTick = tag.getBoolean("wasOnGround");
     }
 
@@ -129,7 +130,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
                 }
 
                 if (itemStack.isDamageable()) {
-                    itemStack.damage(1, player, (Consumer<LivingEntity>) ((p) -> p.sendToolBreakStatus(hand)));
+                    itemStack.damage(1, player, (Consumer<LivingEntity>) p -> p.sendToolBreakStatus(hand));
                 } else {
                     itemStack.decrement(1);
                 }

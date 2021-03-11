@@ -26,7 +26,7 @@ public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
 
     @Override
     public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
-        return this.generate(context.getWorld(), context.getRandom(), context.getPos());
+        return this.generate(context.getWorld(), context.getRandom(), context.getOrigin());
     }
 
     public boolean generate(StructureWorldAccess world, Random random, BlockPos pos) {

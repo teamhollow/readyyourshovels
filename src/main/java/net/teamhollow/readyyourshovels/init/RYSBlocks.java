@@ -6,6 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
@@ -13,6 +14,8 @@ import net.teamhollow.readyyourshovels.block.*;
 import net.teamhollow.readyyourshovels.block.vanilla.PublicFernBlock;
 import net.teamhollow.readyyourshovels.block.vanilla.PublicStairsBlock;
 import net.teamhollow.readyyourshovels.sound.RYSBlockSoundGroup;
+
+import java.util.function.ToIntFunction;
 
 @SuppressWarnings("unused")
 public class RYSBlocks {
@@ -155,6 +158,12 @@ public class RYSBlocks {
     public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
 
     //
+    // KILN
+    //
+
+    public static final Block KILN = register(KilnBlock.id, new KilnBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).luminance(createLightLevelFromLitBlockState(13))));
+
+    //
     // DAYROOT
     //
 
@@ -193,6 +202,18 @@ public class RYSBlocks {
             .sounds(BlockSoundGroup.GRASS)
         ), false
     );
+
+    //
+    // FUNCTIONS
+    //
+
+    private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
+        return (state) -> (Boolean)state.get(Properties.LIT) ? litLevel : 0;
+    }
+
+    //
+    // REGISTRY
+    //
 
     public RYSBlocks() {}
 

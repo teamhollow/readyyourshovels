@@ -10,9 +10,11 @@ import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.entity.AntNestBlockEntity;
+import net.teamhollow.readyyourshovels.block.entity.KilnBlockEntity;
 
 public class RYSBlockEntities {
     public static final BlockEntityType<AntNestBlockEntity> ANT_NEST = register(AntNestBlockEntity.id, FabricBlockEntityTypeBuilder.create(AntNestBlockEntity::new, RYSBlocks.ANT_NEST));
+    public static final BlockEntityType<KilnBlockEntity> KILN = register(KilnBlockEntity.id, FabricBlockEntityTypeBuilder.create(KilnBlockEntity::new, RYSBlocks.KILN));
 
     public RYSBlockEntities() {}
 

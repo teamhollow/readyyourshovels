@@ -2,16 +2,16 @@ package net.teamhollow.readyyourshovels.init;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.CarverConfig;
+import net.minecraft.world.gen.carver.RavineCarverConfig;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.world.gen.carver.ToughDirtCaveCarver;
 import net.teamhollow.readyyourshovels.world.gen.carver.ToughDirtCanyonCarver;
+import net.teamhollow.readyyourshovels.world.gen.carver.ToughDirtCaveCarver;
 
 public class RYSCarvers {
-    public static final Carver<ProbabilityConfig> TOUGH_DIRT_CAVE = register(ToughDirtCaveCarver.id, new ToughDirtCaveCarver(ProbabilityConfig.CODEC, 256));
-    public static final Carver<ProbabilityConfig> TOUGH_DIRT_CANYON = register(ToughDirtCanyonCarver.id, new ToughDirtCanyonCarver(ProbabilityConfig.CODEC));
+    public static final Carver<CarverConfig> TOUGH_DIRT_CAVE = register(ToughDirtCaveCarver.id, new ToughDirtCaveCarver(CarverConfig.CONFIG_CODEC));
+    public static final Carver<RavineCarverConfig> TOUGH_DIRT_CANYON = register(ToughDirtCanyonCarver.id, new ToughDirtCanyonCarver(RavineCarverConfig.RAVINE_CODEC));
 
     public RYSCarvers() {}
 

@@ -3,11 +3,11 @@ package net.teamhollow.readyyourshovels.entity.ant;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.class_5532;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -116,10 +116,8 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     protected void startMovingTo(BlockPos pos) {
-        Vec3d vec3d = Vec3d.ofBottomCenter(pos);
-
         int range = 10;
-        Vec3d vec3d2 = class_5532.method_31512(this, range, range, vec3d, 0.3141592741012573D);
+        Vec3d vec3d2 = NoPenaltyTargeting.find(this, range, range);
         if (vec3d2 != null) {
             this.navigation.setRangeMultiplier(0.5F);
             this.navigation.startMovingTo(vec3d2.x, vec3d2.y, vec3d2.z, 1.0D);

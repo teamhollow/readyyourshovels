@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#M#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "readyyourshovels:dirt_bricks"
+    },
+    "M": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "item": "readyyourshovels:kiln"
+  }
+}

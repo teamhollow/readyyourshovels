@@ -1,40 +1,40 @@
 {
-    "schemaVersion": 1,
-    "license": "MIT",
-    "id": "readyyourshovels",
-    "version": "${version}",
+  "schemaVersion": 1,
+  "license": "MIT",
+  "id": "readyyourshovels",
+  "version": "${version}",
 
-    "name": "Ready Your Shovels",
-    "description": "This mod adds a whole new level to the underground, literally! Explore dirt caves filled with new mobs, blocks, and more! Dirt has never been so fun.",
-    "icon": "pack.png",
+  "name": "Ready Your Shovels",
+  "description": "This mod adds a whole new level to the underground, literally! Explore dirt caves filled with new mobs, blocks, and more! Dirt has never been so fun.",
+  "icon": "pack.png",
 
-    "authors": [
-        "Team Hollow"
+  "authors": [
+    "Team Hollow"
+  ],
+  "contributors": [],
+  "contact": {
+    "homepage": "https://readyyourshovels.teamhollow.net",
+    "sources": "https://github.com/teamhollow/readyyourshovels",
+    "issues": "https://github.com/teamhollow/readyyourshovels/issues"
+  },
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.teamhollow.readyyourshovels.ReadyYourShovels"
     ],
-    "contributors": [],
-    "contact": {
-        "homepage": "https://readyyourshovels.teamhollow.net",
-        "sources": "https://github.com/teamhollow/readyyourshovels",
-        "issues": "https://github.com/teamhollow/readyyourshovels/issues"
-    },
-
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-            "net.teamhollow.readyyourshovels.ReadyYourShovels"
-        ],
-        "client": [
-            "net.teamhollow.readyyourshovels.ReadyYourShovelsClient"
-        ],
-        "server": []
-    },
-    "mixins": [
-        "readyyourshovels.mixins.json"
+    "client": [
+      "net.teamhollow.readyyourshovels.ReadyYourShovelsClient"
     ],
-    "depends": {
-        "fabricloader": ">=0.11.0",
-        "fabric": ">=0.30.2",
-        "chord": ">=1.4.5",
-        "minecraft": ">=1.17-alpha.21.6.a"
-    }
+    "server": []
+  },
+  "mixins": [
+    "readyyourshovels.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.0",
+    "fabric": ">=0.32.0",
+    "chord": ">=1.4.5",
+    "minecraft": ">=1.17-alpha.21.10.a"
+  }
 }

@@ -161,7 +161,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
                 float rand2 = this.random.nextFloat() * 0.5F + 0.5F;
                 float x = MathHelper.sin(rand1) * (float)size * 0.5F * rand2;
                 float z = MathHelper.cos(rand1) * (float)size * 0.5F * rand2;
-                this.world.addParticle(RYSParticles.ITEM_PEAT, this.getX() + (double)x, this.getY(), this.getZ() + (double)z, 0.0D, 0.0D, 0.0D);
+                this.world.addParticle(RYSParticles.ITEM_COMBUSTING_PEAT, this.getX() + (double)x, this.getY(), this.getZ() + (double)z, 0.0D, 0.0D, 0.0D);
                 if (random.nextFloat() <= 0.1F) this.world.addParticle(ParticleTypes.FLAME, this.getX() + (double)x, this.getY(), this.getZ() + (double)z, 0.0D, 0.0D, 0.0D);
             }
 

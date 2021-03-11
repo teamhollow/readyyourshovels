@@ -9,8 +9,6 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 public class RYSEntityTypeTags {
     public static final Tag<EntityType<?>> ANT_NEST_INHABITORS = register("ant_nest_inhabitors");
 
-    public RYSEntityTypeTags() {}
-
     private static Tag<EntityType<?>> register(String id) {
         return TagRegistry.entityType(new Identifier(ReadyYourShovels.MOD_ID, id));
     }

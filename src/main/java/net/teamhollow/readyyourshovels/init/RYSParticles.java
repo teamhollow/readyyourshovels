@@ -7,7 +7,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.particle.vanilla.PublicDefaultParticleType;
 
 public class RYSParticles {
-    public static final DefaultParticleType ITEM_PEAT = register("item_peat", false);
+    public static final DefaultParticleType ITEM_COMBUSTING_PEAT = register("item_combusting_peat", false);
     public static final DefaultParticleType DAYROOT = register("dayroot", false);
 
     public RYSParticles() {}

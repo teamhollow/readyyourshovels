@@ -34,6 +34,7 @@
     "block.readyyourshovels.jungle_planter_box": "Jungle Planter Box",
     "block.readyyourshovels.crimson_planter_box": "Crimson Planter Box",
     "block.readyyourshovels.warped_planter_box": "Warped Planter Box",
+    "block.readyyourshovels.kiln": "Kiln",
     "block.readyyourshovels.ant_nest": "Ant Nest",
     "block.readyyourshovels.dayroot": "Dayroot",
     "block.readyyourshovels.dayroot_plant": "Dayroot Plant",
@@ -51,7 +52,6 @@
     "item.readyyourshovels.peaty_slime_spawn_egg": "Peaty Slime Spawn Egg",
     "item.readyyourshovels.dayroot_mulch": "Dayroot Mulch",
 
-
     "entity.readyyourshovels.garden_ant": "Garden Ant",
     "entity.readyyourshovels.peaty_slime": "Peaty Slime",
 
@@ -62,5 +62,9 @@
 
     "biome.readyyourshovels.forest_mound": "Forest Mound",
 
-    "stat.readyyourshovels.wash_cave_carrot": "Cave Carrots Washed"
+    "container.readyyourshovels.kiln": "Kiln",
+    "gui.recipebook.toggleRecipes.readyyourshovels:kiln": "Showing Smeltable",
+
+    "stat.readyyourshovels.wash_cave_carrot": "Cave Carrots Washed",
+    "stat.readyyourshovels.interact_with_kiln": "Interactions with Kiln"
 }

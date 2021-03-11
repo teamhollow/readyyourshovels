@@ -1,0 +1,43 @@
+{
+  "parent": "readyyourshovels:recipes/root",
+  "rewards": {
+    "recipes": [
+      "readyyourshovels:kiln"
+    ]
+  },
+  "criteria": {
+    "has_peat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "readyyourshovels:peat"
+          }
+        ]
+      }
+    },
+    "has_furnace": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:furnace"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "readyyourshovels:kiln"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_peat",
+      "has_furnace",
+      "has_the_recipe"
+    ]
+  ]
+}

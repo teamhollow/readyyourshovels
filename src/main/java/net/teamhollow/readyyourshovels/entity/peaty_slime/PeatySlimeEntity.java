@@ -459,7 +459,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         @Override
         public void tick() {
             this.slime.lookAtEntity(this.slime.getTarget(), 10.0F, 10.0F);
-            ((PeatySlimeEntity.SlimeMoveControl)this.slime.getMoveControl()).look(this.slime.getYaw(1.0f), this.slime.canAttack());
+            ((PeatySlimeEntity.SlimeMoveControl)this.slime.getMoveControl()).look(this.slime.getYaw(), this.slime.canAttack());
         }
     }
 
@@ -472,7 +472,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         public SlimeMoveControl(PeatySlimeEntity slime) {
             super(slime);
             this.slime = slime;
-            this.targetYaw = 180.0F * slime.getYaw(1.0f) / 3.1415927F;
+            this.targetYaw = 180.0F * slime.getYaw() / 3.1415927F;
         }
 
         public void look(float targetYaw, boolean jumpOften) {
@@ -487,7 +487,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
         @Override
         public void tick() {
-            float yaw = this.entity.getYaw(1.0f);
+            float yaw = this.entity.getYaw();
             this.entity.setYaw(this.wrapDegrees(yaw, this.targetYaw, 90.0F));
             this.entity.headYaw = yaw;
             this.entity.bodyYaw = yaw;

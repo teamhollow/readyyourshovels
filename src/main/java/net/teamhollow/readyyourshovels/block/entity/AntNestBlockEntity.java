@@ -177,7 +177,7 @@ public class AntNestBlockEntity extends BlockEntity {
                             double x = (double) blockPos.getX() + 0.5D + width * (double) direction.getOffsetX();
                             double y = (double) blockPos.getY() + 0.5D - (double) (entity.getHeight() / 2.0F);
                             double z = (double) blockPos.getZ() + 0.5D + width * (double) direction.getOffsetZ();
-                            entity.refreshPositionAndAngles(x, y, z, entity.getYaw(1.0f), entity.getPitch(1.0f));
+                            entity.refreshPositionAndAngles(x, y, z, entity.getYaw(), entity.getPitch(1.0f));
                             antEntity.setCannotEnterNestTicks(400);
                         }
 

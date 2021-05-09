@@ -136,7 +136,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
                     itemStack.decrement(1);
                 }
 
-                this.setFireTicks(Math.min(200, Math.max(60, this.getFireTicks() + 60) + (int) (player.getRandom().nextDouble() * 20 * 2)));
+                this.setFireTicks(Math.min(200, Math.max(120, this.getFireTicks() + 120) + (int) (player.getRandom().nextDouble() * 20 * 2)));
                 return ActionResult.success(this.world.isClient);
             }
         }
@@ -214,30 +214,32 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
     @Override
     public void remove(Entity.RemovalReason reason) {
-        int i = this.getSize();
-        if (!this.world.isClient && i > 1 && this.isDead()) {
-            Text text = this.getCustomName();
-            boolean bl = this.isAiDisabled();
-            float f = (float)i / 4.0F;
-            int j = i / 2;
-            int k = 2 + this.random.nextInt(3);
+        int size = this.getSize();
+        if (!this.world.isClient && size > 1 && this.isDead()) {
+            Text setCustomName = this.getCustomName();
+            boolean aiDisabled = this.isAiDisabled();
+            float off = (float)size / 4.0F;
+            int splitSize = size / 2;
+            int slimeCount = 2 + this.random.nextInt(3);
+            int fireTicks = (int) ((this.getFireTicks() * 2.0f) / slimeCount);
 
-            for(int l = 0; l < k; ++l) {
-                float g = ((float)(l % 2) - 0.5F) * f;
-                float h = ((float)(l / 2) - 0.5F) * f;
-                PeatySlimeEntity slimeEntity = (PeatySlimeEntity)this.getType().create(this.world);
-                if (this.isPersistent()) {
-                    assert slimeEntity != null;
-                    slimeEntity.setPersistent();
+            for(int l = 0; l < slimeCount; ++l) {
+                float xOff = ((float)(l % 2) - 0.5F) * off;
+                float zOff = ((float)(l / 2) - 0.5F) * off;
+                PeatySlimeEntity entity = (PeatySlimeEntity)this.getType().create(this.world);
+                if (entity != null) {
+                    if (this.isPersistent()) {
+                        entity.setPersistent();
+                    }
+
+                    entity.setCustomName(setCustomName);
+                    entity.setAiDisabled(aiDisabled);
+                    entity.setInvulnerable(this.isInvulnerable());
+                    entity.setFireTicks(fireTicks);
+                    entity.setSize(splitSize, true);
+                    entity.refreshPositionAndAngles(this.getX() + (double) xOff, this.getY() + 0.5D, this.getZ() + (double) zOff, this.random.nextFloat() * 360.0F, 0.0F);
+                    this.world.spawnEntity(entity);
                 }
-
-                assert slimeEntity != null;
-                slimeEntity.setCustomName(text);
-                slimeEntity.setAiDisabled(bl);
-                slimeEntity.setInvulnerable(this.isInvulnerable());
-                slimeEntity.setSize(j, true);
-                slimeEntity.refreshPositionAndAngles(this.getX() + (double)g, this.getY() + 0.5D, this.getZ() + (double)h, this.random.nextFloat() * 360.0F, 0.0F);
-                this.world.spawnEntity(slimeEntity);
             }
         }
 

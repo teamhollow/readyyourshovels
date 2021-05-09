@@ -39,8 +39,7 @@ public class AntNestBlockEntity extends BlockEntity {
 
     @Override
     public void markDirty() {
-        if (this.isNearFire()) {
-            assert this.world != null;
+        if (this.isNearFire() && this.world != null) {
             this.angerAnts(null, this.world.getBlockState(this.getPos()), AntNestBlockEntity.AntState.EMERGENCY);
         }
 
@@ -132,10 +131,7 @@ public class AntNestBlockEntity extends BlockEntity {
     }
 
     private boolean releaseAnt(BlockState state, AntNestBlockEntity.Ant ant, List<Entity> list, AntNestBlockEntity.AntState antState) {
-        assert this.world != null;
-        if ((this.world.isNight() || this.world.isRaining()) && antState != AntNestBlockEntity.AntState.EMERGENCY) {
-            return false;
-        } else {
+        if (this.world != null && !((this.world.isNight() || this.world.isRaining()) && antState != AntNestBlockEntity.AntState.EMERGENCY)) {
             BlockPos blockPos = this.getPos();
             NbtCompound tag = ant.entityData;
             tag.remove("Passengers");
@@ -149,9 +145,7 @@ public class AntNestBlockEntity extends BlockEntity {
             } else {
                 Entity entity = EntityType.loadEntityWithPassengers(tag, this.world, entityx -> entityx);
                 if (entity != null) {
-                    if (!entity.getType().isIn(RYSEntityTypeTags.ANT_NEST_INHABITORS)) {
-                        return false;
-                    } else {
+                    if (entity.getType().isIn(RYSEntityTypeTags.ANT_NEST_INHABITORS)) {
                         if (entity instanceof ResourceGatherer) {
                             ResourceGatherer gathererEntity = (ResourceGatherer) entity;
                             AbstractAntEntity antEntity = (AbstractAntEntity) entity;
@@ -190,11 +184,11 @@ public class AntNestBlockEntity extends BlockEntity {
                         this.world.playSound(null, blockPos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         return this.world.spawnEntity(entity);
                     }
-                } else {
-                    return false;
                 }
             }
         }
+
+        return false;
     }
 
     private void ageAnt(int ticks, AbstractAntEntity ant) {
@@ -229,9 +223,8 @@ public class AntNestBlockEntity extends BlockEntity {
     }
 
     @SuppressWarnings("unused")
-    public static void serverTick(World world, BlockPos pos, BlockState blockState, AntNestBlockEntity $this) {
-        assert $this.world != null;
-        if (!world.isClient) {
+    public static void serverTick(World world, BlockPos pos, BlockState state, AntNestBlockEntity $this) {
+        if (world != null && !world.isClient) {
             $this.tickAnts();
             if ($this.ants.size() > 0 && world.getRandom().nextDouble() < 0.005D) {
                 double x = (double) pos.getX() + 0.5D;

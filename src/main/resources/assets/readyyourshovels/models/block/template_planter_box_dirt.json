@@ -1,6 +1,6 @@
 {
   "parent": "readyyourshovels:block/template_planter_box",
   "textures": {
-    "soil": "minecraft:block/farmland"
+    "soil": "readyyourshovels:block/planter_box_dirt"
   }
 }

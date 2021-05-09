@@ -36,6 +36,6 @@ public class PeatySlimeEntityRenderer extends MobEntityRenderer<PeatySlimeEntity
 
     @Override
     public Identifier getTexture(PeatySlimeEntity entity) {
-        return RYSEntities.texture("slime/" + PeatySlimeEntity.id);
+        return RYSEntities.texture("slime/" + PeatySlimeEntity.id + (entity.isOnFire() ? "_combusting" : ""));
     }
 }

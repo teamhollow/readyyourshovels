@@ -23,7 +23,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -87,7 +87,7 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
 
         if (this.hasNestPos()) tag.put("NestPos", NbtHelper.fromBlockPos(this.getNestPos()));
@@ -97,7 +97,7 @@ public abstract class AbstractAntEntity extends AnimalEntity {
     }
 
     @Override
-    public void readNbt(CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
 
         this.setNestPos(null);

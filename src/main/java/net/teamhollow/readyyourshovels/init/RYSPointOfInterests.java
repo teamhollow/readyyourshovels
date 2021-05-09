@@ -15,8 +15,6 @@ import net.teamhollow.readyyourshovels.block.AntNestBlock;
 public class RYSPointOfInterests {
     public static final PointOfInterestType ANT_NEST = register(AntNestBlock.id, getAllStatesOf(RYSBlocks.ANT_NEST), 0, 1);
 
-    public RYSPointOfInterests() {}
-
     private static Set<BlockState> getAllStatesOf(Block block) {
         return ImmutableSet.copyOf(block.getStateManager().getStates());
     }

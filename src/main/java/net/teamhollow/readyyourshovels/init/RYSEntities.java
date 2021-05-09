@@ -36,7 +36,7 @@ public class RYSEntities {
         new int[]{ 7352576, 8306542 }
     );
 
-    public RYSEntities() {
+    static {
         registerDefaultAttributes(GARDEN_ANT, GardenAntEntity.createAntAttributes());
         registerDefaultAttributes(PEATY_SLIME, PeatySlimeEntity.createPeatySlimeAttributes());
     }

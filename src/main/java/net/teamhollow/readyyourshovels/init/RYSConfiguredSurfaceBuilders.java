@@ -15,8 +15,6 @@ public class RYSConfiguredSurfaceBuilders {
         Blocks.GRAVEL.getDefaultState()
     )));
 
-    public RYSConfiguredSurfaceBuilders() {}
-
     private static ConfiguredSurfaceBuilder<?> register(String id, ConfiguredSurfaceBuilder<?> surfaceBuilder) {
         return Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new Identifier(ReadyYourShovels.MOD_ID, id), surfaceBuilder);
     }

@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -118,16 +118,16 @@ public class AntNestBlock extends BlockWithEntity {
                     return;
                 }
 
-                CompoundTag compoundTag;
+                NbtCompound tag;
                 if (hasAnts) {
-                    compoundTag = new CompoundTag();
-                    compoundTag.put("Ants", antBlockEntity.getAnts());
-                    itemStack.putSubTag("BlockEntityTag", compoundTag);
+                    tag = new NbtCompound();
+                    tag.put("Ants", antBlockEntity.getAnts());
+                    itemStack.putSubTag("BlockEntityTag", tag);
                 }
 
-                compoundTag = new CompoundTag();
-                compoundTag.putInt("acid_level", acidLevel);
-                itemStack.putSubTag("BlockStateTag", compoundTag);
+                tag = new NbtCompound();
+                tag.putInt("acid_level", acidLevel);
+                itemStack.putSubTag("BlockStateTag", tag);
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);

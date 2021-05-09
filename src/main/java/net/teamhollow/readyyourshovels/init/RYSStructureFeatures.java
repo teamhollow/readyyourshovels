@@ -12,7 +12,7 @@ import net.teamhollow.readyyourshovels.structure.AntHillGenerator;
 import net.teamhollow.readyyourshovels.world.gen.feature.AntHillFeature;
 
 public class RYSStructureFeatures {
-    public static final StructurePieceType ANT_HILL_PIECE = register(AntHillFeature.id, AntHillGenerator.AntHillPiece::new);
+    public static final StructurePieceType ANT_HILL_PIECE = register(AntHillFeature.id, AntHillGenerator.Piece::new);
     public static final StructureFeature<DefaultFeatureConfig> ANT_HILL = register(
         FabricStructureBuilder.create(
             new Identifier(ReadyYourShovels.MOD_ID, AntHillFeature.id),
@@ -22,8 +22,6 @@ public class RYSStructureFeatures {
         .defaultConfig(32, 8, 238429572)
         .adjustsSurface()
     );
-
-    public RYSStructureFeatures() {}
 
     private static StructurePieceType register(String id, StructurePieceType structurePieceType) {
         return Registry.register(Registry.STRUCTURE_PIECE, new Identifier(ReadyYourShovels.MOD_ID, id), structurePieceType);

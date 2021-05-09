@@ -6,9 +6,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.ClampedIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
@@ -20,18 +21,18 @@ public class RYSConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_DAYROOT = register(
         "dirt_cave_dayroot",
         RYSFeatures.DIRT_CAVE_DAYROOT.configure(FeatureConfig.DEFAULT)
-            .rangeOf(YOffset.fixed(-64), YOffset.fixed(128))
-            .spreadHorizontally()
-            .repeat(8)
-            .repeat(8)
+            .repeat(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3))
+            .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
+            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
+            .repeat(5)
     );
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_TOUGHROOT = register(
         "dirt_cave_toughroot",
         RYSFeatures.DIRT_CAVE_TOUGHROOT.configure(FeatureConfig.DEFAULT)
-            .rangeOf(YOffset.fixed(-64), YOffset.fixed(128))
-            .spreadHorizontally()
-            .repeat(16)
-            .repeat(16)
+            .repeat(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3))
+            .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
+            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
+            .repeat(5)
     );
 
     public static final ConfiguredFeature<?, ?> TOUGH_DIRT_PATCH_COBBLESTONE = register(
@@ -43,7 +44,7 @@ public class RYSConfiguredFeatures {
                 33
             )
         )
-        .rangeOf(YOffset.getBottom(), YOffset.fixed(79))
+        .method_36296(YOffset.getBottom(), YOffset.fixed(79))
         .spreadHorizontally()
         .repeat(4)
     );
@@ -56,7 +57,7 @@ public class RYSConfiguredFeatures {
                 9
             )
         )
-        .rangeOf(YOffset.fixed(0), YOffset.getTop())
+        .method_36296(YOffset.fixed(0), YOffset.getTop())
         .spreadHorizontally()
         .repeat(12)
     );
@@ -69,7 +70,7 @@ public class RYSConfiguredFeatures {
                 9
             )
         )
-        .averageDepth(YOffset.fixed(-16), 48)
+        .method_36296(YOffset.getBottom(), YOffset.fixed(48))
         .spreadHorizontally()
         .repeat(4)
     );
@@ -82,7 +83,7 @@ public class RYSConfiguredFeatures {
                 9
             )
         )
-        .averageDepth(YOffset.fixed(32), 48)
+        .method_36296(YOffset.getBottom(), YOffset.fixed(63))
         .spreadHorizontally()
         .repeat(20)
     );
@@ -95,7 +96,7 @@ public class RYSConfiguredFeatures {
                 17
             )
         )
-        .averageDepth(YOffset.fixed(96), 96)
+        .method_36296(YOffset.getBottom(), YOffset.fixed(96))
         .spreadHorizontally()
         .repeat(20)
     );
@@ -114,7 +115,7 @@ public class RYSConfiguredFeatures {
                 )
             )
         )
-        .repeat(UniformIntDistribution.of(-1, 4))
+        .repeat(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3))
         .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
         .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
         .repeat(5)
@@ -133,16 +134,13 @@ public class RYSConfiguredFeatures {
                 )
             )
         )
-        .rangeOf(YOffset.getBottom(), YOffset.fixed(63))
-        .repeat(UniformIntDistribution.of(-3, 4))
+        .repeat(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3))
         .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
         .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
         .repeat(5)
     );
 
     public static final ConfiguredStructureFeature<?, ?> ANT_HILL = register(AntHillFeature.id, RYSStructureFeatures.ANT_HILL.configure(DefaultFeatureConfig.DEFAULT));
-
-    public RYSConfiguredFeatures() {}
 
     private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(ReadyYourShovels.MOD_ID, id), configuredFeature);

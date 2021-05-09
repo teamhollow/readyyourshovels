@@ -10,7 +10,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
@@ -58,7 +58,7 @@ public class GardenAntEntity extends AbstractAntEntity implements ResourceGather
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
 
         tag.putInt("Age", this.age);
@@ -77,7 +77,7 @@ public class GardenAntEntity extends AbstractAntEntity implements ResourceGather
     }
 
     @Override
-    public void readNbt(CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
 
         this.age = tag.getInt("Age");

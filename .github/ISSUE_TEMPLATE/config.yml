@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Wiki
-    url: https://readyyourshovels.teamhollow.net
-    about: A detailed summary of Ready Your Shovels's features
-  - name: Features Roadmap (Trello)
-    url: https://trello.com/b/ZT6rjDNr
-    about: A list of features and plans for the future - check here if you're making a feature request!
+  - name: Feature Request
+    url: https://github.com/teamhollow/readyyourshovels/discussions/new
+    about: Discuss a feature request to fully develop it.
+  - name: Question
+    url: https://github.com/teamhollow/readyyourshovels/discussions/new
+    about: Ask a question.

@@ -1,5 +1,6 @@
 package net.teamhollow.readyyourshovels;
 
+import com.google.common.reflect.Reflection;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -22,30 +23,33 @@ public class ReadyYourShovels implements ModInitializer {
         () -> new ItemStack(Items.WOODEN_SHOVEL)
     );
 
+    @SuppressWarnings("UnstableApiUsage")
     @Override
     public void onInitialize() {
         log("Initializing");
 
-        new RYSParticles();
-        new RYSSoundEvents();
-        new RYSPointOfInterests();
-        new RYSStats();
-        new RYSScreenHandlers();
+        Reflection.initialize(
+            RYSParticles.class,
+            RYSSoundEvents.class,
+            RYSPointOfInterests.class,
+            RYSStats.class,
+            RYSScreenHandlers.class,
 
-        new RYSBlocks();
-        new RYSBlockEntities();
-        new RYSItems();
-        new RYSEntities();
+            RYSBlocks.class,
+            RYSBlockEntities.class,
+            RYSItems.class,
+            RYSEntities.class,
 
-        new RYSFeatures();
-        new RYSStructureFeatures();
-        new RYSConfiguredFeatures();
-        new RYSCarvers();
-        new RYSConfiguredCarvers();
-        new RYSSurfaceBuilders();
-        new RYSConfiguredSurfaceBuilders();
+            RYSFeatures.class,
+            RYSStructureFeatures.class,
+            RYSConfiguredFeatures.class,
+            RYSCarvers.class,
+            RYSConfiguredCarvers.class,
+            RYSSurfaceBuilders.class,
+            RYSConfiguredSurfaceBuilders.class,
 
-        new RYSBiomes();
+            RYSBiomes.class
+        );
 
         log("Initialized");
     }

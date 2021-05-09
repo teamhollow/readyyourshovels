@@ -21,6 +21,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
 import java.util.function.Predicate;
 
+@SuppressWarnings("deprecation")
 public class RYSBiomes {
     public static final RegistryKey<Biome> FOREST_MOUND = register("forest_mound", RYSBiomes.createForestMound());
 
@@ -42,7 +43,7 @@ public class RYSBiomes {
         DefaultBiomeFeatures.addDefaultLakes(generationSettings);
         DefaultBiomeFeatures.addDungeons(generationSettings);
 
-        DefaultBiomeFeatures.addMineables(generationSettings);
+        DefaultBiomeFeatures.addMineables(generationSettings, false);
         DefaultBiomeFeatures.addDefaultOres(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
         DefaultBiomeFeatures.addForestGrass(generationSettings);
@@ -86,14 +87,13 @@ public class RYSBiomes {
             .build();
     }
 
-    @SuppressWarnings("deprecation")
-    public RYSBiomes() {
+    static {
         // add biomes to spawn
         OverworldBiomes.addContinentalBiome(FOREST_MOUND, OverworldClimate.TEMPERATE, 1.0D);
 
         // modify biomes
         Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.foundInOverworld().and(BiomeSelectors.categories(Biome.Category.OCEAN, Biome.Category.DESERT, Biome.Category.BEACH, Biome.Category.EXTREME_HILLS, Biome.Category.RIVER, Biome.Category.MESA).negate());
-        BiomeModifications.addStructure(biomeSelector, RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));
+        BiomeModifications.addStructure(biomeSelector, RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(RYSConfiguredFeatures.ANT_HILL)));
     }
 
     private static RegistryKey<Biome> register(String id, Biome biome) {

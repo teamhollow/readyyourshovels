@@ -18,7 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -34,6 +34,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSParticles;
+import net.teamhollow.readyyourshovels.init.RYSSoundEvents;
 import net.teamhollow.readyyourshovels.tag.RYSItemTags;
 
 import java.util.EnumSet;
@@ -94,7 +95,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         tag.putInt("Size", this.getSize() - 1);
         tag.putBoolean("wasOnGround", this.onGroundLastTick);
@@ -103,7 +104,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     @Override
-    public void readNbt(CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
 
         int size = tag.getInt("Size");
@@ -201,7 +202,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     public void onTrackedDataSet(TrackedData<?> data) {
         if (SLIME_SIZE.equals(data)) {
             this.calculateDimensions();
-            this.yaw = this.headYaw;
+            this.setYaw(this.headYaw);
             this.bodyYaw = this.headYaw;
             if (this.isTouchingWater() && this.random.nextInt(20) == 0) {
                 this.onSwimmingStart();
@@ -263,7 +264,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         if (this.isAlive()) {
             int i = this.getSize();
             if (this.squaredDistanceTo(target) < 0.6D * (double)i * 0.6D * (double)i && this.canSee(target) && target.damage(DamageSource.mob(this), this.getDamageAmount())) {
-                this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                this.playSound(RYSSoundEvents.ENTITY_PEATY_SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.dealDamage(this, target);
             }
         }
@@ -284,16 +285,16 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return this.isSmall() ? SoundEvents.ENTITY_SLIME_HURT_SMALL : SoundEvents.ENTITY_SLIME_HURT;
+        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_HURT_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isSmall() ? SoundEvents.ENTITY_SLIME_DEATH_SMALL : SoundEvents.ENTITY_SLIME_DEATH; // TODO
+        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_DEATH_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_DEATH; // TODO
     }
 
     protected SoundEvent getSquishSound() {
-        return this.isSmall() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
+        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_SQUISH_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_SQUISH;
     }
 
     @Override
@@ -318,7 +319,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,  EntityData entityData,  CompoundTag entityTag) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,  EntityData entityData,  NbtCompound entityTag) {
         int i = this.random.nextInt(3);
         if (i < 2 && this.random.nextFloat() < 0.5F * difficulty.getClampedLocalDifficulty()) {
             ++i;
@@ -335,7 +336,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     protected SoundEvent getJumpSound() {
-        return this.isSmall() ? SoundEvents.ENTITY_SLIME_JUMP_SMALL : SoundEvents.ENTITY_SLIME_JUMP; // TODO
+        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_JUMP_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_JUMP; // TODO
     }
 
     @Override
@@ -456,7 +457,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         @Override
         public void tick() {
             this.slime.lookAtEntity(this.slime.getTarget(), 10.0F, 10.0F);
-            ((PeatySlimeEntity.SlimeMoveControl)this.slime.getMoveControl()).look(this.slime.yaw, this.slime.canAttack());
+            ((PeatySlimeEntity.SlimeMoveControl)this.slime.getMoveControl()).look(this.slime.getYaw(1.0f), this.slime.canAttack());
         }
     }
 
@@ -469,7 +470,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
         public SlimeMoveControl(PeatySlimeEntity slime) {
             super(slime);
             this.slime = slime;
-            this.targetYaw = 180.0F * slime.yaw / 3.1415927F;
+            this.targetYaw = 180.0F * slime.getYaw(1.0f) / 3.1415927F;
         }
 
         public void look(float targetYaw, boolean jumpOften) {
@@ -484,9 +485,10 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
         @Override
         public void tick() {
-            this.entity.yaw = this.changeAngle(this.entity.yaw, this.targetYaw, 90.0F);
-            this.entity.headYaw = this.entity.yaw;
-            this.entity.bodyYaw = this.entity.yaw;
+            float yaw = this.entity.getYaw(1.0f);
+            this.entity.setYaw(this.wrapDegrees(yaw, this.targetYaw, 90.0F));
+            this.entity.headYaw = yaw;
+            this.entity.bodyYaw = yaw;
             if (this.state != MoveControl.State.MOVE_TO) {
                 this.entity.setForwardSpeed(0.0F);
             } else {

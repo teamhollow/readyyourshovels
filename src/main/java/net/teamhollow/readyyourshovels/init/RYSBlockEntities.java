@@ -16,8 +16,6 @@ public class RYSBlockEntities {
     public static final BlockEntityType<AntNestBlockEntity> ANT_NEST = register(AntNestBlockEntity.id, FabricBlockEntityTypeBuilder.create(AntNestBlockEntity::new, RYSBlocks.ANT_NEST));
     public static final BlockEntityType<KilnBlockEntity> KILN = register(KilnBlockEntity.id, FabricBlockEntityTypeBuilder.create(KilnBlockEntity::new, RYSBlocks.KILN));
 
-    public RYSBlockEntities() {}
-
     private static <T extends BlockEntity> BlockEntityType<T> register(String id, FabricBlockEntityTypeBuilder<T> builder) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);
 

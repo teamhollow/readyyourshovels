@@ -9,8 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -114,9 +114,9 @@ public class AntNestBlockEntity extends BlockEntity {
         if (this.ants.size() < 5) {
             entity.stopRiding();
             entity.removeAllPassengers();
-            CompoundTag compoundTag = new CompoundTag();
-            entity.saveToTag(compoundTag);
-            this.ants.add(new AntNestBlockEntity.Ant(compoundTag, ticksInNest, entity instanceof ResourceGatherer && ((ResourceGatherer) entity).hasResource() ? 2400 : 600));
+            NbtCompound tag = new NbtCompound();
+            entity.saveNbt(tag);
+            this.ants.add(new AntNestBlockEntity.Ant(tag, ticksInNest, entity instanceof ResourceGatherer && ((ResourceGatherer) entity).hasResource() ? 2400 : 600));
             if (this.world != null) {
                 if (entity instanceof ResourceGatherer) {
                     ResourceGatherer antEntity = (ResourceGatherer) entity;
@@ -137,17 +137,17 @@ public class AntNestBlockEntity extends BlockEntity {
             return false;
         } else {
             BlockPos blockPos = this.getPos();
-            CompoundTag compoundTag = ant.entityData;
-            compoundTag.remove("Passengers");
-            compoundTag.remove("Leash");
-            compoundTag.remove("UUID");
+            NbtCompound tag = ant.entityData;
+            tag.remove("Passengers");
+            tag.remove("Leash");
+            tag.remove("UUID");
             Direction direction = state.get(AntNestBlock.FACING);
             BlockPos blockPos2 = blockPos.offset(direction);
             boolean wouldCollide = !this.world.getBlockState(blockPos2).getCollisionShape(this.world, blockPos2).isEmpty();
             if (wouldCollide && antState != AntNestBlockEntity.AntState.EMERGENCY) {
                 return false;
             } else {
-                Entity entity = EntityType.loadEntityWithPassengers(compoundTag, this.world, entityx -> entityx);
+                Entity entity = EntityType.loadEntityWithPassengers(tag, this.world, entityx -> entityx);
                 if (entity != null) {
                     if (!entity.getType().isIn(RYSEntityTypeTags.ANT_NEST_INHABITORS)) {
                         return false;
@@ -183,7 +183,7 @@ public class AntNestBlockEntity extends BlockEntity {
                             double x = (double) blockPos.getX() + 0.5D + width * (double) direction.getOffsetX();
                             double y = (double) blockPos.getY() + 0.5D - (double) (entity.getHeight() / 2.0F);
                             double z = (double) blockPos.getZ() + 0.5D + width * (double) direction.getOffsetZ();
-                            entity.refreshPositionAndAngles(x, y, z, entity.yaw, entity.pitch);
+                            entity.refreshPositionAndAngles(x, y, z, entity.getYaw(1.0f), entity.getPitch(1.0f));
                             antEntity.setCannotEnterNestTicks(400);
                         }
 
@@ -243,14 +243,14 @@ public class AntNestBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void readNbt(CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
         this.ants.clear();
-        ListTag listTag = tag.getList("Ants", 10);
+        NbtList listTag = tag.getList("Ants", 10);
 
         for (int i = 0; i < listTag.size(); ++i) {
-            CompoundTag compoundTag = listTag.getCompound(i);
-            AntNestBlockEntity.Ant ant = new AntNestBlockEntity.Ant(compoundTag.getCompound("EntityData"), compoundTag.getInt("TicksInNest"), compoundTag.getInt("MinOccupationTicks"));
+            NbtCompound iTag = listTag.getCompound(i);
+            AntNestBlockEntity.Ant ant = new AntNestBlockEntity.Ant(iTag.getCompound("EntityData"), iTag.getInt("TicksInNest"), iTag.getInt("MinOccupationTicks"));
             this.ants.add(ant);
         }
 
@@ -259,7 +259,7 @@ public class AntNestBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         tag.put("Ants", this.getAnts());
         if (this.hasResource()) tag.put("ResourcePos", NbtHelper.fromBlockPos(this.resourcePos));
@@ -267,17 +267,17 @@ public class AntNestBlockEntity extends BlockEntity {
         return tag;
     }
 
-    public ListTag getAnts() {
-        ListTag listTag = new ListTag();
+    public NbtList getAnts() {
+        NbtList listTag = new NbtList();
 
         for (Ant ant : this.ants) {
             if (!ant.entityData.isEmpty()) {
                 ant.entityData.remove("UUID");
-                CompoundTag compoundTag = new CompoundTag();
-                compoundTag.put("EntityData", ant.entityData);
-                compoundTag.putInt("TicksInNest", ant.ticksInNest);
-                compoundTag.putInt("MinOccupationTicks", ant.minOccupationTicks);
-                listTag.add(compoundTag);
+                NbtCompound tag = new NbtCompound();
+                tag.put("EntityData", ant.entityData);
+                tag.putInt("TicksInNest", ant.ticksInNest);
+                tag.putInt("MinOccupationTicks", ant.minOccupationTicks);
+                listTag.add(tag);
             }
         }
 
@@ -285,11 +285,11 @@ public class AntNestBlockEntity extends BlockEntity {
     }
 
     static class Ant {
-        private final CompoundTag entityData;
+        private final NbtCompound entityData;
         private int ticksInNest;
         private final int minOccupationTicks;
 
-        private Ant(CompoundTag entityData, int ticksInNest, int minOccupationTicks) {
+        private Ant(NbtCompound entityData, int ticksInNest, int minOccupationTicks) {
             entityData.remove("UUID");
             this.entityData = entityData;
             this.ticksInNest = ticksInNest;

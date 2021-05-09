@@ -47,7 +47,7 @@ public class RYSItems {
         )
     );
 
-    public RYSItems() {
+    static {
         FuelRegistry frInstance = FuelRegistry.INSTANCE;
         frInstance.add(RYSItems.PEAT, 1200);
         frInstance.add(RYSItems.COMBUSTING_PEAT, 2000);

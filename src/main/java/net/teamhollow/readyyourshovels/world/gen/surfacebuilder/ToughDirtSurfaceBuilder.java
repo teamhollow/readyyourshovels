@@ -7,7 +7,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 
@@ -22,11 +21,10 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
     }
 
     @Override
-    public void generate(Random random, Chunk chunk, Biome biome, int chunkX, int chunkZ, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
+    public void generate(Random random, Chunk chunk, Biome biome, int chunkX, int chunkZ, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, int minSurfaceLevel, long seed, TernarySurfaceConfig surfaceConfig) {
         int x = chunkX & 15;
         int z = chunkZ & 15;
         BlockState toughDirt = TOUGH_DIRT;
-        SurfaceConfig surfaceConfig = biome.getGenerationSettings().getSurfaceConfig();
         BlockState underMaterial = surfaceConfig.getUnderMaterial();
         BlockState topMaterial = surfaceConfig.getTopMaterial();
         BlockState setState = underMaterial;
@@ -46,7 +44,9 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                 : y <= (bottomY + 16) && random.nextDouble() <= 0.4
                     ? RYSBlocks.REGOLITH.getDefaultState()
                     : RYSBlocks.TOUGH_DIRT.getDefaultState();
-            if (chunk.getBlockState(pos).isOf(iDefaultBlock.getBlock())) chunk.setBlockState(pos, newDefaultBlock, false);
+            if (chunk.getBlockState(pos).isOf(iDefaultBlock.getBlock())) {
+                chunk.setBlockState(pos, newDefaultBlock, false);
+            }
 
             if (loop < 15) {
                 BlockState state = chunk.getBlockState(pos);
@@ -107,6 +107,5 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                 }
             }
         }
-
     }
 }

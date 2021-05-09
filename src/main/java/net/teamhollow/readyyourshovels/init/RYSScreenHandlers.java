@@ -9,6 +9,4 @@ import net.teamhollow.readyyourshovels.screen.KilnScreenHandler;
 
 public class RYSScreenHandlers {
     public static final ScreenHandlerType<KilnScreenHandler> KILN = ScreenHandlerRegistry.registerSimple(new Identifier(ReadyYourShovels.MOD_ID, KilnBlock.id), KilnScreenHandler::new);
-
-    public RYSScreenHandlers() {}
 }

@@ -19,9 +19,9 @@ import java.util.function.ToIntFunction;
 
 @SuppressWarnings("unused")
 public class RYSBlocks {
-    //
-    // TOUGH DIRT
-    //
+    /*
+     * TOUGH DIRT
+     */
 
     public static final Block TOUGH_DIRT = register("tough_dirt", new Block(
             FabricBlockSettings.of(Material.SOIL)
@@ -33,9 +33,9 @@ public class RYSBlocks {
     public static final Block TOUGH_DIRT_STAIRS = register("tough_dirt_stairs", new PublicStairsBlock(TOUGH_DIRT.getDefaultState(), FabricBlockSettings.copy(TOUGH_DIRT)));
     public static final Block TOUGH_DIRT_WALL = register("tough_dirt_wall", new WallBlock(FabricBlockSettings.copy(TOUGH_DIRT)));
 
-    //
-    // TOUGH DIRT COUNTERPARTS
-    //
+    /*
+     * TOUGH DIRT COUNTERPARTS
+     */
 
     public static final Block CLAY_DEPOSIT = register("clay_deposit", new Block(
         FabricBlockSettings.of(Material.SOIL)
@@ -69,9 +69,9 @@ public class RYSBlocks {
         )
     );
 
-    //
-    // DIRT BRICKS
-    //
+    /*
+     * DIRT BRICKS
+     */
 
     public static final Block DIRT_BRICKS = register("dirt_bricks", new Block(
         FabricBlockSettings.of(Material.SOIL)
@@ -83,9 +83,9 @@ public class RYSBlocks {
     public static final Block DIRT_BRICK_STAIRS = register("dirt_brick_stairs", new PublicStairsBlock(DIRT_BRICKS.getDefaultState(), FabricBlockSettings.copy(DIRT_BRICKS)));
     public static final Block DIRT_BRICK_WALL = register("dirt_brick_wall", new WallBlock(FabricBlockSettings.copy(DIRT_BRICKS)));
 
-    //
-    // SMOOTH DIRT
-    //
+    /*
+     * SMOOTH DIRT
+     */
 
     public static final Block SMOOTH_DIRT = register("smooth_dirt", new Block(
         FabricBlockSettings.of(Material.SOIL)
@@ -97,9 +97,9 @@ public class RYSBlocks {
     public static final Block SMOOTH_DIRT_STAIRS = register("smooth_dirt_stairs", new PublicStairsBlock(SMOOTH_DIRT.getDefaultState(), FabricBlockSettings.copy(SMOOTH_DIRT)));
     public static final Block SMOOTH_DIRT_WALL = register("smooth_dirt_wall", new WallBlock(FabricBlockSettings.copy(SMOOTH_DIRT)));
 
-    //
-    // PEAT BLOCKS
-    //
+    /*
+     * PEAT BLOCKS
+     */
 
     public static final Block PEAT_BLOCK = register("peat_block", new Block(
         FabricBlockSettings.of(Material.STONE, MapColor.BROWN)
@@ -129,9 +129,9 @@ public class RYSBlocks {
         )
     );
 
-    //
-    // ANTS
-    //
+    /*
+     * ANTS
+     */
 
     public static final Block ANT_NEST = register(AntNestBlock.id, new AntNestBlock(
         FabricBlockSettings.of(Material.SOIL)
@@ -143,9 +143,9 @@ public class RYSBlocks {
         )
     );
 
-    //
-    // PLANTER BOXES
-    //
+    /*
+     * PLANTER BOXES
+     */
 
     private static final AbstractBlock.Settings PLANTER_BOX_SETTINGS = FabricBlockSettings.of(Material.WOOD).strength(2.5F, 2.5F).sounds(BlockSoundGroup.WOOD);
     public static final Block OAK_PLANTER_BOX = register("oak_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
@@ -157,15 +157,15 @@ public class RYSBlocks {
     public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
     public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
 
-    //
-    // KILN
-    //
+    /*
+     * KILN
+     */
 
     public static final Block KILN = register(KilnBlock.id, new KilnBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).luminance(createLightLevelFromLitBlockState(13))));
 
-    //
-    // DAYROOT
-    //
+    /*
+     * DAYROOT
+     */
 
     public static final Block DAYROOT = register(DayrootBlock.id, new DayrootBlock(
         FabricBlockSettings.of(Material.PLANT, MapColor.GREEN)
@@ -183,9 +183,9 @@ public class RYSBlocks {
         )
     );
 
-    //
-    // FOLIAGE
-    //
+    /*
+     * FOLIAGE
+     */
 
     public static final Block TOUGHROOT = register(ToughrootBlock.id, new ToughrootBlock(
         FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MapColor.OAK_TAN)
@@ -203,19 +203,17 @@ public class RYSBlocks {
         ), false
     );
 
-    //
-    // FUNCTIONS
-    //
+    /*
+     * FUNCTIONS
+     */
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
         return (state) -> (Boolean)state.get(Properties.LIT) ? litLevel : 0;
     }
 
-    //
-    // REGISTRY
-    //
-
-    public RYSBlocks() {}
+    /*
+     * REGISTRY
+     */
 
     private static Block register(String id, Block block, boolean registerItem) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);

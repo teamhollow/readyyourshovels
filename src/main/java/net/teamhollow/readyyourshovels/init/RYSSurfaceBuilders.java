@@ -11,8 +11,6 @@ import net.teamhollow.readyyourshovels.world.gen.surfacebuilder.*;
 public class RYSSurfaceBuilders {
     public static final SurfaceBuilder<TernarySurfaceConfig> TOUGH_DIRT = register("tough_dirt", new ToughDirtSurfaceBuilder(TernarySurfaceConfig.CODEC));
 
-    public RYSSurfaceBuilders() {}
-
     private static <C extends SurfaceConfig, F extends SurfaceBuilder<C>> F register(String id, F surfaceBuilder) {
         return Registry.register(Registry.SURFACE_BUILDER, new Identifier(ReadyYourShovels.MOD_ID, id), surfaceBuilder);
     }

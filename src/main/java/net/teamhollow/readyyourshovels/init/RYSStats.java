@@ -12,8 +12,6 @@ public class RYSStats {
     public static final Identifier WASH_CAVE_CARROT = register("wash_" + CaveCarrotBlock.id, StatFormatter.DEFAULT);
     public static final Identifier INTERACT_WITH_KILN = register("interact_with_" + KilnBlock.id, StatFormatter.DEFAULT);
 
-    public RYSStats() {}
-
     private static Identifier register(String id, StatFormatter statFormatter) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);
 

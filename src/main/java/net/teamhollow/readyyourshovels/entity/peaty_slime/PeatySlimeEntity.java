@@ -290,7 +290,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_DEATH_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_DEATH; // TODO
+        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_DEATH_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_DEATH;
     }
 
     protected SoundEvent getSquishSound() {
@@ -336,7 +336,7 @@ public class PeatySlimeEntity extends MobEntity implements Monster {
     }
 
     protected SoundEvent getJumpSound() {
-        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_JUMP_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_JUMP; // TODO
+        return this.isSmall() ? RYSSoundEvents.ENTITY_PEATY_SLIME_JUMP_SMALL : RYSSoundEvents.ENTITY_PEATY_SLIME_JUMP;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class RYSEntities {
             .spawnGroup(SpawnGroup.CREATURE)
             .dimensions(EntityDimensions.fixed(0.5F, 0.5F))
            .trackRangeBlocks(8),
-        new int[]{ 5065037, 9433559 }
+        new int[]{ 0x4C2A24, 0x558938 }
     );
 
     public static final EntityType<PeatySlimeEntity> PEATY_SLIME = register(
@@ -33,7 +33,7 @@ public class RYSEntities {
             .dimensions(EntityDimensions.changing(2.04F, 2.04F))
             .spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PeatySlimeEntity::canMobSpawn)
             .trackRangeBlocks(10),
-        new int[]{ 7352576, 8306542 }
+        new int[]{ 0x703100, 0xF5AB41 }
     );
 
     static {

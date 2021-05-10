@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.item.CaveCarrotSoupItem;
+import net.teamhollow.readyyourshovels.item.RYSItemGroup;
 import net.teamhollow.readyyourshovels.item.vanilla.PublicMusicDiscItem;
 
 @SuppressWarnings("unused")
@@ -31,7 +32,7 @@ public class RYSItems {
             new FabricItemSettings()
                 .maxCount(1)
                 .rarity(Rarity.RARE)
-                .group(ReadyYourShovels.ITEM_GROUP)
+                .group(RYSItemGroup.INSTANCE)
             )
     );
 
@@ -39,13 +40,13 @@ public class RYSItems {
         RYSBlocks.CAVE_CARROT,
         new FabricItemSettings()
             .food(new FoodComponent.Builder().hunger(3).saturationModifier(0.6F).build())
-            .group(ReadyYourShovels.ITEM_GROUP)
+            .group(RYSItemGroup.INSTANCE)
         )
     );
     public static final Item WASHED_CAVE_CARROT = register("washed_cave_carrot", new Item(
         new FabricItemSettings()
             .food(new FoodComponent.Builder().hunger(7).saturationModifier(1.25F).build())
-            .group(ReadyYourShovels.ITEM_GROUP)
+            .group(RYSItemGroup.INSTANCE)
         )
     );
     public static final Item CAVE_CARROT_SOUP = register("cave_carrot_soup", new CaveCarrotSoupItem(
@@ -58,7 +59,7 @@ public class RYSItems {
                     .build()
                 )
                 .maxCount(1)
-                .group(ReadyYourShovels.ITEM_GROUP)
+                .group(RYSItemGroup.INSTANCE)
         )
     );
 
@@ -93,6 +94,6 @@ public class RYSItems {
         return Registry.register(Registry.ITEM, new Identifier(ReadyYourShovels.MOD_ID, id), item);
     }
     private static Item register(String id) {
-        return register(id, new Item(new FabricItemSettings().group(ReadyYourShovels.ITEM_GROUP)));
+        return register(id, new Item(new FabricItemSettings().group(RYSItemGroup.INSTANCE)));
     }
 }

@@ -14,6 +14,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.ReadyYourShovelsClient;
 import net.teamhollow.readyyourshovels.entity.ant.garden_ant.GardenAntEntity;
 import net.teamhollow.readyyourshovels.entity.peaty_slime.PeatySlimeEntity;
+import net.teamhollow.readyyourshovels.item.RYSItemGroup;
 
 public class RYSEntities {
     public static final EntityType<GardenAntEntity> GARDEN_ANT = register(
@@ -44,7 +45,7 @@ public class RYSEntities {
 
     private static <T extends MobEntity> EntityType<T> register(String id, EntityType<T> entityType, int[] spawnEggColors) {
         if (spawnEggColors != null)
-            Registry.register(Registry.ITEM, new Identifier(ReadyYourShovels.MOD_ID, id + "_spawn_egg"), new SpawnEggItem(entityType, spawnEggColors[0], spawnEggColors[1], new Item.Settings().maxCount(64).group(ReadyYourShovels.ITEM_GROUP)));
+            Registry.register(Registry.ITEM, new Identifier(ReadyYourShovels.MOD_ID, id + "_spawn_egg"), new SpawnEggItem(entityType, spawnEggColors[0], spawnEggColors[1], new Item.Settings().maxCount(64).group(RYSItemGroup.INSTANCE)));
 
         return Registry.register(Registry.ENTITY_TYPE, new Identifier(ReadyYourShovels.MOD_ID, id), entityType);
     }

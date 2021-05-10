@@ -13,6 +13,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.*;
 import net.teamhollow.readyyourshovels.block.vanilla.PublicFernBlock;
 import net.teamhollow.readyyourshovels.block.vanilla.PublicStairsBlock;
+import net.teamhollow.readyyourshovels.item.RYSItemGroup;
 import net.teamhollow.readyyourshovels.sound.RYSBlockSoundGroup;
 
 import java.util.function.ToIntFunction;
@@ -223,7 +224,7 @@ public class RYSBlocks {
             int maxCount = 64;
             if (block instanceof SignBlock) maxCount = 16;
 
-            Registry.register(Registry.ITEM, identifier, new BlockItem(registeredBlock, new Item.Settings().maxCount(maxCount).group(ReadyYourShovels.ITEM_GROUP)));
+            Registry.register(Registry.ITEM, identifier, new BlockItem(registeredBlock, new Item.Settings().maxCount(maxCount).group(RYSItemGroup.INSTANCE)));
         }
 
         return registeredBlock;

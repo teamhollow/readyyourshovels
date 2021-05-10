@@ -10,10 +10,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.block.AntNestBlock;
 
 public class RYSPointOfInterests {
-    public static final PointOfInterestType ANT_NEST = register(AntNestBlock.id, getAllStatesOf(RYSBlocks.ANT_NEST), 0, 1);
+    public static final PointOfInterestType ANT_NEST = register("ant_nest", getAllStatesOf(RYSBlocks.ANT_NEST), 0, 1);
 
     private static Set<BlockState> getAllStatesOf(Block block) {
         return ImmutableSet.copyOf(block.getStateManager().getStates());

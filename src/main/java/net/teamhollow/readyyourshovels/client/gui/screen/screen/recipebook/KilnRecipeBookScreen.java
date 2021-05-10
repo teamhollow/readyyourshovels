@@ -9,13 +9,12 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.block.KilnBlock;
 
 import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class KilnRecipeBookScreen extends AbstractFurnaceRecipeBookScreen {
-    private static final Text TOGGLE_KILN_RECIPES_TEXT = new TranslatableText("gui.recipebook.toggleRecipes." + new Identifier(ReadyYourShovels.MOD_ID, KilnBlock.id));
+    private static final Text TOGGLE_KILN_RECIPES_TEXT = new TranslatableText("gui.recipebook.toggleRecipes." + new Identifier(ReadyYourShovels.MOD_ID, "kiln"));
 
     @Override
     protected Text getToggleCraftableButtonText() {

@@ -8,8 +8,6 @@ import net.minecraft.world.BlockView;
 import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
 
 public class CaveCarrotBlock extends PlantBlock {
-    public static final String id = "cave_carrot";
-
     public CaveCarrotBlock(Settings settings) {
         super(settings);
     }

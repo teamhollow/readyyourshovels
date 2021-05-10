@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.Identifier;
 import net.teamhollow.readyyourshovels.client.gui.screen.ingame.KilnScreen;
 import net.teamhollow.readyyourshovels.client.init.RYSEntityModelLayers;
 import net.teamhollow.readyyourshovels.client.particle.DayrootParticle;
@@ -43,5 +44,9 @@ public class ReadyYourShovelsClient implements ClientModInitializer {
         ScreenRegistry.register(RYSScreenHandlers.KILN, KilnScreen::new);
 
         ReadyYourShovels.log("Initialized client");
+    }
+
+    public static Identifier texture(String path) {
+        return new Identifier(ReadyYourShovels.MOD_ID, "textures/" + path + ".png");
     }
 }

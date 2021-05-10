@@ -33,14 +33,14 @@ public class RYSItems {
             )
     );
 
-    public static final Item CAVE_CARROT = register(CaveCarrotBlock.id, new BlockItem(
+    public static final Item CAVE_CARROT = register("cave_carrot", new BlockItem(
         RYSBlocks.CAVE_CARROT,
         new FabricItemSettings()
             .food(new FoodComponent.Builder().hunger(3).saturationModifier(0.6F).build())
             .group(ReadyYourShovels.ITEM_GROUP)
         )
     );
-    public static final Item WASHED_CAVE_CARROT = register("washed_" + CaveCarrotBlock.id, new Item(
+    public static final Item WASHED_CAVE_CARROT = register("washed_cave_carrot", new Item(
         new FabricItemSettings()
             .food(new FoodComponent.Builder().hunger(7).saturationModifier(1.25F).build())
             .group(ReadyYourShovels.ITEM_GROUP)

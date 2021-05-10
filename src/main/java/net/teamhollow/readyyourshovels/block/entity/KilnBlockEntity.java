@@ -16,15 +16,13 @@ import net.teamhollow.readyyourshovels.screen.KilnScreenHandler;
 import net.teamhollow.readyyourshovels.tag.RYSItemTags;
 
 public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
-    public static final String id = KilnBlock.id;
-
     public KilnBlockEntity(BlockPos pos, BlockState state) {
         super(RYSBlockEntities.KILN, pos, state, RecipeType.SMOKING);
     }
 
     @Override
     protected Text getContainerName() {
-        return new TranslatableText("container." + ReadyYourShovels.MOD_ID + "." + KilnBlockEntity.id);
+        return new TranslatableText("container." + ReadyYourShovels.MOD_ID + ".kiln");
     }
 
     @Override

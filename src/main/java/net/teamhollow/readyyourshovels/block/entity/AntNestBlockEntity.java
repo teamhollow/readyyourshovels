@@ -28,8 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class AntNestBlockEntity extends BlockEntity {
-    public static final String id = AntNestBlock.id;
-
     private final List<AntNestBlockEntity.Ant> ants = Lists.newArrayList();
     private BlockPos resourcePos = null;
 

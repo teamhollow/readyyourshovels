@@ -133,7 +133,7 @@ public class RYSBlocks {
      * ANTS
      */
 
-    public static final Block ANT_NEST = register(AntNestBlock.id, new AntNestBlock(
+    public static final Block ANT_NEST = register("ant_nest", new AntNestBlock(
         FabricBlockSettings.of(Material.SOIL)
             .breakByTool(FabricToolTags.SHOVELS)
             .requiresTool()
@@ -161,21 +161,21 @@ public class RYSBlocks {
      * KILN
      */
 
-    public static final Block KILN = register(KilnBlock.id, new KilnBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).luminance(createLightLevelFromLitBlockState(13))));
+    public static final Block KILN = register("kiln", new KilnBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).luminance(createLightLevelFromLitBlockState(13))));
 
     /*
      * DAYROOT
      */
 
-    public static final Block DAYROOT = register(DayrootBlock.id, new DayrootBlock(
+    public static final Block DAYROOT = register("dayroot", new DayrootBlock(
         FabricBlockSettings.of(Material.PLANT, MapColor.GREEN)
             .ticksRandomly().noCollision()
             .breakInstantly().luminance(13)
             .sounds(BlockSoundGroup.WEEPING_VINES)
         )
     );
-    public static final Block DAYROOT_PLANT = register(DayrootPlantBlock.id, new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance(state -> 1)), false);
-    public static final Block DAYROOT_CROWN = register(DayrootBlock.id + "_crown", new Block(
+    public static final Block DAYROOT_PLANT = register("dayroot_plant", new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance(state -> 1)), false);
+    public static final Block DAYROOT_CROWN = register("dayroot_crown", new Block(
         FabricBlockSettings.of(Material.SOLID_ORGANIC, MapColor.BROWN)
             .strength(1.0F).luminance(1)
             .breakByTool(FabricToolTags.SHOVELS)
@@ -187,16 +187,16 @@ public class RYSBlocks {
      * FOLIAGE
      */
 
-    public static final Block TOUGHROOT = register(ToughrootBlock.id, new ToughrootBlock(
+    public static final Block TOUGHROOT = register("toughroot", new ToughrootBlock(
         FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MapColor.OAK_TAN)
             .noCollision().breakInstantly()
             .sounds(BlockSoundGroup.GRASS)
             .luminance(1)
         )
     );
-    public static final Block TOUGHROOT_STEM = register(ToughrootBlock.id + "_stem", new PublicFernBlock(FabricBlockSettings.copy(TOUGHROOT)));
+    public static final Block TOUGHROOT_STEM = register("toughroot_stem", new PublicFernBlock(FabricBlockSettings.copy(TOUGHROOT)));
 
-    public static final Block CAVE_CARROT = register(CaveCarrotBlock.id, new CaveCarrotBlock(
+    public static final Block CAVE_CARROT = register("cave_carrot", new CaveCarrotBlock(
         FabricBlockSettings.of(Material.PLANT, MapColor.GREEN)
             .noCollision().breakInstantly()
             .sounds(BlockSoundGroup.GRASS)

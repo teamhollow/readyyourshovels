@@ -60,8 +60,4 @@ public class ReadyYourShovels implements ModInitializer {
     public static void log(String message) {
         log(Level.INFO, message);
     }
-
-    public static Identifier texture(String path) {
-        return new Identifier(MOD_ID, "textures/" + path + ".png");
-    }
 }

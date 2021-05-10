@@ -49,7 +49,7 @@ public class RYSSoundEvents {
         return createBlockSound("regolith", id);
     }
 
-    public static final SoundEvent BLOCK_DAYROOT_AMBIENT = createBlockSound(DayrootBlock.id, "ambient");
+    public static final SoundEvent BLOCK_DAYROOT_AMBIENT = createBlockSound("dayroot", "ambient");
 
     private static SoundEvent register(String id) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);

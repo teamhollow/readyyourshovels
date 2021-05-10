@@ -16,8 +16,6 @@ import net.teamhollow.readyyourshovels.init.RYSStats;
 import org.jetbrains.annotations.Nullable;
 
 public class KilnBlock extends AbstractFurnaceBlock {
-    public static final String id = "kiln";
-
     public KilnBlock(Settings settings) {
         super(settings);
     }

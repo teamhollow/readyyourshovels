@@ -42,8 +42,6 @@ import net.teamhollow.readyyourshovels.state.property.RYSProperties;
 import java.util.List;
 
 public class AntNestBlock extends BlockWithEntity {
-    public static final String id = "ant_nest";
-
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final IntProperty ACID_LEVEL = RYSProperties.ACID_LEVEL;
 

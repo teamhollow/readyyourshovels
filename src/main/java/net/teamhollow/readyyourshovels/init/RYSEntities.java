@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.ReadyYourShovelsClient;
 import net.teamhollow.readyyourshovels.entity.ant.garden_ant.GardenAntEntity;
 import net.teamhollow.readyyourshovels.entity.peaty_slime.PeatySlimeEntity;
 
@@ -56,6 +57,6 @@ public class RYSEntities {
     }
 
     public static Identifier texture(String path) {
-        return ReadyYourShovels.texture("entity/" + path);
+        return ReadyYourShovelsClient.texture("entity/" + path);
     }
 }

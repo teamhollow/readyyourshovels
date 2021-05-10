@@ -19,8 +19,6 @@ import net.teamhollow.readyyourshovels.init.RYSSoundEvents;
 import java.util.Random;
 
 public class DayrootBlock extends WeepingVinesBlock {
-    public static final String id = "dayroot";
-
     public DayrootBlock(Settings settings) {
         super(settings);
     }

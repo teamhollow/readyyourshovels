@@ -22,9 +22,10 @@ public class RYSConfiguredFeatures {
         "dirt_cave_dayroot",
         RYSFeatures.DIRT_CAVE_DAYROOT.configure(FeatureConfig.DEFAULT)
             .repeat(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3))
-            .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
-            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
-            .repeat(5)
+            .method_36296(YOffset.getBottom(), YOffset.fixed(79))
+            .spreadHorizontally()
+            .repeat(8)
+            .repeat(8)
     );
     public static final ConfiguredFeature<?, ?> DIRT_CAVE_TOUGHROOT = register(
         "dirt_cave_toughroot",

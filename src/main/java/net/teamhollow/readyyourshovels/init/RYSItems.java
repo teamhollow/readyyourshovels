@@ -57,6 +57,7 @@ public class RYSItems {
                         .statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 40 * 20), 1.0f)
                     .build()
                 )
+                .maxCount(1)
                 .group(ReadyYourShovels.ITEM_GROUP)
         )
     );

@@ -6,7 +6,7 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.world.gen.surfacebuilder.*;
+import net.teamhollow.readyyourshovels.world.gen.surfacebuilder.ToughDirtSurfaceBuilder;
 
 public class RYSSurfaceBuilders {
     public static final SurfaceBuilder<TernarySurfaceConfig> TOUGH_DIRT = register("tough_dirt", new ToughDirtSurfaceBuilder(TernarySurfaceConfig.CODEC));

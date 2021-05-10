@@ -31,7 +31,6 @@
 
     "block.readyyourshovels.kiln": "Kiln",
     "block.readyyourshovels.ant_nest": "Ant Nest",
-    "block.readyyourshovels.cave_carrot": "Cave Carrot",
 
     "block.readyyourshovels.toughroot": "Toughroot",
     "block.readyyourshovels.toughroot_stem": "Toughroot Stem",
@@ -52,19 +51,23 @@
 
     "item.readyyourshovels.peat": "Peat",
     "item.readyyourshovels.combusting_peat": "Combusting Peat",
-    "item.readyyourshovels.washed_cave_carrot": "Washed Cave Carrot",
+
     "item.readyyourshovels.music_disc_colly": "Music Disc",
     "item.readyyourshovels.music_disc_colly.desc": "Axoladdy - Colly",
-    "item.readyyourshovels.garden_ant_spawn_egg": "Garden Ant Spawn Egg",
-    "item.readyyourshovels.peaty_slime_spawn_egg": "Peaty Slime Spawn Egg",
     "item.readyyourshovels.dayroot_mulch": "Dayroot Mulch",
 
+    "block.readyyourshovels.cave_carrot": "Cave Carrot",
+    "item.readyyourshovels.washed_cave_carrot": "Washed Cave Carrot",
+    "item.readyyourshovels.cave_carrot_soup": "Cave Carrot Soup",
+
     "entity.readyyourshovels.garden_ant": "Garden Ant",
+    "item.readyyourshovels.garden_ant_spawn_egg": "Garden Ant Spawn Egg",
     "subtitles.readyyourshovels.entity.ant.ambient": "Ant hisses",
     "subtitles.readyyourshovels.entity.ant.hurt": "Ant hurts",
     "subtitles.readyyourshovels.entity.ant.death": "Ant dies",
 
     "entity.readyyourshovels.peaty_slime": "Peaty Slime",
+    "item.readyyourshovels.peaty_slime_spawn_egg": "Peaty Slime Spawn Egg",
     "subtitles.readyyourshovels.entity.peaty_slime.attack": "Peaty Slime attacks",
     "subtitles.readyyourshovels.entity.peaty_slime.death": "Peaty Slime dies",
     "subtitles.readyyourshovels.entity.peaty_slime.hurt": "Peaty Slime hurts",

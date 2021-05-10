@@ -1,0 +1,65 @@
+{
+  "parent": "readyyourshovels:recipes/root",
+  "rewards": {
+    "recipes": [
+      "readyyourshovels:cave_carrot_soup"
+    ]
+  },
+  "criteria": {
+    "has_bowl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:bowl"
+          }
+        ]
+      }
+    },
+    "has_mulch": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "readyyourshovels:dayroot_mulch"
+          }
+        ]
+      }
+    },
+    "has_cave_carrot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "readyyourshovels:cave_carrot"
+          }
+        ]
+      }
+    },
+    "has_washed_cave_carrot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "readyyourshovels:washed_cave_carrot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "readyyourshovels:cave_carrot_soup"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bowl",
+      "has_mulch",
+      "has_cave_carrot",
+      "has_washed_cave_carrot",
+      "has_the_recipe"
+    ]
+  ]
+}

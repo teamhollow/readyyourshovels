@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -14,7 +16,7 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.block.CaveCarrotBlock;
+import net.teamhollow.readyyourshovels.item.CaveCarrotSoupItem;
 import net.teamhollow.readyyourshovels.item.vanilla.PublicMusicDiscItem;
 
 @SuppressWarnings("unused")
@@ -44,6 +46,18 @@ public class RYSItems {
         new FabricItemSettings()
             .food(new FoodComponent.Builder().hunger(7).saturationModifier(1.25F).build())
             .group(ReadyYourShovels.ITEM_GROUP)
+        )
+    );
+    public static final Item CAVE_CARROT_SOUP = register("cave_carrot_soup", new CaveCarrotSoupItem(
+            new FabricItemSettings()
+                .food(
+                    new FoodComponent.Builder()
+                        .hunger(6)
+                        .saturationModifier(0.6F)
+                        .statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 40 * 20), 1.0f)
+                    .build()
+                )
+                .group(ReadyYourShovels.ITEM_GROUP)
         )
     );
 

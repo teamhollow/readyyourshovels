@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WM",
+    "B "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bowl"
+    },
+    "M": {
+      "item": "readyyourshovels:dayroot_mulch"
+    },
+    "W": {
+      "item": "readyyourshovels:washed_cave_carrot"
+    }
+  },
+  "result": {
+    "item": "readyyourshovels:cave_carrot_soup"
+  }
+}

@@ -4,7 +4,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.block.DayrootBlock;
 import net.teamhollow.readyyourshovels.entity.ant.AbstractAntEntity;
 import net.teamhollow.readyyourshovels.entity.peaty_slime.PeatySlimeEntity;
 

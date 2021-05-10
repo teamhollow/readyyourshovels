@@ -1,15 +1,14 @@
 package net.teamhollow.readyyourshovels.init;
 
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
-
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+
+import java.util.Set;
 
 public class RYSPointOfInterests {
     public static final PointOfInterestType ANT_NEST = register("ant_nest", getAllStatesOf(RYSBlocks.ANT_NEST), 0, 1);

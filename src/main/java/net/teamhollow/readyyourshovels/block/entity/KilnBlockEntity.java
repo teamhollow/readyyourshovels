@@ -10,7 +10,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
-import net.teamhollow.readyyourshovels.block.KilnBlock;
 import net.teamhollow.readyyourshovels.init.RYSBlockEntities;
 import net.teamhollow.readyyourshovels.screen.KilnScreenHandler;
 import net.teamhollow.readyyourshovels.tag.RYSItemTags;

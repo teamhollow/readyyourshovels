@@ -31,8 +31,10 @@ public class RYSConfiguredFeatures {
         "dirt_cave_toughroot",
         RYSFeatures.DIRT_CAVE_TOUGHROOT.configure(FeatureConfig.DEFAULT)
             .repeat(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3))
+            .method_36296(YOffset.getBottom(), YOffset.fixed(55))
             .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
             .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
+            .repeat(5)
             .repeat(5)
     );
 
@@ -116,6 +118,7 @@ public class RYSConfiguredFeatures {
                 )
             )
         )
+        .method_36296(YOffset.getBottom(), YOffset.fixed(55))
         .repeat(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3))
         .decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE)
         .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)

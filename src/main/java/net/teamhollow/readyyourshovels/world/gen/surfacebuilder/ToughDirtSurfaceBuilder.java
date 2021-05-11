@@ -39,9 +39,9 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
             BlockState iDefaultBlock = defaultBlock;
             pos.set(x, y, z);
 
-            BlockState newDefaultBlock = y <= (bottomY + 12) && random.nextDouble() <= 0.76
+            BlockState newDefaultBlock = y <= 12 && random.nextDouble() <= 0.76
                 ? RYSBlocks.REGOLITH.getDefaultState()
-                : y <= (bottomY + 16) && random.nextDouble() <= 0.4
+                : y <= 16 && random.nextDouble() <= 0.4
                     ? RYSBlocks.REGOLITH.getDefaultState()
                     : RYSBlocks.TOUGH_DIRT.getDefaultState();
             if (chunk.getBlockState(pos).isOf(iDefaultBlock.getBlock())) {
@@ -94,9 +94,6 @@ public class ToughDirtSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
                             }
                         } else {
                             chunk.setBlockState(pos, setState, false);
-                            if (setState == TOUGH_DIRT) {
-                                chunk.setBlockState(pos, TOUGH_DIRT, false);
-                            }
                         }
                     } else if (setY > 0) {
                         setY--;

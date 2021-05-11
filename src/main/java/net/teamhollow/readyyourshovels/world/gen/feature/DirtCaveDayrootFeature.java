@@ -30,7 +30,7 @@ public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
     }
 
     public boolean generate(StructureWorldAccess world, Random random, BlockPos pos) {
-        if (!world.isAir(pos)) {
+        if (!world.isAir(pos) || !world.getFluidState(pos).isEmpty()) {
             return false;
         } else {
             BlockState state = world.getBlockState(pos.up());
@@ -46,34 +46,36 @@ public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
 
     private void generateDayrootCrownsInArea(WorldAccess world, Random random, BlockPos pos) {
         world.setBlockState(pos, RYSBlocks.DAYROOT_CROWN.getDefaultState(), 2);
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        BlockPos.Mutable mutable2 = new BlockPos.Mutable();
+        BlockPos.Mutable root = new BlockPos.Mutable();
+        BlockPos.Mutable mpos = new BlockPos.Mutable();
 
         for (int i = 0; i < 100; ++i) {
-            mutable.set(pos, random.nextInt(6) - random.nextInt(6), random.nextInt(2) - random.nextInt(5), random.nextInt(6) - random.nextInt(6));
-            if (!world.isAir(mutable)) {
-                boolean bool = false;
+            root.set(pos, random.nextInt(6) - random.nextInt(6), random.nextInt(2) - random.nextInt(5), random.nextInt(6) - random.nextInt(6));
+            if (!world.isAir(root)) {
+                boolean placedAny = false;
 
                 for (Direction direction : DIRECTIONS) {
-                    BlockState blockState = world.getBlockState(mutable2.set(mutable, direction));
-                    if (blockState.isOf(RYSBlocks.TOUGH_DIRT) || blockState.isOf(RYSBlocks.DAYROOT_CROWN)) {
-                        bool = true;
+                    BlockState state = world.getBlockState(mpos.set(root, direction));
+                    if (state.isOf(RYSBlocks.TOUGH_DIRT) || state.isOf(RYSBlocks.DAYROOT_CROWN)) {
+                        placedAny = true;
                         break;
                     }
                 }
 
-                if (bool) world.setBlockState(mutable, RYSBlocks.DAYROOT_CROWN.getDefaultState(), 2);
+                if (placedAny) {
+                    world.setBlockState(root, RYSBlocks.DAYROOT_CROWN.getDefaultState(), 2);
+                }
             }
         }
     }
 
     private void generateDayrootsInArea(WorldAccess world, Random random, BlockPos pos) {
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        BlockPos.Mutable mpos = new BlockPos.Mutable();
 
         for (int i = 0; i < 100; ++i) {
-            mutable.set(pos, random.nextInt(8) - random.nextInt(8), random.nextInt(2) - random.nextInt(7), random.nextInt(8) - random.nextInt(8));
-            if (world.isAir(mutable)) {
-                BlockState blockState = world.getBlockState(mutable.up());
+            mpos.set(pos, random.nextInt(8) - random.nextInt(8), random.nextInt(2) - random.nextInt(7), random.nextInt(8) - random.nextInt(8));
+            if (world.isAir(mpos)) {
+                BlockState blockState = world.getBlockState(mpos.up());
                 if (blockState.isOf(RYSBlocks.TOUGH_DIRT) || blockState.isOf(RYSBlocks.DAYROOT_CROWN)) {
                     int length = MathHelper.nextInt(random, 1, 8);
                     if (random.nextInt(6) == 0) {
@@ -84,26 +86,31 @@ public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
                         length = 1;
                     }
 
-                    generateDayrootColumn(world, random, mutable, length, 17, 25);
+                    generateDayrootColumn(world, random, mpos, length, 17, 25);
                 }
             }
         }
     }
 
-    public static void generateDayrootColumn(WorldAccess world, Random random, BlockPos.Mutable pos, int length, int minAge, int maxAge) {
-        world.setBlockState(pos.up(), RYSBlocks.DAYROOT_CROWN.getDefaultState(), 2);
+    public static void generateDayrootColumn(WorldAccess world, Random random, BlockPos.Mutable mpos, int length, int minAge, int maxAge) {
+        world.setBlockState(mpos.up(), RYSBlocks.DAYROOT_CROWN.getDefaultState(), 2);
+
+        BlockPos.Mutable mposDown2 = mpos.down(2).mutableCopy();
+        BlockPos.Mutable mposDown3 = mpos.down(3).mutableCopy();
 
         for (int i = 0; i <= length; ++i) {
-            if (world.isAir(pos)) {
-                if (i == length || !world.isAir(pos.down())) {
-                    world.setBlockState(pos, RYSBlocks.DAYROOT.getDefaultState().with(AbstractPlantStemBlock.AGE, MathHelper.nextInt(random, minAge, maxAge)), 2);
+            if (world.isAir(mpos) && world.isAir(mposDown2)) {
+                if (i == length || !world.isAir(mposDown3)) {
+                    world.setBlockState(mpos, RYSBlocks.DAYROOT.getDefaultState().with(AbstractPlantStemBlock.AGE, MathHelper.nextInt(random, minAge, maxAge)), 2);
                     break;
                 }
 
-                world.setBlockState(pos, RYSBlocks.DAYROOT_PLANT.getDefaultState().with(DayrootPlantBlock.ROOT, world.getBlockState(pos.up()).isIn(RYSBlockTags.DIRT_LIKE)), 2);
+                world.setBlockState(mpos, RYSBlocks.DAYROOT_PLANT.getDefaultState().with(DayrootPlantBlock.ROOT, world.getBlockState(mpos.up()).isIn(RYSBlockTags.DIRT_LIKE)), 2);
             }
 
-            pos.move(Direction.DOWN);
+            for (BlockPos.Mutable impos/*tor*/ : new BlockPos.Mutable[]{ mpos, mposDown2, mposDown3 }) {
+                impos.move(Direction.DOWN);
+            }
         }
     }
 }

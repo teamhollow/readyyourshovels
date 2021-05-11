@@ -27,50 +27,52 @@ public class DirtCaveToughrootFeature extends Feature<DefaultFeatureConfig> {
     }
 
     public boolean generate(StructureWorldAccess world, Random random, BlockPos pos) {
-        if (!world.isAir(pos)) {
+        if (!world.isAir(pos) || !world.getFluidState(pos).isEmpty()) {
             return false;
         } else {
             BlockState state = world.getBlockState(pos.up());
             if (!state.isOf(RYSBlocks.TOUGH_DIRT) && !state.isOf(Blocks.DIRT)) {
                 return false;
             } else {
-                this.generateDayrootCrownsInArea(world, random, pos);
-                this.generateDayrootsInArea(world, random, pos);
+                this.generateDirtInArea(world, random, pos);
+                this.generateToughrootsInArea(world, random, pos);
                 return true;
             }
         }
     }
 
-    private void generateDayrootCrownsInArea(WorldAccess world, Random random, BlockPos pos) {
+    private void generateDirtInArea(WorldAccess world, Random random, BlockPos pos) {
         world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        BlockPos.Mutable mutable2 = new BlockPos.Mutable();
+        BlockPos.Mutable root = new BlockPos.Mutable();
+        BlockPos.Mutable mpos = new BlockPos.Mutable();
 
         for (int i = 0; i < 100; ++i) {
-            mutable.set(pos, random.nextInt(6) - random.nextInt(6), random.nextInt(2) - random.nextInt(5), random.nextInt(6) - random.nextInt(6));
-            if (!world.isAir(mutable)) {
-                boolean bool = false;
+            root.set(pos, random.nextInt(6) - random.nextInt(6), random.nextInt(2) - random.nextInt(5), random.nextInt(6) - random.nextInt(6));
+            if (!world.isAir(root)) {
+                boolean placedAny = false;
 
                 for (Direction direction : DIRECTIONS) {
-                    BlockState blockState = world.getBlockState(mutable2.set(mutable, direction));
-                    if (blockState.isOf(RYSBlocks.TOUGH_DIRT) || blockState.isOf(Blocks.DIRT)) {
-                        bool = true;
+                    BlockState state = world.getBlockState(mpos.set(root, direction));
+                    if (state.isOf(RYSBlocks.TOUGH_DIRT) || state.isOf(Blocks.DIRT)) {
+                        placedAny = true;
                         break;
                     }
                 }
 
-                if (bool) world.setBlockState(mutable, Blocks.DIRT.getDefaultState(), 2);
+                if (placedAny) {
+                    world.setBlockState(root, Blocks.DIRT.getDefaultState(), 2);
+                }
             }
         }
     }
 
-    private void generateDayrootsInArea(WorldAccess world, Random random, BlockPos pos) {
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+    private void generateToughrootsInArea(WorldAccess world, Random random, BlockPos pos) {
+        BlockPos.Mutable mpos = new BlockPos.Mutable();
 
         for (int i = 0; i < 100; ++i) {
-            mutable.set(pos, random.nextInt(8) - random.nextInt(8), random.nextInt(2) - random.nextInt(7), random.nextInt(8) - random.nextInt(8));
-            if (world.isAir(mutable)) {
-                BlockState blockState = world.getBlockState(mutable.up());
+            mpos.set(pos, random.nextInt(8) - random.nextInt(8), random.nextInt(2) - random.nextInt(7), random.nextInt(8) - random.nextInt(8));
+            if (world.isAir(mpos)) {
+                BlockState blockState = world.getBlockState(mpos.up());
                 if (blockState.isOf(RYSBlocks.TOUGH_DIRT) || blockState.isOf(Blocks.DIRT)) {
                     world.setBlockState(pos.up(), Blocks.DIRT.getDefaultState(), 2);
                     world.setBlockState(pos, RYSBlocks.TOUGHROOT.getDefaultState(), 2);

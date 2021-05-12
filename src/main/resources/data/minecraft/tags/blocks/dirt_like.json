@@ -2,6 +2,7 @@
     "replace": false,
     "values": [
         "readyyourshovels:tough_dirt",
+        "readyyourshovels:regolith",
         "readyyourshovels:dayroot_crown",
         "minecraft:dirt"
     ]

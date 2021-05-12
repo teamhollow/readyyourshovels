@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "vertical_direction=down": {
       "model": "readyyourshovels:block/toughroot"
+    },
+    "vertical_direction=up": {
+      "model": "readyyourshovels:block/toughroot_stem"
     }
   }
 }

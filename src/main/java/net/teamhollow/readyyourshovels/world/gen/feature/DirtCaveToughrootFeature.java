@@ -10,11 +10,13 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.teamhollow.readyyourshovels.block.ToughrootBlock;
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 
 import java.util.Random;
 
 public class DirtCaveToughrootFeature extends Feature<DefaultFeatureConfig> {
+    public static final BlockState TOUGHROOT_STATE = RYSBlocks.TOUGHROOT.getDefaultState().with(ToughrootBlock.VERTICAL_DIRECTION, Direction.DOWN);
     private static final Direction[] DIRECTIONS = Direction.values();
 
     public DirtCaveToughrootFeature(Codec<DefaultFeatureConfig> codec) {
@@ -75,7 +77,7 @@ public class DirtCaveToughrootFeature extends Feature<DefaultFeatureConfig> {
                 BlockState blockState = world.getBlockState(mpos.up());
                 if (blockState.isOf(RYSBlocks.TOUGH_DIRT) || blockState.isOf(Blocks.DIRT)) {
                     world.setBlockState(pos.up(), Blocks.DIRT.getDefaultState(), 2);
-                    world.setBlockState(pos, RYSBlocks.TOUGHROOT.getDefaultState(), 2);
+                    world.setBlockState(pos, TOUGHROOT_STATE, 2);
                 }
             }
         }

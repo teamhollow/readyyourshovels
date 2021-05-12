@@ -195,7 +195,6 @@ public class RYSBlocks {
             .luminance(1)
         )
     );
-    public static final Block TOUGHROOT_STEM = register("toughroot_stem", new PublicFernBlock(FabricBlockSettings.copy(TOUGHROOT)));
 
     public static final Block CAVE_CARROT = register("cave_carrot", new CaveCarrotBlock(
         FabricBlockSettings.of(Material.PLANT, MapColor.GREEN)

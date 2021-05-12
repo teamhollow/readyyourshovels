@@ -3,9 +3,10 @@ package net.teamhollow.readyyourshovels.init;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
+import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ClampedIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -15,6 +16,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
+import net.teamhollow.readyyourshovels.block.ToughrootBlock;
+import net.teamhollow.readyyourshovels.tag.RYSBlockTags;
 import net.teamhollow.readyyourshovels.world.gen.feature.AntHillFeature;
 
 public class RYSConfiguredFeatures {
@@ -159,10 +162,10 @@ public class RYSConfiguredFeatures {
         private static final BlockState GOLD_DEPOSIT = RYSBlocks.GOLD_DEPOSIT.getDefaultState();
         private static final BlockState IRON_DEPOSIT = RYSBlocks.IRON_DEPOSIT.getDefaultState();
         private static final BlockState PEAT_DEPOSIT = RYSBlocks.PEAT_DEPOSIT.getDefaultState();
-        private static final BlockState TOUGHROOT_STEM = RYSBlocks.TOUGHROOT_STEM.getDefaultState();
+        private static final BlockState TOUGHROOT_STEM = RYSBlocks.TOUGHROOT.getDefaultState().with(ToughrootBlock.VERTICAL_DIRECTION, Direction.UP);
         private static final BlockState CAVE_CARROT = RYSBlocks.CAVE_CARROT.getDefaultState();
     }
     private static final class Rules {
-        public static final RuleTest TOUGH_DIRT = new BlockMatchRuleTest(RYSBlocks.TOUGH_DIRT);
+        public static final RuleTest TOUGH_DIRT = new TagMatchRuleTest(RYSBlockTags.DIRT_LIKE);
     }
 }

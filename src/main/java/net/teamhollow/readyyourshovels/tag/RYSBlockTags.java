@@ -18,7 +18,7 @@ public class RYSBlockTags {
     public RYSBlockTags() {}
 
     private static Tag<Block> register(String id) {
-        return TagRegistry.block(new Identifier(ReadyYourShovels.MOD_ID, id));
+        return register(new Identifier(ReadyYourShovels.MOD_ID, id));
     }
     private static Tag<Block> register(Identifier identifier) {
         return TagRegistry.block(identifier);

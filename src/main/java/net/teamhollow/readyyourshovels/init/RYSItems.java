@@ -25,7 +25,19 @@ public class RYSItems {
     public static final Item PEAT = register("peat");
     public static final Item COMBUSTING_PEAT = register("combusting_peat");
 
-    public static final Item DAYROOT_MULCH = register("dayroot_mulch");
+    public static final Item DAYROOT_MULCH = register("dayroot_mulch", new Item(
+        new FabricItemSettings()
+            .food(
+                new FoodComponent.Builder()
+                    .hunger(1)
+                    .saturationModifier(0.3f)
+                    .snack()
+                    .alwaysEdible()
+                .build()
+            )
+            .group(RYSItemGroup.INSTANCE)
+        )
+    );
 
     public static final Item MUSIC_DISC_COLLY = register("music_disc_colly", new PublicMusicDiscItem(
             12, RYSSoundEvents.MUSIC_DISC_COLLY,

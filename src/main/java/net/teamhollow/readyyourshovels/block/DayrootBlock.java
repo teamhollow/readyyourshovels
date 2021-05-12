@@ -46,7 +46,9 @@ public class DayrootBlock extends WeepingVinesBlock {
                 double z = pos.getZ() + Math.min(1 - clamp, Math.max(clamp, random.nextDouble()));
 
                 world.addParticle(RYSParticles.DAYROOT, x, y, z, 0.0D, 0.0D, 0.0D);
-                if (random.nextDouble() <= 0.115D) world.playSound(x, y, z, RYSSoundEvents.BLOCK_DAYROOT_AMBIENT, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                if (random.nextDouble() <= 0.115D) {
+                    world.playSound(x, y, z, RYSSoundEvents.BLOCK_DAYROOT_AMBIENT, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                }
             }
         }
     }

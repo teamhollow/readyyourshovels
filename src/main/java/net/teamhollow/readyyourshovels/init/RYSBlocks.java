@@ -169,7 +169,7 @@ public class RYSBlocks {
         )
     );
     public static final Block DAYROOT_PLANT = register("dayroot_plant", new DayrootPlantBlock(FabricBlockSettings.copy(DAYROOT).luminance(state -> 1)), false);
-    public static final Block DAYROOT_CROWN = register("dayroot_crown", new Block(
+    public static final Block DAYROOT_CROWN = register("dayroot_crown", new DayrootCrownBlock(
         FabricBlockSettings.of(Material.SOLID_ORGANIC, MapColor.BROWN)
             .strength(1.0F).luminance(1)
             .breakByTool(FabricToolTags.SHOVELS)

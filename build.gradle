@@ -22,6 +22,7 @@ repositories {
     maven { url "https://maven.dblsaiko.net" }
     maven { url "https://maven.shedaniel.me" }
     maven { url "https://server.bbkr.space/artifactory/libs-release" }
+    maven { url "https://www.cursemaven.com" }
 }
 
 dependencies {
@@ -35,6 +36,11 @@ dependencies {
      */
 
     // modImplementation ("grondag:canvas-${project.canvas_version}") { exclude group: "net.fabricmc.fabric-api" }
+    
+    include ("io.github.cottonmc:LibCD:${project.libcd_version}")
+    modImplementation ("io.github.cottonmc:LibCD:${project.libcd_version}")
+
+    modImplementation ("curse.maven:columns-385230:3107117")
 
     /*
      * LIBS

@@ -1,0 +1,32 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "readyyourshovels:tough_dirt_column"
+        ]
+    },
+    "criteria": {
+        "has_tough_dirt": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "readyyourshovels:tough_dirt"
+                    }
+                ]
+            }
+        },
+        "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "readyyourshovels:tough_dirt_column"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_tough_dirt",
+            "has_the_recipe"
+        ]
+    ]
+}

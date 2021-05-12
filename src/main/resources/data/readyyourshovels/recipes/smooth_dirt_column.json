@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "sss",
+        " s ",
+        "sss"
+    ],
+    "key": {
+        "s": {
+            "item": "readyyourshovels:smooth_dirt"
+        }
+    },
+    "result": {
+        "item": "readyyourshovels:smooth_dirt_column",
+        "count": 6
+    }
+}

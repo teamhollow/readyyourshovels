@@ -23,6 +23,11 @@
     "block.readyyourshovels.cracked_peat_bricks": "Cracked Peat Bricks",
     "block.readyyourshovels.chiseled_peat_bricks": "Chiseled Peat Bricks",
 
+    "block.readyyourshovels.tough_dirt_column": "Tough Dirt Column",
+    "block.readyyourshovels.dirt_brick_column": "Dirt Brick Column",
+    "block.readyyourshovels.smooth_dirt_column": "Smooth Dirt Column",
+    "block.readyyourshovels.peat_brick_column": "Peat Brick Column",
+
     "block.readyyourshovels.clay_deposit": "Clay Deposit",
     "block.readyyourshovels.gold_deposit": "Gold Deposit",
     "block.readyyourshovels.iron_deposit": "Iron Deposit",

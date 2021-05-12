@@ -7,6 +7,7 @@
                     "libcd:mod_loaded": "columns"
                 },
                 "values": [
+                    "readyyourshovels:dirt_brick_column",
                     "readyyourshovels:tough_dirt_column"
                 ]
             }

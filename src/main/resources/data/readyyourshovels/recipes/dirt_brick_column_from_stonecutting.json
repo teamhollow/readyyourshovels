@@ -1,0 +1,8 @@
+{
+    "type": "minecraft:stonecutting",
+    "ingredient": {
+        "item": "readyyourshovels:dirt_bricks"
+    },
+    "result": "readyyourshovels:dirt_brick_column",
+    "count": 1
+}

@@ -1,0 +1,27 @@
+{
+    "multipart": [
+        {
+            "apply": {
+                "model": "readyyourshovels:block/dirt_brick_column_center"
+            }
+        },
+        {
+            "when": {
+                "down": true
+            },
+            "apply": {
+                "model": "readyyourshovels:block/dirt_brick_column_end"
+            }
+        },
+        {
+            "when": {
+                "up": true
+            },
+            "apply": {
+                "model": "readyyourshovels:block/dirt_brick_column_end",
+                "x": 180,
+                "uvlock": true
+            }
+        }
+    ]
+}

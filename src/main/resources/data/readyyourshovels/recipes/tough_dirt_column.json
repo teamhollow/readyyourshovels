@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ttt",
+        " t ",
+        "ttt"
+    ],
+    "key": {
+        "t": {
+            "item": "readyyourshovels:tough_dirt"
+        }
+    },
+    "result": {
+        "item": "readyyourshovels:tough_dirt_column",
+        "count": 6
+    }
+}

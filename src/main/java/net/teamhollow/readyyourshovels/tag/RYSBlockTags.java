@@ -8,7 +8,7 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
 @SuppressWarnings("unused")
 public class RYSBlockTags {
-    public static final Tag<Block> DIRT_LIKE = register(new Identifier("dirt_like"));
+    public static final Tag<Block> DIRT = register(new Identifier("dirt"));
 
     public static final Tag<Block> ANT_RESOURCES = register("ant_resources");
     public static final Tag<Block> PLANTER_BOXES = register("planter_boxes");

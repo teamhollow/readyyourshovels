@@ -13,13 +13,14 @@ import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.*;
 import net.teamhollow.readyyourshovels.block.vanilla.PublicStairsBlock;
+import net.teamhollow.readyyourshovels.init.compat.RYSColumnBlocks;
 import net.teamhollow.readyyourshovels.item.RYSItemGroup;
 import net.teamhollow.readyyourshovels.sound.RYSBlockSoundGroup;
 
 import com.google.common.reflect.Reflection;
 import java.util.function.ToIntFunction;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "UnstableApiUsage" })
 public class RYSBlocks {
     /*
      * TOUGH DIRT

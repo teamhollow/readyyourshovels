@@ -13,6 +13,7 @@ import net.teamhollow.readyyourshovels.item.RYSItemGroup;
 public class RYSColumnBlocks {
     public static final Block TOUGH_DIRT_COLUMN = register("tough_dirt_column", RYSBlocks.TOUGH_DIRT);
     public static final Block DIRT_BRICK_COLUMN = register("dirt_brick_column", RYSBlocks.DIRT_BRICKS);
+    public static final Block SMOOTH_DIRT_COLUMN = register("smooth_dirt_column", RYSBlocks.SMOOTH_DIRT);
 
     /*
      * REGISTRY

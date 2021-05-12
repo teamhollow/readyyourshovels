@@ -105,7 +105,7 @@ public class DirtCaveDayrootFeature extends Feature<DefaultFeatureConfig> {
                     break;
                 }
 
-                world.setBlockState(mpos, RYSBlocks.DAYROOT_PLANT.getDefaultState().with(DayrootPlantBlock.ROOT, world.getBlockState(mpos.up()).isIn(RYSBlockTags.DIRT_LIKE)), 2);
+                world.setBlockState(mpos, RYSBlocks.DAYROOT_PLANT.getDefaultState().with(DayrootPlantBlock.ROOT, world.getBlockState(mpos.up()).isIn(RYSBlockTags.DIRT)), 2);
             }
 
             for (BlockPos.Mutable impos/*tor*/ : new BlockPos.Mutable[]{ mpos, mposDown2, mposDown3 }) {

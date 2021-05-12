@@ -1,9 +1,0 @@
-{
-    "parent": "minecraft:block/orientable_with_bottom",
-    "textures": {
-        "top": "readyyourshovels:block/kiln_top",
-        "bottom": "readyyourshovels:block/kiln_bottom",
-        "side": "readyyourshovels:block/kiln_side",
-        "front": "readyyourshovels:block/kiln_front_on"
-    }
-}

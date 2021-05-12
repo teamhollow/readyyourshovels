@@ -166,6 +166,6 @@ public class RYSConfiguredFeatures {
         private static final BlockState CAVE_CARROT = RYSBlocks.CAVE_CARROT.getDefaultState();
     }
     private static final class Rules {
-        public static final RuleTest TOUGH_DIRT = new TagMatchRuleTest(RYSBlockTags.DIRT_LIKE);
+        public static final RuleTest TOUGH_DIRT = new TagMatchRuleTest(RYSBlockTags.DIRT);
     }
 }

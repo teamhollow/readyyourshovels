@@ -14,7 +14,7 @@ public class CaveCarrotBlock extends PlantBlock {
 
     @Override
     public boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.STONE) || floor.isIn(RYSBlockTags.DIRT_LIKE);
+        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.STONE) || floor.isIn(RYSBlockTags.DIRT);
     }
 
     @SuppressWarnings("deprecation")

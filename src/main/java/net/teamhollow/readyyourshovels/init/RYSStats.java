@@ -8,7 +8,6 @@ import net.teamhollow.readyyourshovels.ReadyYourShovels;
 
 public class RYSStats {
     public static final Identifier WASH_CAVE_CARROT = register("wash_cave_carrot", StatFormatter.DEFAULT);
-    public static final Identifier INTERACT_WITH_KILN = register("interact_with_kiln", StatFormatter.DEFAULT);
 
     private static Identifier register(String id, StatFormatter statFormatter) {
         Identifier identifier = new Identifier(ReadyYourShovels.MOD_ID, id);

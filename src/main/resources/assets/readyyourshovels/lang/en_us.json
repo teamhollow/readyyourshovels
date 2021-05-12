@@ -29,7 +29,6 @@
     "block.readyyourshovels.peat_deposit": "Peat Deposit",
     "block.readyyourshovels.regolith": "Regolith",
 
-    "block.readyyourshovels.kiln": "Kiln",
     "block.readyyourshovels.ant_nest": "Ant Nest",
 
     "block.readyyourshovels.toughroot": "Toughroot",
@@ -75,9 +74,5 @@
 
     "biome.readyyourshovels.forest_mound": "Forest Mound",
 
-    "container.readyyourshovels.kiln": "Kiln",
-    "gui.recipebook.toggleRecipes.readyyourshovels:kiln": "Showing Smeltable",
-
-    "stat.readyyourshovels.wash_cave_carrot": "Cave Carrots Washed",
-    "stat.readyyourshovels.interact_with_kiln": "Interactions with Kiln"
+    "stat.readyyourshovels.wash_cave_carrot": "Cave Carrots Washed"
 }

@@ -4,10 +4,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
-import net.teamhollow.readyyourshovels.client.gui.screen.ingame.KilnScreen;
 import net.teamhollow.readyyourshovels.client.init.RYSEntityModelLayers;
 import net.teamhollow.readyyourshovels.client.particle.DayrootParticle;
 import net.teamhollow.readyyourshovels.client.particle.RYSCrackParticle;
@@ -16,7 +14,6 @@ import net.teamhollow.readyyourshovels.entity.peaty_slime.PeatySlimeEntityRender
 import net.teamhollow.readyyourshovels.init.RYSBlocks;
 import net.teamhollow.readyyourshovels.init.RYSEntities;
 import net.teamhollow.readyyourshovels.init.RYSParticles;
-import net.teamhollow.readyyourshovels.init.RYSScreenHandlers;
 
 @SuppressWarnings("unused")
 public class ReadyYourShovelsClient implements ClientModInitializer {
@@ -39,9 +36,6 @@ public class ReadyYourShovelsClient implements ClientModInitializer {
         ParticleFactoryRegistry pfrInstance = ParticleFactoryRegistry.getInstance();
         pfrInstance.register(RYSParticles.ITEM_COMBUSTING_PEAT, new RYSCrackParticle.CombustingPeatFactory());
         pfrInstance.register(RYSParticles.DAYROOT, DayrootParticle.Factory::new);
-
-        // screen handlers
-        ScreenRegistry.register(RYSScreenHandlers.KILN, KilnScreen::new);
 
         ReadyYourShovels.log("Initialized client");
     }

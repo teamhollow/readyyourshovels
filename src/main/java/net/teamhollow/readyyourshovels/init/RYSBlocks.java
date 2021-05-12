@@ -11,7 +11,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.teamhollow.readyyourshovels.ReadyYourShovels;
 import net.teamhollow.readyyourshovels.block.*;
-import net.teamhollow.readyyourshovels.block.vanilla.PublicFernBlock;
 import net.teamhollow.readyyourshovels.block.vanilla.PublicStairsBlock;
 import net.teamhollow.readyyourshovels.item.RYSItemGroup;
 import net.teamhollow.readyyourshovels.sound.RYSBlockSoundGroup;
@@ -157,12 +156,6 @@ public class RYSBlocks {
     public static final Block JUNGLE_PLANTER_BOX = register("jungle_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
     public static final Block CRIMSON_PLANTER_BOX = register("crimson_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
     public static final Block WARPED_PLANTER_BOX = register("warped_planter_box", new PlanterBoxBlock(PLANTER_BOX_SETTINGS));
-
-    /*
-     * KILN
-     */
-
-    public static final Block KILN = register("kiln", new KilnBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).luminance(createLightLevelFromLitBlockState(13))));
 
     /*
      * DAYROOT

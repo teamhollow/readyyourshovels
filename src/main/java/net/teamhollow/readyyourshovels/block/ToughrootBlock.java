@@ -38,7 +38,7 @@ public class ToughrootBlock extends Block implements Waterloggable {
     }
 
     protected boolean canPlantAt(BlockState state) {
-        return state.isIn(RYSBlockTags.DIRT_LIKE);
+        return state.isIn(RYSBlockTags.DIRT);
     }
 
     @Nullable
